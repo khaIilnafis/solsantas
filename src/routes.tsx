@@ -1,12 +1,16 @@
 import { HashRouter, Route, Switch } from "react-router-dom";
 import React, { useMemo } from "react";
-import { WalletProvider } from "@solana/wallet-adapter-react";
-import { ConnectionProvider } from "./contexts/connection";
+import { WalletProvider, ConnectionProvider } from "@solana/wallet-adapter-react";
+import {
+  WalletModalProvider,
+} from '@solana/wallet-adapter-react-ui';
+import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
+// import { ConnectionProvider } from "./contexts/connection";
 import { AccountsProvider } from "./contexts/accounts";
 import { MarketProvider } from "./contexts/market";
 import { AppLayout } from "./components/Layout";
 
-import { FaucetView, HomeView } from "./views";
+import { HomeView } from "./views";
 import {
   getLedgerWallet,
   getMathWallet,
@@ -14,21 +18,14 @@ import {
   getSolflareWallet,
   getSolletWallet,
   getSolongWallet,
-  getTorusWallet,
 } from "@solana/wallet-adapter-wallets";
-
+import { clusterApiUrl } from '@solana/web3.js';
+require('@solana/wallet-adapter-react-ui/styles.css');
 export function Routes() {
   const wallets = useMemo(
     () => [
       getPhantomWallet(),
       getSolflareWallet(),
-      getTorusWallet({
-        options: {
-          // TODO: Get your own tor.us wallet client Id
-          clientId:
-            "BOM5Cl7PXgE9Ylq1Z1tqzhpydY0RVr8k90QQ85N7AKI5QGSrr9iDC-3rvmy0K_hF0JfpLMiXoDhta68JwcxS1LQ",
-        },
-      }),
       getLedgerWallet(),
       getSolongWallet(),
       getMathWallet(),
@@ -36,20 +33,22 @@ export function Routes() {
     ],
     []
   );
-
+  const network = WalletAdapterNetwork.Devnet;
+  const endpoint = useMemo(() => clusterApiUrl(network), [network]);
   return (
     <HashRouter basename={"/"}>
-      <ConnectionProvider>
-        <WalletProvider wallets={wallets} autoConnect>
+      <ConnectionProvider endpoint={endpoint}>
+        <WalletProvider wallets={wallets}>
           <AccountsProvider>
+          <WalletModalProvider>
             <MarketProvider>
               <AppLayout>
-                <Switch>
-                  <Route exact path="/" component={() => <HomeView />} />
-                  <Route exact path="/faucet" children={<FaucetView />} />
-                </Switch>
+                  <Switch>
+                    <Route exact path="/" component={() => <HomeView />} />
+                  </Switch>
               </AppLayout>
             </MarketProvider>
+            </WalletModalProvider>
           </AccountsProvider>
         </WalletProvider>
       </ConnectionProvider>

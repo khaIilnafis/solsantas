@@ -1,0 +1,6 @@
+.home{
+    margin-top: 70px;
+}
+#responsive-navbar-nav > div:nth-child(2) > button{
+    background-color: #1a844b;
+}

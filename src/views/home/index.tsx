@@ -1,60 +1,77 @@
-import { WalletMultiButton } from "@solana/wallet-adapter-ant-design";
-import { Button, Col, Row } from "antd";
+import { WalletAdapter } from "@solana/wallet-adapter-base";
 import React, { useEffect } from "react";
 import { Link } from "react-router-dom";
-import { TokenIcon } from "../../components/TokenIcon";
+import { Grid, Box} from "@material-ui/core"
+import {Container} from "react-bootstrap"
 import { useConnectionConfig } from "../../contexts/connection";
-import { useMarkets } from "../../contexts/market";
-import { useUserBalance, useUserTotalBalance } from "../../hooks";
-import { WRAPPED_SOL_MINT } from "../../utils/ids";
-import { formatUSD } from "../../utils/utils";
+require('./home.css')
 
 export const HomeView = () => {
-  const { marketEmitter, midPriceInUSD } = useMarkets();
-  const { tokenMap } = useConnectionConfig();
-  const SRM_ADDRESS = "SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt";
-  const SRM = useUserBalance(SRM_ADDRESS);
-  const SOL = useUserBalance(WRAPPED_SOL_MINT);
-  const { balanceInUSD: totalBalanceInUSD } = useUserTotalBalance();
-
-  useEffect(() => {
-    const refreshTotal = () => {};
-
-    const dispose = marketEmitter.onMarket(() => {
-      refreshTotal();
-    });
-
-    refreshTotal();
-
-    return () => {
-      dispose();
-    };
-  }, [marketEmitter, midPriceInUSD, tokenMap]);
 
   return (
-    <Row gutter={[16, 16]} align="middle">
-      <Col span={24}>
-        <h2>Your balances ({formatUSD.format(totalBalanceInUSD)}):</h2>
-        <h2>
-          SOL: {SOL.balance} ({formatUSD.format(SOL.balanceInUSD)})
-        </h2>
-        <h2 style={{ display: "inline-flex", alignItems: "center" }}>
-          <TokenIcon mintAddress={SRM_ADDRESS} /> SRM: {SRM?.balance} (
-          {formatUSD.format(SRM?.balanceInUSD)})
-        </h2>
-      </Col>
+    <Container className="home">
+      <Box marginTop={5} >
+          <Grid container
+            justifyContent="center"
+            alignItems="center" className="px-5 mb-2">
+            <h4>We're working on the collection. Check back soon!</h4>
+          </Grid>
+        </Box>
+        {/* <Grid
+          container
+          item
+          xs={12}
+          justifyContent="center"
+          alignItems="center"
+        >
+          {!wallet.connected ? (
+            <WalletMultiButton>Connect your wallet</WalletMultiButton>
+          ) : (
+            <MintContainer>
+              <Grid container
+                item
+                xs={12}
+                justifyContent="center"
+                alignItems="center"><Countdown
+              date={startDate.toString()}
+              onMount={({ completed }) =>
+              completed && setIsActive(true)
+            }
+              onComplete={() => setIsActive(true)}
+              renderer={renderCounter}
+              />
+              </Grid>
+              <Grid container
+                item
+                xs={12}
+                justifyContent="center"
+                alignItems="center">
+              <MintButton
+              disabled={isSoldOut || isMinting || !isActive}
+              onClick={onMint}
+              variant="contained"
+              >
+            {isSoldOut?(
+              "SOLD OUT"
+            ): isActive?(
+              isMinting?(
+              <CircularProgress />
+            ): (
+              "Mint now 0.5 SOL"
+            )
+            ): (
+              <div>
+              <MintButton disabled={isActive}>
+              Mint coming soon
+              </MintButton>
+              </div>
+            )}
+              </MintButton>
+              </Grid>
+            </MintContainer>
+          )}
+        </Grid> */}
+    </Container>
 
-      <Col span={12}>
-        <WalletMultiButton type="ghost" />
-      </Col>
-      <Col span={12}>
-        <Link to="/faucet">
-          <Button>Faucet</Button>
-        </Link>
-      </Col>
-      <Col span={24}>
-        <div className="builton" />
-      </Col>
-    </Row>
   );
 };

@@ -13,7 +13,7 @@ import { ExplorerLink } from "../components/ExplorerLink";
 import { setProgramIds } from "../utils/ids";
 import { cache, getMultipleAccounts, MintParser } from "./accounts";
 import { TokenListProvider, ENV as ChainID, TokenInfo } from "@solana/spl-token-registry";
-import { WalletAdapter } from "@solana/wallet-adapter-base";
+import { WalletAdapter, SignerWalletAdapter } from "@solana/wallet-adapter-base";
 
 export type ENV =
   | "mainnet-beta"
@@ -254,25 +254,26 @@ export const sendTransaction = async (
   if (signers.length > 0) {
     transaction.partialSign(...signers);
   }
-  transaction = await wallet.signTransaction(transaction);
-  const rawTransaction = transaction.serialize();
+  let txSignature;
+  txSignature = await wallet.sendTransaction(transaction,connection);
+//   const rawTransaction = transaction.serialize();
   let options = {
     skipPreflight: true,
     commitment: "singleGossip",
   };
 
-  const txid = await connection.sendRawTransaction(rawTransaction, options);
+//   const txid = await connection.sendRawTransaction(rawTransaction, options);
 
   if (awaitConfirmation) {
     const status = (
       await connection.confirmTransaction(
-        txid,
+        txSignature,
         options && (options.commitment as any)
       )
     ).value;
 
     if (status?.err) {
-      const errors = await getErrorForTransaction(connection, txid);
+      const errors = await getErrorForTransaction(connection, txSignature);
       notify({
         message: "Transaction failed...",
         description: (
@@ -280,17 +281,17 @@ export const sendTransaction = async (
             {errors.map((err) => (
               <div>{err}</div>
             ))}
-            <ExplorerLink address={txid} type="transaction" />
+            <ExplorerLink address={txSignature} type="transaction" />
           </>
         ),
         type: "error",
       });
 
       throw new Error(
-        `Raw transaction ${txid} failed (${JSON.stringify(status)})`
+        `Raw transaction ${txSignature} failed (${JSON.stringify(status)})`
       );
     }
   }
 
-  return txid;
+  return txSignature;
 };

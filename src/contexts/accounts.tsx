@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from "react";
-import { useConnection } from "./connection";
+import { useConnection } from'@solana/wallet-adapter-react'
 import {
   AccountInfo,
   ConfirmedSignatureInfo,
@@ -152,7 +152,7 @@ export const cache = {
 
     cache.registerParser(id, deserialize);
     pendingCalls.delete(address);
-    const account = deserialize(new PublicKey(address), obj);
+    let account; try { account = deserialize(new PublicKey(address), obj); } catch(e) { console.error(e); }
     if (!account) {
       return;
     }
@@ -292,13 +292,13 @@ const UseNativeAccount = () => {
       return;
     }
 
-    connection.getAccountInfo(publicKey).then((acc) => {
+    connection.connection.getAccountInfo(publicKey).then((acc) => {
       if (acc) {
         updateCache(acc);
         setNativeAccount(acc);
       }
     });
-    connection.onAccountChange(publicKey, (acc) => {
+    connection.connection.onAccountChange(publicKey, (acc) => {
       if (acc) {
         updateCache(acc);
         setNativeAccount(acc);
@@ -364,14 +364,14 @@ export function AccountsProvider({ children = null as any }) {
       if (args.isNew) {
         let id = args.id;
         let deserialize = args.parser;
-        connection.onAccountChange(new PublicKey(id), (info) => {
+        connection.connection.onAccountChange(new PublicKey(id), (info) => {
           cache.add(id, info, deserialize);
         });
       }
     });
 
     return () => {
-      subs.forEach((id) => connection.removeAccountChangeListener(id));
+      subs.forEach((id) => connection.connection.removeAccountChangeListener(id));
     };
   }, [connection]);
 
@@ -379,14 +379,14 @@ export function AccountsProvider({ children = null as any }) {
     if (!connection || !publicKey) {
       setTokenAccounts([]);
     } else {
-      precacheUserTokenAccounts(connection, publicKey).then(() => {
+      precacheUserTokenAccounts(connection.connection, publicKey).then(() => {
         setTokenAccounts(selectUserAccounts());
       });
 
       // This can return different types of accounts: token-account, mint, multisig
       // TODO: web3.js expose ability to filter.
       // this should use only filter syntax to only get accounts that are owned by user
-      const tokenSubID = connection.onProgramAccountChange(
+      const tokenSubID = connection.connection.onProgramAccountChange(
         programIds().token,
         (info) => {
           // TODO: fix type in web3.js
@@ -405,7 +405,7 @@ export function AccountsProvider({ children = null as any }) {
       );
 
       return () => {
-        connection.removeProgramAccountChangeListener(tokenSubID);
+        connection.connection.removeProgramAccountChangeListener(tokenSubID);
       };
     }
   }, [connection, connected, publicKey, selectUserAccounts]);
@@ -497,7 +497,7 @@ export function useMint(key?: string | PublicKey) {
     }
 
     cache
-      .query(connection, id, MintParser)
+      .query(connection.connection, id, MintParser)
       .then((acc) => setMint(acc.info as any))
       .catch((err) => console.log(err));
 
@@ -505,7 +505,7 @@ export function useMint(key?: string | PublicKey) {
       const event = e;
       if (event.id === id) {
         cache
-          .query(connection, id, MintParser)
+          .query(connection.connection, id, MintParser)
           .then((mint) => setMint(mint.info as any));
       }
     });
@@ -543,7 +543,7 @@ export function useAccount(pubKey?: PublicKey) {
         }
 
         const acc = await cache
-          .query(connection, key, TokenAccountParser)
+          .query(connection.connection, key, TokenAccountParser)
           .catch((err) => console.log(err));
         if (acc) {
           setAccount(acc);
