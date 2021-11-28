@@ -4,10 +4,28 @@ import { Link } from "react-router-dom";
 import { Grid, Box} from "@material-ui/core"
 import {Container} from "react-bootstrap"
 import { useConnectionConfig } from "../../contexts/connection";
+import { useConnection } from "@solana/wallet-adapter-react";
+import Mint from "../mint";
+import * as anchor from "@project-serum/anchor";
 require('./home.css')
 
-export const HomeView = () => {
+const treasury = new anchor.web3.PublicKey(
+  process.env.REACT_APP_TREASURY_ADDRESS!
+);
 
+const config = new anchor.web3.PublicKey(
+  process.env.REACT_APP_CANDY_MACHINE_CONFIG!
+);
+
+const candyMachineId = new anchor.web3.PublicKey(
+  process.env.REACT_APP_CANDY_MACHINE_ID!
+);
+const startDateSeed = parseInt(process.env.REACT_APP_CANDY_START_DATE!, 10);
+
+const txTimeout = 30000;
+
+export const HomeView = () => {
+  const connection = useConnection();
   return (
     <Container className="home">
       <Box marginTop={5} >
@@ -17,6 +35,15 @@ export const HomeView = () => {
             <h4>We're working on the collection. Check back soon!</h4>
           </Grid>
         </Box>
+        <section>
+          <Mint 
+          candyMachineId={candyMachineId}
+          config={config}
+          connection={connection.connection}
+          startDate={startDateSeed}
+          treasury={treasury}
+          txTimeout={txTimeout}></Mint>
+        </section>
         {/* <Grid
           container
           item

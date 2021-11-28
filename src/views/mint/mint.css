@@ -1,0 +1,4 @@
+#root > div > div > div > section > main > div > div:nth-child(5) > div > div:nth-child(2) > button {
+    background-color: rgb(176, 39, 29);
+    color:white;
+}

@@ -28,12 +28,11 @@ function Navbar() {
   return (
     <Navigation className="sticky-nav" fixed="top">
       <Container>
-      <Navigation.Brand href="#home">Sol Santas</Navigation.Brand>
+      <Navigation.Brand href="/">Sol Santas</Navigation.Brand>
         <Navigation.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
           </Nav>
           <Nav>
-            <Nav.Link href="/" style={{fontWeight: 500 }}>Home</Nav.Link>
             <Nav.Link href="/profile" style={{fontWeight: 500 }}></Nav.Link>
             {!wallet.connected ? (
               <WalletMultiButton></WalletMultiButton>

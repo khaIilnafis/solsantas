@@ -38,9 +38,9 @@ export const awaitTransactionSignatureConfirmation = async (
   connection: anchor.web3.Connection,
   commitment: anchor.web3.Commitment = "recent",
   queryStatus = false
-): Promise<anchor.web3.SignatureStatus | null | void> => {
+): Promise<anchor.web3.SignatureStatus | null | void | any> => {
   let done = false;
-  let status: anchor.web3.SignatureStatus | null | void = {
+  let status: anchor.web3.SignatureStatus | null | void | any = {
     slot: 0,
     confirmations: 0,
     err: null,
@@ -178,7 +178,7 @@ export const getCandyMachineState = async (
   const itemsRedeemed = state.itemsRedeemed.toNumber();
   const itemsRemaining = itemsAvailable - itemsRedeemed;
 
-  let goLiveDate = state.data.goLiveDate.toNumber();
+  let goLiveDate = state.data.goLiveDate ? state.data.goLiveDate.toNumber() : '11/27/2021';
   goLiveDate = new Date(goLiveDate * 1000);
 
   console.log({
