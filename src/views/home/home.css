@@ -4,3 +4,6 @@
 #responsive-navbar-nav > div:nth-child(2) > button{
     background-color: #1a844b;
 }
+#responsive-navbar-nav > div:nth-child(2) > div > button {
+    background-color: #1a844b;
+}
