@@ -28,7 +28,7 @@ function Navbar() {
   return (
     <Navigation className="sticky-nav" fixed="top">
       <Container>
-      <Navigation.Brand href="/">Sol Santas</Navigation.Brand>
+      <Navigation.Brand href="/">Santas on Sol</Navigation.Brand>
         <Navigation.Collapse id="responsive-navbar-nav">
           <Nav className="me-auto">
           </Nav>
