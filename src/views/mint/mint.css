@@ -2,3 +2,6 @@
     background-color: rgb(176, 39, 29);
     color:white;
 }
+#root > div > div.MuiGrid-root.MuiGrid-container > div > div > div > section > main > div > div:nth-child(3) > button {
+    background-color: #03E1FF;
+}

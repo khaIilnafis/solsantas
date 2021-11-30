@@ -6,7 +6,7 @@ metadata = {"name": "Secret Santas on Sol #0",
             "symbol": "SSoS",
             "description": "SSoS",
             "seller_fee_basis_points": 500,
-            "image": "",
+            "image": "image.png",
             "external_url": "https://solsantas.xyz",
             "attributes": [
                 {
@@ -42,10 +42,10 @@ def main(args):
     count = int(args[0])
     for num in range(count):
         updated_metadata = iterate_metadata(num)
-        f = open(f'{num}.json','w')
+        f = open(f'./assets/{num}.json','w')
         f.write(json.dumps(updated_metadata))
         f.close()
-        copyfile('SOL_Santas_WIP_ROUGH.png', f'{num}.png')
+        copyfile('SOL_Santas_WIP_ROUGH.png', f'./assets/{num}.png')
 
 
 if __name__ == "__main__":

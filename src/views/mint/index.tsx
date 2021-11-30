@@ -39,7 +39,11 @@ const CounterText = styled.span``; // add your styles here
 
 const MintContainer = styled.div``; // add your styles here
 
-const MintButton = styled(Button)``; // add your styles here
+const MintButton = styled(Button)({
+  borderRadius: '70px',
+  backgroundColor: '#03E1FF',
+  color:'black'
+});
 
 export interface MintProps {
   candyMachineId: anchor.web3.PublicKey;
@@ -239,27 +243,6 @@ const Mint = (props: MintProps) => {
           justifyContent="center"
           alignItems="center"
         >
-          {/* <ButtonBase style={{ width: 128, height: 128 }}>
-            <img
-              style={{
-                margin: "auto",
-                display: "block",
-                maxWidth: "100%",
-                maxHeight: "100%",
-              }}
-              alt="complex"
-              src="pictures/Demon.png"
-            />
-          </ButtonBase> */}
-        </Grid>
-        <Grid
-          container
-          item
-          xs={12}
-          justifyContent="center"
-          alignItems="center"
-        >
-          <Typography variant="h6">Mint Price: 0.1 SOL </Typography>
         </Grid>
         {!wallet.connected ? (
           <div></div>
@@ -302,7 +285,7 @@ const Mint = (props: MintProps) => {
           alignItems="center"
         >
           {!wallet.connected ? (
-            <h5>Connect wallet to mint.</h5>
+            <MintButton>Connect wallet to mint.</MintButton>
           ) : (
             <MintContainer>
               <Grid container

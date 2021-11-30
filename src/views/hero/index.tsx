@@ -5,11 +5,11 @@ import Button from '@mui/material/Button';
 import { Typography } from "@mui/material";
 require('./hero.css')
 
-const SampleMintBtn = styled(Button)({
-    borderRadius: '70px',
-    backgroundColor: '#03E1FF',
-    color:'black'
-})
+// const SampleMintBtn = styled(Button)({
+//     borderRadius: '70px',
+//     backgroundColor: '#03E1FF',
+//     color:'black'
+// })
 
 function Hero() {
     return (
@@ -59,9 +59,9 @@ function Hero() {
             <Grid container justifyContent="center">
                 <hr style={{ "width": "50%", "textAlign": "center" }}></hr>
             </Grid>
-            <Grid container justifyContent="center">
+            {/* <Grid container justifyContent="center">
                 <SampleMintBtn>Mint SSoS Token</SampleMintBtn>
-            </Grid>
+            </Grid> */}
         </Grid>
     )
 }
