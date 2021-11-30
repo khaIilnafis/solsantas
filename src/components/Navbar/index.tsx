@@ -41,7 +41,7 @@ function Navbar() {
         <Toolbar>
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             <img
-              src="/images/sss-logo.png"
+              src="/images/SSoS Logo.png"
               width="30"
               height="30"
               className="d-inline-block align-top"
