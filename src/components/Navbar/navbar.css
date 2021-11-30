@@ -1,7 +1,9 @@
 #root > div > div.MuiBox-root.css-i9gxme > header > div > button.wallet-adapter-button.wallet-adapter-button-trigger{
     background-color: #01FFA3;
 }
-
+#root > div > div.MuiBox-root.css-i9gxme > header > div > div:nth-child(2) > button{
+    background-color: #01FFA3;
+}
 #root > div > div.MuiBox-root.css-i9gxme > header{
     color:white;
     background-color: #101921;
