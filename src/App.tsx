@@ -1,10 +1,9 @@
 import React from "react";
 import "./App.less";
-import { Routes } from "./routes";
+import { AppRoutes } from "./routes";
 import 'bootstrap/dist/css/bootstrap.min.css'
-
 function App() {
-  return <Routes />;
+  return <AppRoutes />;
 }
 
 export default App;

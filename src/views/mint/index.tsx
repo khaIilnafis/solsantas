@@ -32,7 +32,7 @@ import {
   shortenAddress,
 } from "../../utils/candymachine";
 // import {DateCountdown} from 'react-date-countdown-timer';
-require('./mint.css');
+import "./mint.css"
 
 // const Countdown = DateCountdown()
 const CounterText = styled.span``; // add your styles here

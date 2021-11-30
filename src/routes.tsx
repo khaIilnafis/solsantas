@@ -1,4 +1,4 @@
-import { HashRouter, Route, Switch } from "react-router-dom";
+import { HashRouter, Route, Routes } from "react-router-dom";
 import React, { useMemo } from "react";
 import { WalletProvider, ConnectionProvider } from "@solana/wallet-adapter-react";
 import {
@@ -21,7 +21,7 @@ import {
 } from "@solana/wallet-adapter-wallets";
 import { clusterApiUrl } from '@solana/web3.js';
 require('@solana/wallet-adapter-react-ui/styles.css');
-export function Routes() {
+export function AppRoutes() {
   const wallets = useMemo(
     () => [
       getPhantomWallet(),
@@ -43,9 +43,9 @@ export function Routes() {
           <WalletModalProvider>
             <MarketProvider>
               <AppLayout>
-                  <Switch>
-                    <Route exact path="/" component={() => <HomeView />} />
-                  </Switch>
+                  <Routes>
+                    <Route path="/" element={<HomeView />} />
+                  </Routes>
               </AppLayout>
             </MarketProvider>
             </WalletModalProvider>

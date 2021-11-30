@@ -21,7 +21,7 @@
       "./types",
       "./node_modules/@types"
     ],
-    "jsx": "react",
+    "jsx": "react-jsx",
     "isolatedModules": true,
     "noFallthroughCasesInSwitch": true
   },

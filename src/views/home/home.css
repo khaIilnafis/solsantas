@@ -1,9 +1,7 @@
-.home{
+/* .home{
     margin-top: 70px;
-}
-#responsive-navbar-nav > div:nth-child(2) > button{
-    background-color: #1a844b;
-}
-#responsive-navbar-nav > div:nth-child(2) > div > button {
-    background-color: #1a844b;
+} */
+#root > div > div.MuiGrid-root.MuiGrid-container {
+    background-color: #101921;
+    color:white;
 }
