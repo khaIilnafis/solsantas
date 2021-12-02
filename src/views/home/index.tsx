@@ -6,6 +6,10 @@ import { useConnectionConfig } from "../../contexts/connection";
 import { useConnection } from "@solana/wallet-adapter-react";
 import Mint from "../mint";
 import Hero from "../hero";
+import How from "../howItWorks";
+import Process from "../process";
+import Team from "../team";
+
 import * as anchor from "@project-serum/anchor";
 import "./home.css"
 
@@ -31,15 +35,16 @@ export const HomeView = () => {
       <Grid container justifyContent="center">
         <Grid item>
           <Hero></Hero>
-          <section>
-            <Mint
-              candyMachineId={candyMachineId}
-              config={config}
-              connection={connection.connection}
-              startDate={startDateSeed}
-              treasury={treasury}
-              txTimeout={txTimeout}></Mint>
-          </section>
+          <How></How>
+          {/* <Mint
+            candyMachineId={candyMachineId}
+            config={config}
+            connection={connection.connection}
+            startDate={startDateSeed}
+            treasury={treasury}
+            txTimeout={txTimeout}></Mint> */}
+            <Process></Process>
+            <Team></Team>
         </Grid>
       </Grid>
     </Container>

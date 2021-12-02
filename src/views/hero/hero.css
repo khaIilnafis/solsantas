@@ -7,24 +7,13 @@
   left: 0px;
   top: 0px;
 }
-/* SOL - GREY */
-.bg-hero {
-  background: #101921;
-}
-#root
-  > div
-  > div.MuiGrid-root.MuiGrid-container
-  > div
-  > div
-  > div
-  > div
-  > div:nth-child(2)
-  > p {
-  font-family: "Montserrat", sans-serif;
-  font-weight: 600;
+
+/* .santa-title {
+  font-family: 'Grenze Gotisch', cursive;
+  font-weight: 400;
   font-size: 42px;
   color: #01FFA3;
-}
+} */
 
 #root
   > div

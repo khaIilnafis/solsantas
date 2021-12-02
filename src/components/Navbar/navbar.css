@@ -6,7 +6,8 @@
 }
 #root > div > div.MuiBox-root.css-i9gxme > header{
     color:white;
-    background-color: #101921;
+    background-color: #000000
+    ;
 }
 
 #root > div > div.MuiBox-root.css-i9gxme > header > div > button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorInherit.MuiIconButton-edgeStart.MuiIconButton-sizeLarge.css-ancrnh-MuiButtonBase-root-MuiIconButton-root > svg {

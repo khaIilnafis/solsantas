@@ -285,7 +285,7 @@ const Mint = (props: MintProps) => {
           alignItems="center"
         >
           {!wallet.connected ? (
-            <MintButton>Connect wallet to mint.</MintButton>
+            <MintButton>Mint SSoS Token</MintButton>
           ) : (
             <MintContainer>
               <Grid container
@@ -322,7 +322,7 @@ const Mint = (props: MintProps) => {
             ): (
               <div>
               <MintButton disabled={isActive}>
-              Mint coming soon
+              Mint SSoS Token
               </MintButton>
               </div>
             )}
