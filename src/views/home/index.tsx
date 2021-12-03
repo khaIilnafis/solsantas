@@ -9,7 +9,10 @@ import Hero from "../hero";
 import MintBox from "../mint-box";
 import Process from "../process";
 import Team from "../team";
-
+import Exchange from "../exchange";
+import FAQ
+ from "../faq";
+import Footer from "../footer";
 import * as anchor from "@project-serum/anchor";
 import "./home.css"
 
@@ -38,6 +41,9 @@ export const HomeView = () => {
           <MintBox></MintBox>
           <Process></Process>
           <Team></Team>
+          <Exchange></Exchange>
+          <FAQ></FAQ>
+          <Footer></Footer>
         </Grid>
       </Grid>
     </Container>
