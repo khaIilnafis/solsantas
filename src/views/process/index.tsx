@@ -9,7 +9,7 @@ export default function Process() {
         <Grid container justifyContent="center">
             <Box sx={{
                 backgroundColor: '#131313',
-                borderRadius: '11%',
+                borderRadius: '70px',
                 border: '4px solid rgba(255, 255, 255, 0.2)',
             }}>
                 <Typography sx={{
