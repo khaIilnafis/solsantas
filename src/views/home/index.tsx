@@ -4,9 +4,9 @@ import { Link } from "react-router-dom";
 import { Grid, Box, Container } from "@material-ui/core"
 import { useConnectionConfig } from "../../contexts/connection";
 import { useConnection } from "@solana/wallet-adapter-react";
-import Mint from "../mint";
+// import Mint from "../mint";
 import Hero from "../hero";
-import How from "../howItWorks";
+import MintBox from "../mint-box";
 import Process from "../process";
 import Team from "../team";
 
@@ -35,16 +35,9 @@ export const HomeView = () => {
       <Grid container justifyContent="center">
         <Grid item>
           <Hero></Hero>
-          <How></How>
-          {/* <Mint
-            candyMachineId={candyMachineId}
-            config={config}
-            connection={connection.connection}
-            startDate={startDateSeed}
-            treasury={treasury}
-            txTimeout={txTimeout}></Mint> */}
-            <Process></Process>
-            <Team></Team>
+          <MintBox></MintBox>
+          <Process></Process>
+          <Team></Team>
         </Grid>
       </Grid>
     </Container>

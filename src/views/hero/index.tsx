@@ -21,20 +21,16 @@ theme.typography.h1 = {
 // }
 function Hero(props: any) {
     return (
-        // <ThemeProvider>
-        // <Grid container>
         <Grid container justifyContent="center">
             <Box mb={4}>
                 <Typography sx={{
                     fontFamily: 'Grenze Gotisch',
                     fontWeight: '400',
-                    fontSize: '42px',
+                    fontSize: '60px',
                     color: '#01FFA3',
                 }}>Secret Santas on Solana</Typography>
             </Box>
         </Grid>
-        // </Grid>
-        // </ThemeProvider>
     )
 }
 

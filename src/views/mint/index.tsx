@@ -1,17 +1,14 @@
 import React from "react"
-import {useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Countdown from "react-countdown";
 import styled from "styled-components";
+import Button from '@mui/material/Button';
 import {
-  AppBar,
-  Button,
   CircularProgress,
   Snackbar,
-  Toolbar,
-  Typography,
-  Grid,
-  ButtonBase,
+  Grid
 } from "@material-ui/core";
+import { Typography } from "@mui/material";
 import Alert from "@material-ui/lab/Alert";
 
 import * as anchor from "@project-serum/anchor";
@@ -40,9 +37,14 @@ const CounterText = styled.span``; // add your styles here
 const MintContainer = styled.div``; // add your styles here
 
 const MintButton = styled(Button)({
-  borderRadius: '70px',
-  backgroundColor: '#03E1FF',
-  color:'black'
+  borderRadius: '60px',
+  backgroundColor: '#101921',
+  color: 'white',
+  marginBottom: '10px',
+  '&:hover': {
+    backgroundColor: '#01FFA3',
+    boxShadow: 'none',
+  },
 });
 
 export interface MintProps {
@@ -73,10 +75,8 @@ const Mint = (props: MintProps) => {
   const [startDate, setStartDate] = useState(new Date(props.startDate));
 
   const anchorWallet = useAnchorWallet();
-  console.log(anchorWallet);
 
   const wallet = useWallet();
-  console.log(wallet);
 
   const [candyMachine, setCandyMachine] = useState<CandyMachine>();
 
@@ -272,7 +272,7 @@ const Mint = (props: MintProps) => {
               alignItems="center"
             >
               <Typography variant="h6">
-              Santa Tokens Redeemed: {itemsRedeemed}
+                Santa Tokens Redeemed: {itemsRedeemed}
               </Typography>
             </Grid>
           </Grid>
@@ -285,7 +285,15 @@ const Mint = (props: MintProps) => {
           alignItems="center"
         >
           {!wallet.connected ? (
-            <MintButton>Mint SSoS Token</MintButton>
+            <MintButton variant="contained" size="large">
+              <Typography sx={{
+                fontFamily: 'Montserrat',
+                fontWeight: '700',
+                fontSize: '20px'
+              }}>
+                Mint SSoS Token
+              </Typography>
+            </MintButton>
           ) : (
             <MintContainer>
               <Grid container
@@ -293,40 +301,40 @@ const Mint = (props: MintProps) => {
                 xs={12}
                 justifyContent="center"
                 alignItems="center"><Countdown
-              date={startDate.toString()}
-              onMount={({ completed }) =>
-              completed && setIsActive(true)
-            }
-              onComplete={() => setIsActive(true)}
-              renderer={renderCounter}
-              />
+                  date={startDate.toString()}
+                  onMount={({ completed }) =>
+                    completed && setIsActive(true)
+                  }
+                  onComplete={() => setIsActive(true)}
+                  renderer={renderCounter}
+                />
               </Grid>
               <Grid container
                 item
                 xs={12}
                 justifyContent="center"
                 alignItems="center">
-              <MintButton
-              disabled={isSoldOut || isMinting || !isActive}
-              onClick={onMint}
-              variant="contained"
-              >
-            {isSoldOut?(
-              "SOLD OUT"
-            ): isActive?(
-              isMinting?(
-              <CircularProgress />
-            ): (
-              "Mint now 0.1 SOL"
-            )
-            ): (
-              <div>
-              <MintButton disabled={isActive}>
-              Mint SSoS Token
-              </MintButton>
-              </div>
-            )}
-              </MintButton>
+                <MintButton
+                  disabled={isSoldOut || isMinting || !isActive}
+                  onClick={onMint}
+                  variant="contained"
+                >
+                  {isSoldOut ? (
+                    "SOLD OUT"
+                  ) : isActive ? (
+                    isMinting ? (
+                      <CircularProgress />
+                    ) : (
+                      "Mint now 0.1 SOL"
+                    )
+                  ) : (
+                    <div>
+                      <MintButton disabled={isActive}>
+                        Mint SSoS Token
+                      </MintButton>
+                    </div>
+                  )}
+                </MintButton>
               </Grid>
             </MintContainer>
           )}
