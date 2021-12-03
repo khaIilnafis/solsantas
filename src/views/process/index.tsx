@@ -1,9 +1,7 @@
 import * as React from "react"
-import * as anchor from "@project-serum/anchor"
 import Grid from '@mui/material/Grid'
 import Box from '@mui/material/Box';
 import { Typography, Avatar } from "@mui/material";
-import { purple } from '@material-ui/core/colors'
 export default function Process() {
     return (
         <Grid container justifyContent="center">
@@ -20,69 +18,69 @@ export default function Process() {
                     textAlign: 'center'
                 }} 
                 marginTop={3}>How it works</Typography>
-                <Box sx={{ width: '70%' }} marginLeft={'auto'} marginRight={'auto'} marginTop={3}>
-                    <Grid container justifyContent="center" paddingLeft={5} paddingRight={5}>
+                <Box sx={{ width: '50%' }} marginLeft={'auto'} marginRight={'auto'} marginTop={5}>
+                    <Grid container justifyContent="center">
                         <Avatar sx={{ bgcolor: '#DC1FFF', fontWeight: '600', fontFamily: 'Montserrat' }}>
                             1
                         </Avatar>
                     </Grid>
-                    <Grid container justifyContent="center" marginTop={1}>
+                    {/* <Grid container justifyContent="center" marginTop={1}>
                         <Typography>Mint Secret Santa on SOL Token for 0.02SOL</Typography>
-                    </Grid>
-                    <Grid container marginTop={1}>
-                        <Typography sx={{ textAlign: 'center' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tristique tincidunt nibh et dignissim. </Typography>
+                    </Grid> */}
+                    <Grid container marginTop={1} justifyContent="center">
+                        <Typography sx={{ textAlign: 'center' }}>Mint a Secret Santa Token to participate. </Typography>
                     </Grid>
                 </Box>
-                <Box sx={{ width: '70%' }} marginLeft={'auto'} marginRight={'auto'} marginTop={3}>
-                    <Grid container justifyContent="center" paddingLeft={5} paddingRight={5}>
+                <Box sx={{ width: '50%' }} marginLeft={'auto'} marginRight={'auto'} marginTop={5}>
+                    <Grid container justifyContent="center" >
                         <Avatar sx={{ bgcolor: '#DC1FFF', fontWeight: '600', fontFamily: 'Montserrat' }}>
                             2
                         </Avatar>
                     </Grid>
-                    <Grid container justifyContent="center" marginTop={1}>
+                    {/* <Grid container justifyContent="center" marginTop={1}>
                         <Typography>Mint Secret Santa on SOL Token for 0.02SOL</Typography>
-                    </Grid>
-                    <Grid container marginTop={1}>
-                        <Typography sx={{ textAlign: 'center' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tristique tincidunt nibh et dignissim. </Typography>
+                    </Grid> */}
+                    <Grid container marginTop={1} justifyContent="center">
+                        <Typography sx={{ textAlign: 'center' }}>Token holders can deposit gifts into the token vault. Eligible gifts can be Lamports or any valid SPL token.</Typography>
                     </Grid>
                 </Box>
-                <Box sx={{ width: '70%' }} marginLeft={'auto'} marginRight={'auto'} marginTop={3}>
-                    <Grid container justifyContent="center" paddingLeft={5} paddingRight={5}>
+                <Box sx={{ width: '50%' }} marginLeft={'auto'} marginRight={'auto'} marginTop={5}>
+                    <Grid container justifyContent="center" >
                         <Avatar sx={{ bgcolor: '#DC1FFF', fontWeight: '600', fontFamily: 'Montserrat' }}>
                             3
                         </Avatar>
                     </Grid>
-                    <Grid container justifyContent="center" marginTop={1}>
+                    {/* <Grid container justifyContent="center" marginTop={1}>
                         <Typography>Mint Secret Santa on SOL Token for 0.02SOL</Typography>
-                    </Grid>
-                    <Grid container marginTop={1}>
-                        <Typography sx={{ textAlign: 'center' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tristique tincidunt nibh et dignissim. </Typography>
+                    </Grid> */}
+                    <Grid container marginTop={1} justifyContent="center">
+                        <Typography sx={{ textAlign: 'center' }}>Token holders will be matched with other participants.</Typography>
                     </Grid>
                 </Box>
-                <Box sx={{ width: '70%' }} marginLeft={'auto'} marginRight={'auto'} marginTop={3}>
-                    <Grid container justifyContent="center" paddingLeft={5} paddingRight={5}>
+                <Box sx={{ width: '50%' }} marginLeft={'auto'} marginRight={'auto'} marginTop={5}>
+                    <Grid container justifyContent="center" >
                         <Avatar sx={{ bgcolor: '#DC1FFF', fontWeight: '600', fontFamily: 'Montserrat' }}>
                             4
                         </Avatar>
                     </Grid>
-                    <Grid container justifyContent="center" marginTop={1}>
+                    {/* <Grid container justifyContent="center" marginTop={1}>
                         <Typography>Mint Secret Santa on SOL Token for 0.02SOL</Typography>
-                    </Grid>
-                    <Grid container marginTop={1}>
-                        <Typography sx={{ textAlign: 'center' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tristique tincidunt nibh et dignissim. </Typography>
+                    </Grid> */}
+                    <Grid container marginTop={1} justifyContent="center">
+                        <Typography sx={{ textAlign: 'center' }}>Participants can open their token vault to receive their gift.</Typography>
                     </Grid>
                 </Box>
-                <Box sx={{ width: '70%' }} marginLeft={'auto'} marginRight={'auto'} marginTop={3}>
-                    <Grid container justifyContent="center" paddingLeft={5} paddingRight={5}>
+                <Box sx={{ width: '50%' }} marginLeft={'auto'} marginRight={'auto'} marginTop={5}>
+                    <Grid container justifyContent="center" >
                         <Avatar sx={{ bgcolor: '#DC1FFF', fontWeight: '600', fontFamily: 'Montserrat' }}>
                             5
                         </Avatar>
                     </Grid>
-                    <Grid container justifyContent="center" marginTop={1}>
+                    {/* <Grid container justifyContent="center" marginTop={1}>
                         <Typography>Mint Secret Santa on SOL Token for 0.02SOL</Typography>
-                    </Grid>
-                    <Grid container marginTop={1} marginBottom={3}>
-                        <Typography sx={{ textAlign: 'center' }}>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tristique tincidunt nibh et dignissim. </Typography>
+                    </Grid> */}
+                    <Grid container marginTop={1} marginBottom={3} justifyContent="center">
+                        <Typography sx={{ textAlign: 'center' }}>All proceeds will go to Beauty 2 the Streetz organization. Visit FAQs for more information.</Typography>
                     </Grid>
                 </Box>
             </Box>
