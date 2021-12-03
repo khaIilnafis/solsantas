@@ -1,5 +1,5 @@
 import * as React from "react";
-import { createTheme, Grid, ThemeProvider, Box } from '@material-ui/core';
+import { createTheme, Grid, ThemeProvider, Box } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import Button from '@mui/material/Button';
 import { Typography } from "@mui/material";
@@ -11,25 +11,29 @@ theme.typography.h1 = {
         fontFamily: "Grenze Gotisch"
     }
 }
-// const styles = {
-//     santaTitle: {
-//         fontFamily: 'Grenze Gotisch',
-//         fontWeight: '400',
-//         fontSize: '42px',
-//         color: '#01FFA3',
-//       }
-// }
 function Hero(props: any) {
     return (
-        <Grid container justifyContent="center">
-            <Box mb={4}>
+        <Grid container marginBottom={5}>
+            <Grid container justifyContent="center">
                 <Typography sx={{
                     fontFamily: 'Grenze Gotisch',
                     fontWeight: '400',
                     fontSize: '60px',
                     color: '#01FFA3',
                 }}>Secret Santas on Solana</Typography>
-            </Box>
+            </Grid>
+            <Grid container>
+                <Box sx={{width:'50%'}} marginLeft={'auto'} marginRight={'auto'}>
+                    <Typography sx={{
+                        fontFamily: 'Montserrat',
+                        fontWeight: '500',
+                        fontSize: '20px',
+                        textAlign: 'center'
+                    }}>
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                    </Typography>
+                </Box>
+            </Grid>
         </Grid>
     )
 }

@@ -2,6 +2,7 @@ import * as React from "react";
 import * as anchor from "@project-serum/anchor";
 import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
+import Link from '@mui/material/Link'
 import Avatar from "@mui/material/Avatar";
 import { Typography } from "@mui/material";
 
@@ -31,16 +32,18 @@ export default function Team() {
             border: "4px solid rgba(255, 255, 255, 0.1)",
             borderRadius: "16px",
             color: "black",
+            width:'20%',
+            paddingBottom:'20px'
           }}
         >
-          <Avatar alignSelf="flex-start"></Avatar>
+          <Avatar sx={{position:'absolute', top:'1'}}></Avatar>
           <Grid container justifyContent="center">
             <Typography
               sx={{
                 color: "#DC1FFF",
                 fontFamily: "Montserrat",
                 fontWeight: "700",
-                fontSize: "30px",
+                fontSize: "42px"
               }}
             >
               Khalil
@@ -50,7 +53,7 @@ export default function Team() {
             <Typography>Developer/Creator</Typography>
           </Grid>
           <Grid container justifyContent="center">
-            <Typography>@khaiilnafis</Typography>
+          <Link href="https://twitter.com/khaiilnafis">@KhaIilnafis</Link>
           </Grid>
         </Box>
       </Grid>
@@ -61,6 +64,8 @@ export default function Team() {
             border: "4px solid rgba(255, 255, 255, 0.1)",
             borderRadius: "16px",
             color: "black",
+            width:'20%',
+            paddingBottom:'20px'
           }}
         >
           <Avatar justifySelf="center"></Avatar>
@@ -70,7 +75,7 @@ export default function Team() {
                 color: "#DC1FFF",
                 fontFamily: "Montserrat",
                 fontWeight: "700",
-                fontSize: "30px",
+                fontSize: "42px",
               }}
             >
               Allan
@@ -80,7 +85,7 @@ export default function Team() {
             <Typography>Front-end Developer</Typography>
           </Grid>
           <Grid container justifyContent="center">
-            <Typography>@so1a11ana</Typography>
+            <Link href="https://twitter.com/so1a11ana">@so1a11ana</Link>
           </Grid>
         </Box>
       </Grid>
@@ -91,6 +96,8 @@ export default function Team() {
             border: "4px solid rgba(255, 255, 255, 0.1)",
             borderRadius: "16px",
             color: "black",
+            width:'20%',
+            paddingBottom:'20px'
           }}
         >
           <Avatar justifySelf="center"></Avatar>
@@ -100,7 +107,7 @@ export default function Team() {
                 color: "#DC1FFF",
                 fontFamily: "Montserrat",
                 fontWeight: "700",
-                fontSize: "30px",
+                fontSize: "42px",
               }}
             >
               DeAndre
@@ -110,7 +117,7 @@ export default function Team() {
             <Typography>Product Manager / Designer</Typography>
           </Grid>
           <Grid container justifyContent="center">
-            <Typography>@DreLaSol</Typography>
+            <Link href="https://twitter.com/DreLaSOL">@DreLaSol</Link>
           </Grid>
         </Box>
       </Grid>
