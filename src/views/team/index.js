@@ -36,7 +36,7 @@ export default function Team() {
             paddingBottom:'20px'
           }}
         >
-          <Avatar sx={{position:'absolute', top:'1'}}></Avatar>
+          <Avatar alignSelf="flex-start"></Avatar>
           <Grid container justifyContent="center">
             <Typography
               sx={{
