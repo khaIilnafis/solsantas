@@ -19,12 +19,6 @@ export default function Team() {
       >
         The Team
       </Typography>
-      <Grid container justifyContent="center">
-        <Typography>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi
-          tristique tincidunt nibh et dignissim.
-        </Typography>
-      </Grid>
       <Grid container justifyContent="center" marginTop={5}>
         <Box
           sx={{

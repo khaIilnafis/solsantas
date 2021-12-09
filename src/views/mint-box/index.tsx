@@ -159,7 +159,7 @@ function MintBox() {
                         marginTop={3}>Mint Opens:</Typography>
                     </Grid>
                     <Grid container justifyContent="center" alignItems="center">
-                        <Countdown date={Date.parse('10 Dec 2021 16:00:00 EST') + 159800} renderer={countDownRenderer}></Countdown>
+                        <Countdown date={Date.parse('13 Dec 2021 16:00:00 EST') + 159800} renderer={countDownRenderer}></Countdown>
                     </Grid>
                 </Box>
             </Grid>
