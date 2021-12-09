@@ -14,6 +14,9 @@ import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
 import { Menu, MenuList, MenuItem } from '@mui/material'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTwitter, faDiscord } from '@fortawesome/free-brands-svg-icons'
+
 import {
   WalletMultiButton,
   WalletDisconnectButton,
@@ -60,6 +63,8 @@ function Navbar() {
               <span className="ellipse-purple"></span>
             </Link>
           </Typography>
+          <FontAwesomeIcon icon={["fab", "twitter"]} />
+          <FontAwesomeIcon icon={["fab", "discord"]}  />
           {!wallet.connected ? (
             <WalletMultiButton></WalletMultiButton>
           ) : (
@@ -84,46 +89,9 @@ function Navbar() {
               </Menu>
             </Toolbar>
           )}
-          {/* {wallet.connected ? */}
-
-          {/* : <span></span>} */}
         </Toolbar>
       </AppBar>
     </Box>
-    // <Grid container>
-    //   <Grid item>
-    //   <Navigation className="sticky-nav" fixed="top" bg="dark">
-    //     <Container>
-    //       <Navigation.Brand href="/">
-    //         <img
-    //           src="/images/sss-logo.png"
-    //           width="30"
-    //           height="30"
-    //           className="d-inline-block align-top"
-    //           alt="React Bootstrap logo"
-    //         />
-    //       </Navigation.Brand>
-    //       <Navigation.Collapse id="responsive-navbar-nav">
-    //         <Nav className="me-auto">
-    //         </Nav>
-    //         <Nav>
-    //           <Nav.Link href="/profile" style={{ fontWeight: 500 }}></Nav.Link>
-    //           {!wallet.connected ? (
-    //             <WalletMultiButton></WalletMultiButton>
-    //           ) : (
-    //             <div>
-    //               <WalletDisconnectButton>
-    //                 Address: {shortenAddress(wallet.publicKey?.toBase58() || "")}
-    //               </WalletDisconnectButton>
-    //             </div>
-    //           )}
-    //         </Nav>
-    //       </Navigation.Collapse>
-    //     </Container>
-    //   </Navigation>  
-    //   </Grid>
-    // </Grid>
-
   );
 }
 export default Navbar;

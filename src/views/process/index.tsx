@@ -28,7 +28,10 @@ export default function Process() {
                         <Typography>Mint Secret Santa on SOL Token for 0.02SOL</Typography>
                     </Grid> */}
                     <Grid container marginTop={1} justifyContent="center">
-                        <Typography sx={{ textAlign: 'center' }}>Mint a Secret Santa Token to participate. </Typography>
+                        <Typography sx={{ textAlign: 'center' }}>December 13th</Typography>
+                    </Grid>
+                    <Grid container marginTop={1} justifyContent="center">
+                        <Typography sx={{ textAlign: 'center' }}>Mint a Secret Santa Token for 0.02 ◎ to participate. </Typography>
                     </Grid>
                 </Box>
                 <Box sx={{ width: '50%' }} marginLeft={'auto'} marginRight={'auto'} marginTop={5}>
@@ -37,11 +40,11 @@ export default function Process() {
                             2
                         </Avatar>
                     </Grid>
-                    {/* <Grid container justifyContent="center" marginTop={1}>
-                        <Typography>Mint Secret Santa on SOL Token for 0.02SOL</Typography>
-                    </Grid> */}
                     <Grid container marginTop={1} justifyContent="center">
-                        <Typography sx={{ textAlign: 'center' }}>Token holders can deposit gifts into the token vault. Eligible gifts can be Lamports or any valid SPL token.</Typography>
+                        <Typography sx={{ textAlign: 'center' }}>December 18th - December 24th</Typography>
+                    </Grid>
+                    <Grid container marginTop={1} justifyContent="center">
+                        <Typography sx={{ textAlign: 'center' }}>Token holders can deposit NFT gifts under the tree. Eligible gifts can be Lamports or any valid SPL token.</Typography>
                     </Grid>
                 </Box>
                 <Box sx={{ width: '50%' }} marginLeft={'auto'} marginRight={'auto'} marginTop={5}>
@@ -50,11 +53,11 @@ export default function Process() {
                             3
                         </Avatar>
                     </Grid>
-                    {/* <Grid container justifyContent="center" marginTop={1}>
-                        <Typography>Mint Secret Santa on SOL Token for 0.02SOL</Typography>
-                    </Grid> */}
                     <Grid container marginTop={1} justifyContent="center">
-                        <Typography sx={{ textAlign: 'center' }}>Token holders will be matched with other participants.</Typography>
+                        <Typography sx={{ textAlign: 'center' }}>December 24th</Typography>
+                    </Grid>
+                    <Grid container marginTop={1} justifyContent="center">
+                        <Typography sx={{ textAlign: 'center' }}>Valid token holding Santas will be matched with one another.</Typography>
                     </Grid>
                 </Box>
                 <Box sx={{ width: '50%' }} marginLeft={'auto'} marginRight={'auto'} marginTop={5}>
@@ -63,11 +66,11 @@ export default function Process() {
                             4
                         </Avatar>
                     </Grid>
-                    {/* <Grid container justifyContent="center" marginTop={1}>
-                        <Typography>Mint Secret Santa on SOL Token for 0.02SOL</Typography>
-                    </Grid> */}
                     <Grid container marginTop={1} justifyContent="center">
-                        <Typography sx={{ textAlign: 'center' }}>Participants can open their token vault to receive their gift.</Typography>
+                        <Typography sx={{ textAlign: 'center' }}>December 25th</Typography>
+                    </Grid>
+                    <Grid container marginTop={1} justifyContent="center">
+                        <Typography sx={{ textAlign: 'center' }}>All Santas can look under the tree and open their present to receive the gifted tokens.</Typography>
                     </Grid>
                 </Box>
                 <Box sx={{ width: '50%' }} marginLeft={'auto'} marginRight={'auto'} marginTop={5}>

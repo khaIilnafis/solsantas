@@ -4,7 +4,7 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import Link from '@mui/material/Link'
 import Avatar from "@mui/material/Avatar";
-import { Typography } from "@mui/material";
+import { autocompleteClasses, Typography } from "@mui/material";
 
 export default function Team() {
   return (
@@ -26,11 +26,11 @@ export default function Team() {
             border: "4px solid rgba(255, 255, 255, 0.1)",
             borderRadius: "16px",
             color: "black",
-            width:'20%',
+            width:'30%',
             paddingBottom:'20px'
           }}
         >
-          <Avatar alt="Khalil" src="/images/khalil.png"></Avatar>
+          <Avatar alt="Khalil" src="/images/khalil.png" sx={{ width: 131, height: 131 }}></Avatar>
           <Grid container justifyContent="center">
             <Typography
               sx={{
@@ -58,11 +58,11 @@ export default function Team() {
             border: "4px solid rgba(255, 255, 255, 0.1)",
             borderRadius: "16px",
             color: "black",
-            width:'20%',
+            width:'30%',
             paddingBottom:'20px'
           }}
         >
-          <Avatar alt="Allan" src="/images/allan.png"></Avatar>
+          <Avatar alt="Allan" src="/images/allan.png" sx={{ width: 131, height: 131 }}></Avatar>
           <Grid container justifyContent="center">
             <Typography
               sx={{
@@ -90,11 +90,11 @@ export default function Team() {
             border: "4px solid rgba(255, 255, 255, 0.1)",
             borderRadius: "16px",
             color: "black",
-            width:'20%',
+            width:'30%',
             paddingBottom:'20px'
           }}
         >
-          <Avatar alt="DreLaSol" src="images/dre.png"></Avatar>
+          <Avatar alt="DreLaSol" src="images/dre.png" sx={{ width: 131, height: 131 }}></Avatar>
           <Grid container justifyContent="center">
             <Typography
               sx={{
