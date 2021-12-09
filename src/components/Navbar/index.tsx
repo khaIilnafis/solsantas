@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 // import {
 //   Navbar as Navigation,
 //   Container,
@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-
+import { Menu, MenuList, MenuItem } from '@mui/material'
 import {
   WalletMultiButton,
   WalletDisconnectButton,
@@ -28,44 +28,65 @@ import {
   shortenAddress,
 } from "../../utils/candymachine";
 
-import { useLocation } from 'react-router-dom'
+import { useLocation, Link } from 'react-router-dom'
 import "./navbar.css";
 
 function Navbar() {
   const location = useLocation();
+  const [anchorEl, setAnchorEl] = React.useState(null);
+  const open = Boolean(anchorEl);
+  const handleClick = (event: any) => {
+    setAnchorEl(event.currentTarget);
+  };
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
 
   const wallet = useWallet();
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static" color="inherit">
+      <AppBar position="static" color="inherit" sx={{ overflow: 'visible' }}>
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            <img
-              src="/images/SSoS Logo.png"
-              width="30"
-              height="30"
-              className="d-inline-block align-top"
-              alt="Secret Santas on Sol"
-            />
+          <Typography variant="h6" component="div" sx={{ flexGrow: 1, overflow: 'visible' }}>
+            <Link to='/'>
+              <img
+                src="/images/SSoS Logo.png"
+                width="50"
+                height="69"
+                className="d-inline-block align-top nav-icon"
+                alt="Secret Santas on Sol"
+                style={{marginTop:"5px"}}
+              />
+              <span className="ellipse-purple"></span>
+            </Link>
           </Typography>
           {!wallet.connected ? (
             <WalletMultiButton></WalletMultiButton>
           ) : (
-            <div>
-              <WalletDisconnectButton>
+            <Toolbar>
+              <WalletDisconnectButton style={{marginRight:'20px'}}>
                 Address: {shortenAddress(wallet.publicKey?.toBase58() || "")}
               </WalletDisconnectButton>
-            </div>
+              <IconButton
+                size="large"
+                edge="start"
+                color="inherit"
+                aria-label="menu"
+                aria-haspopup="true"
+                aria-expanded={open ? 'true' : undefined}
+                sx={{ mr: 2 }}
+                onClick={handleClick}>
+                <MenuIcon />
+              </IconButton>
+              <Menu open={open} onClose={handleClose} anchorEl={anchorEl}>
+              <MenuItem onClick={handleClose}><Link to='/'>Home</Link></MenuItem>
+                <MenuItem onClick={handleClose}><Link to='/tree'>My Tree</Link></MenuItem>
+              </Menu>
+            </Toolbar>
           )}
-          <IconButton
-            size="large"
-            edge="start"
-            color="inherit"
-            aria-label="menu"
-            sx={{ mr: 2 }}
-          >
-            <MenuIcon />
-          </IconButton>
+          {/* {wallet.connected ? */}
+
+          {/* : <span></span>} */}
         </Toolbar>
       </AppBar>
     </Box>

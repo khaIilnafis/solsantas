@@ -11,6 +11,8 @@ import { MarketProvider } from "./contexts/market";
 import { AppLayout } from "./components/Layout";
 
 import { HomeView } from "./views";
+import TreeView from "./views/tree";
+
 import {
   getLedgerWallet,
   getMathWallet,
@@ -45,6 +47,7 @@ export function AppRoutes() {
               <AppLayout>
                   <Routes>
                     <Route path="/" element={<HomeView />} />
+                    <Route path="/tree" element={<TreeView />} />
                   </Routes>
               </AppLayout>
             </MarketProvider>

@@ -1,3 +1,7 @@
 #root > div > div.MuiGrid-root.MuiGrid-container > div > div > div > div.MuiGrid-root.MuiGrid-container.MuiGrid-spacing-xs-undefined.css-1lym95h-MuiGrid-root > div > div {
     background-color: #131313;
 }
+
+.mint-window-top::before {
+    background: url('/images/mint-windoq-top.png') no-repeat;
+}

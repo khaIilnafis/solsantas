@@ -36,7 +36,7 @@ export default function Team() {
             paddingBottom:'20px'
           }}
         >
-          <Avatar alignSelf="flex-start"></Avatar>
+          <Avatar alt="Khalil" src="/images/khalil.png"></Avatar>
           <Grid container justifyContent="center">
             <Typography
               sx={{
@@ -68,7 +68,7 @@ export default function Team() {
             paddingBottom:'20px'
           }}
         >
-          <Avatar justifySelf="center"></Avatar>
+          <Avatar alt="Allan" src="/images/allan.png"></Avatar>
           <Grid container justifyContent="center">
             <Typography
               sx={{
@@ -100,7 +100,7 @@ export default function Team() {
             paddingBottom:'20px'
           }}
         >
-          <Avatar justifySelf="center"></Avatar>
+          <Avatar alt="DreLaSol" src="images/dre.png"></Avatar>
           <Grid container justifyContent="center">
             <Typography
               sx={{

@@ -30,7 +30,7 @@ function Hero(props: any) {
                         fontSize: '20px',
                         textAlign: 'center'
                     }}>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        Support charity and exchange tokens with the Solana Community!
                     </Typography>
                 </Box>
             </Grid>
