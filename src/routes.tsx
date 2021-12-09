@@ -1,4 +1,4 @@
-import { HashRouter, Route, Routes } from "react-router-dom";
+import {Route, Routes, BrowserRouter } from "react-router-dom";
 import React, { useMemo } from "react";
 import { WalletProvider, ConnectionProvider } from "@solana/wallet-adapter-react";
 import {
@@ -38,7 +38,7 @@ export function AppRoutes() {
   const network = WalletAdapterNetwork.Devnet;
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
   return (
-    <HashRouter basename={"/"}>
+    <BrowserRouter basename={"/"}>
       <ConnectionProvider endpoint={endpoint}>
         <WalletProvider wallets={wallets}>
           <AccountsProvider>
@@ -55,6 +55,6 @@ export function AppRoutes() {
           </AccountsProvider>
         </WalletProvider>
       </ConnectionProvider>
-    </HashRouter>
+    </BrowserRouter>
   );
 }
