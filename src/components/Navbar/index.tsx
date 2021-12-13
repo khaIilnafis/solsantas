@@ -63,8 +63,8 @@ function Navbar() {
               <span className="ellipse-purple"></span>
             </Link>
           </Typography>
-          <FontAwesomeIcon icon={["fab", "twitter"]} />
-          <FontAwesomeIcon icon={["fab", "discord"]}  />
+          {/* <FontAwesomeIcon icon={["fab", "twitter"]} />
+          <FontAwesomeIcon icon={["fab", "discord"]}  /> */}
           {!wallet.connected ? (
             <WalletMultiButton></WalletMultiButton>
           ) : (
