@@ -1,35 +1,65 @@
-#root > div > div.MuiBox-root.css-i9gxme > header > div > button.wallet-adapter-button.wallet-adapter-button-trigger{
-    background-color: #01FFA3;
-}
-#root > div > div.MuiBox-root.css-i9gxme > header > div > div:nth-child(2) > button{
-    background-color: #01FFA3;
-}
-#root > div > div.MuiBox-root.css-i9gxme > header{
-    color:white;
-    background-color: #000000
-    ;
+.Navbar-menu:link {
+  font-family: "Montserrat" !important;
+  font-weight: "500" !important;
+  font-size: "20px" !important;
+  text-align: "center" !important;
+  text-decoration: none;
+  color: white !important;
 }
 
-#root > div > div.MuiBox-root.css-i9gxme > header > div > button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorInherit.MuiIconButton-edgeStart.MuiIconButton-sizeLarge.css-ancrnh-MuiButtonBase-root-MuiIconButton-root > svg {
-    height: 45px;
-    width: 45px;
+#root
+  > div
+  > div.MuiBox-root.css-i9gxme
+  > header
+  > div
+  > button.wallet-adapter-button.wallet-adapter-button-trigger {
+  background-color: #01ffa3;
 }
-.nav-icon .ellipse-purple:before{
-    overflow: visible;
-    background: url('../../assets/images/Nav-Ellipse.png') center no-repeat;
-    content: " ";
+#root
+  > div
+  > div.MuiBox-root.css-i9gxme
+  > header
+  > div
+  > div:nth-child(2)
+  > button {
+  background-color: #01ffa3;
+}
+#root > div > div.MuiBox-root.css-i9gxme > header {
+  color: white;
+  background-color: #000000;
 }
 
-.MuiList-root li{
-    color: white;
+#root
+  > div
+  > div.MuiBox-root.css-i9gxme
+  > header
+  > div
+  > button.MuiButtonBase-root.MuiIconButton-root.MuiIconButton-colorInherit.MuiIconButton-edgeStart.MuiIconButton-sizeLarge.css-ancrnh-MuiButtonBa
+  se-root-MuiIconButton-root
+  > svg {
+  height: 45px;
+  width: 45px;
 }
-.MuiMenuItem-root a{
-    color: white;
-    text-decoration: none;
+.nav-icon .ellipse-purple:before {
+  overflow: visible;
+  background: url("../../assets/images/Nav-Ellipse.png") center no-repeat;
+  content: " ";
 }
-body > div.MuiModal-root.MuiPopover-root.MuiMenu-root.css-10nakn3-MuiModal-root-MuiPopover-root-MuiMenu-root > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiMenu-paper.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.MuiPopover-paper.css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper {
-    background-color: #131313
+
+.MuiList-root li {
+  color: white;
 }
-body > div.MuiModal-root.MuiPopover-root.MuiMenu-root.css-1sucic7 > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiMenu-paper.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.MuiPopover-paper.css-177ic5c {
-    background-color: #131313
+.MuiMenuItem-root a {
+  color: white;
+  text-decoration: none;
+}
+body
+  > div.MuiModal-root.MuiPopover-root.MuiMenu-root.css-10nakn3-MuiModal-root-MuiPopover-root-MuiMenu-root
+  > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiMenu-paper.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.MuiPopover-paper.css-1poimk-MuiPaper-root-MuiMenu-paper-MuiPaper-root-MuiPopover-paper {
+  background-color: #131313;
+}
+body
+  > div.MuiModal-root.MuiPopover-root.MuiMenu-root.css-1sucic7
+  > div.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation1.MuiMenu-paper.MuiPaper-root.MuiPaper-elevation.MuiPaper-rounded.MuiPaper-elevation8.MuiPopover-paper.css-177ic5c {
+  background-color: #131313;
 }
