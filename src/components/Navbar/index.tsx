@@ -47,14 +47,14 @@ function Navbar() {
   useLayoutEffect(() => {
     function updateSize() {
       if (window.innerWidth <= 600) {
-        document.getElementsByClassName("wallet-adapter-button")[0].innerHTML =
+        if(document.getElementsByClassName("wallet-adapter-button")[0])
+          document.getElementsByClassName("wallet-adapter-button")[0].innerHTML =
           "Wallet";
-        console.log(window.screen.width);
       }
       if (window.innerWidth > 600) {
-        document.getElementsByClassName("wallet-adapter-button")[0].innerHTML =
+        if(document.getElementsByClassName("wallet-adapter-button")[0])
+          document.getElementsByClassName("wallet-adapter-button")[0].innerHTML =
           "Connect Wallet";
-        console.log(window.screen.width);
       }
     }
     window.addEventListener("resize", updateSize);
