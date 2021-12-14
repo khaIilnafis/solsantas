@@ -186,13 +186,13 @@ function Navbar() {
                   <LinkIn to="/tree">My Tree</LinkIn>
                 </MenuItem> : <span></span>}
                 <MenuItem onClick={handleClose}>
-                  <LinkIn to="/tree">The Team</LinkIn>
+                  <LinkIn to="/">The Team</LinkIn>
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
                   <LinkIn to="/">FAQ</LinkIn>
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
-                  <LinkIn to="/tree">Mint</LinkIn>
+                  <LinkIn to="/">Mint</LinkIn>
                 </MenuItem>
               </Menu>
             </Toolbar>
