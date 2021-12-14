@@ -1,10 +1,11 @@
-import {Route, Routes, BrowserRouter } from "react-router-dom";
+import { Route, Routes, BrowserRouter } from "react-router-dom";
 import React, { useMemo } from "react";
-import { WalletProvider, ConnectionProvider } from "@solana/wallet-adapter-react";
 import {
-  WalletModalProvider,
-} from '@solana/wallet-adapter-react-ui';
-import { WalletAdapterNetwork } from '@solana/wallet-adapter-base';
+  WalletProvider,
+  ConnectionProvider,
+} from "@solana/wallet-adapter-react";
+import { WalletModalProvider } from "@solana/wallet-adapter-react-ui";
+import { WalletAdapterNetwork } from "@solana/wallet-adapter-base";
 // import { ConnectionProvider } from "./contexts/connection";
 import { AccountsProvider } from "./contexts/accounts";
 import { MarketProvider } from "./contexts/market";
@@ -21,8 +22,8 @@ import {
   getSolletWallet,
   getSolongWallet,
 } from "@solana/wallet-adapter-wallets";
-import { clusterApiUrl } from '@solana/web3.js';
-require('@solana/wallet-adapter-react-ui/styles.css');
+import { clusterApiUrl } from "@solana/web3.js";
+require("@solana/wallet-adapter-react-ui/styles.css");
 export function AppRoutes() {
   const wallets = useMemo(
     () => [
@@ -42,15 +43,15 @@ export function AppRoutes() {
       <ConnectionProvider endpoint={endpoint}>
         <WalletProvider wallets={wallets}>
           <AccountsProvider>
-          <WalletModalProvider>
-            <MarketProvider>
-              <AppLayout>
+            <WalletModalProvider>
+              <MarketProvider>
+                <AppLayout>
                   <Routes>
                     <Route path="/" element={<HomeView />} />
                     <Route path="/tree" element={<TreeView />} />
                   </Routes>
-              </AppLayout>
-            </MarketProvider>
+                </AppLayout>
+              </MarketProvider>
             </WalletModalProvider>
           </AccountsProvider>
         </WalletProvider>

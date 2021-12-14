@@ -32,7 +32,7 @@ export const LABELS = {
   MENU_TRANSACTION: "Transactions",
   MARGIN_TRADING: "Margin Trading",
   APP_TITLE: "Solana DAPP",
-  CONNECT_BUTTON: "Connect",
+  CONNECT_BUTTON: "Connect Wallet",
   WALLET_TOOLTIP: "Wallet public key",
   WALLET_BALANCE: "Wallet balance",
   SETTINGS_TOOLTIP: "Settings",

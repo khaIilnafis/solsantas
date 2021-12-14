@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import { Grid, Box, Typography, Accordion, AccordionDetails, AccordionSummary, createTheme, ThemeProvider } from '@mui/material'
+import { Container, Grid, Box, Typography, Accordion, AccordionDetails, AccordionSummary, createTheme, ThemeProvider } from '@mui/material'
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
@@ -13,6 +13,9 @@ export default function FAQ() {
     setExpanded(isExpanded ? panel : false);
   };
   return (
+    <Container>
+
+    
     <ThemeProvider theme={darkTheme}>
       <Grid container marginTop={5}>
         <Grid container justifyContent="center">
@@ -95,5 +98,6 @@ export default function FAQ() {
       </Accordion>
 
     </ThemeProvider>
+    </Container>
   )
 }

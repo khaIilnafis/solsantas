@@ -2,6 +2,28 @@
     margin-top: 70px;
 } */
 #root > div > div.MuiGrid-root.MuiGrid-container {
-    background-color: #000000;
-    color:white;
+  background-color: #000000;
+  color: white;
+}
+
+.MuiGrid-root {
+  width: "100% !important";
+}
+/* 
+.hello {
+  max-width: max-content !important;
+  width: 100% !important;
+} */
+
+.hello > div > div {
+  width: 100%;
+}
+
+.hello > div {
+  width: 100%;
+}
+
+.hello {
+  width: 100% !important;
+  max-width: none !important;
 }
