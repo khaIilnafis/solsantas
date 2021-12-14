@@ -58,6 +58,7 @@
     "lodash": "^4.17.20",
     "react": "*",
     "react-dom": "*",
+    "react-router-dom": "^6.1.1",
     "typescript": "^4.5.4"
   },
   "devDependencies": {
