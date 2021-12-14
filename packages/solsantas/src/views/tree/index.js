@@ -5,7 +5,7 @@ import { clusterApiUrl, Connection,SystemProgram, SYSVAR_RENT_PUBKEY,Transaction
 import { deserializeUnchecked, serialize } from 'borsh';
 import { useWallet } from "@solana/wallet-adapter-react";
 // import { programIds } from '../utils/programIds';
-const utils = require('@oyster/common')
+import {utils} from "@oyster/common"
 // import { findProgramAddress, StringPublicKey, toPublicKey } from '../../utils';
 
 export function TreeView() {
