@@ -1,2 +1,2 @@
 # 🏗 Solana Santas
-Trigger-builx
+Trigger-build
