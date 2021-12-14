@@ -6,7 +6,7 @@ export default function Process() {
   return (
     <Grid justifyContent="center">
       <Box>
-        <div className="works-container">
+        <div className="works-container" id="works">
           <p className="works-header">How it works</p>
           <div style={{ width: "90%", margin: "auto" }}>
             <Grid

@@ -10,7 +10,9 @@ import {utils} from "@oyster/common"
 
 export function TreeView() {
     const { publicKey, sendTransaction } = useWallet();
-    console.log(publicKey.toString());
+    if(publicKey){
+        console.log(publicKey.toString());
+    }
     if(publicKey){
         (async () => {
             const MY_WALLET_ADDRESS = publicKey.toString();

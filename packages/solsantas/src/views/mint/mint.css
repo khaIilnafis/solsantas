@@ -1,7 +1,8 @@
-/* #root > div > div > div > section > main > div > div:nth-child(5) > div > div:nth-child(2) > button {
-    background-color: rgb(176, 39, 29);
-    color:white;
-}
-#root > div > div.MuiGrid-root.MuiGrid-container > div > div > div > section > main > div > div:nth-child(3) > button {
-    background-color: #03E1FF;
-} */
+.mint-token-button {
+    width: 463px;
+    height: 62px;
+    left: 810px;
+    top: 510px;
+    background: #101921;
+    border-radius: 70px;
+  }

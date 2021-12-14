@@ -47,14 +47,8 @@ function Navbar() {
   useLayoutEffect(() => {
     function updateSize() {
       if (window.innerWidth <= 600) {
-        if(document.getElementsByClassName("wallet-adapter-button")[0])
-          document.getElementsByClassName("wallet-adapter-button")[0].innerHTML =
-          "Wallet";
-      }
-      if (window.innerWidth > 600) {
-        if(document.getElementsByClassName("wallet-adapter-button")[0])
-          document.getElementsByClassName("wallet-adapter-button")[0].innerHTML =
-          "Connect Wallet";
+        if (document.getElementsByClassName("wallet-adapter-button")[0])
+          Array.from(document.getElementsByClassName('wallet-adapter-button') as HTMLCollectionOf<HTMLElement>)[0].style.marginRight = "20px";
       }
     }
     window.addEventListener("resize", updateSize);
@@ -94,7 +88,8 @@ function Navbar() {
             <Toolbar>
               <Grid container justifyContent="center" spacing={10}>
                 <Grid item>
-                  <Link
+                  <LinkIn 
+                  to="#works"
                     style={{
                       color: "white",
                       fontFamily: "Montserrat",
@@ -107,10 +102,10 @@ function Navbar() {
                     }}
                   >
                     How it works
-                  </Link>
+                  </LinkIn>
                 </Grid>
                 <Grid item>
-                  <LinkIn to="#team" 
+                  <LinkIn to="#team"
                     style={{
                       color: "white",
                       fontFamily: "Montserrat",
@@ -167,7 +162,7 @@ function Navbar() {
               style={{ marginRight: "30px" }}
             ></WalletMultiButton>
           ) : (
-            <div></div>
+            <WalletDisconnectButton>{wallet.publicKey ? shortenAddress(wallet.publicKey?.toString()) : <p>Disconnect</p>}</WalletDisconnectButton>
           )}
           <div className="navbar-row">
             <Toolbar style={{ marginLeft: "30px", padding: "0px" }}>
@@ -187,6 +182,9 @@ function Navbar() {
                 <MenuItem onClick={handleClose}>
                   <LinkIn to="/">How it works</LinkIn>
                 </MenuItem>
+                {wallet.connected ? <MenuItem onClick={handleClose}>
+                  <LinkIn to="/tree">My Tree</LinkIn>
+                </MenuItem> : <span></span>}
                 <MenuItem onClick={handleClose}>
                   <LinkIn to="/tree">The Team</LinkIn>
                 </MenuItem>

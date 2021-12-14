@@ -181,8 +181,7 @@ function MintBox() {
           <Grid container style={{ margin: "auto" }}>
             <Box marginLeft={"auto"} marginRight={"auto"}>
               <p className="mint-greeting-content">
-                Your destination to give back to "Charity name" and join a
-                secret Santa.
+              Support charity and exchange tokens with the Solana Community!
               </p>
             </Box>
           </Grid>
@@ -201,7 +200,7 @@ function MintBox() {
               alignItems="center"
               marginBottom={3}
             >
-              <p className="mint-word">Mint Window Open for</p>
+              <p className="mint-word">Mint In</p>
             </Grid>
             <Grid container justifyContent="center" alignItems="center">
               <div className="mint-time">
@@ -210,14 +209,6 @@ function MintBox() {
                   renderer={countDownRenderer}
                 ></Countdown>
               </div>
-            </Grid>
-            <Grid
-              container
-              justifyContent="center"
-              alignItems="center"
-              marginBottom={3}
-            >
-              <button className="mint-button">MINT SSoS TOKEN</button>
             </Grid>
           </Box>
         </div>

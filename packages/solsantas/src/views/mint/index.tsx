@@ -40,7 +40,7 @@ const MintButton = styled(Button)({
   borderRadius: '60px',
   backgroundColor: '#101921',
   color: 'white',
-  marginBottom: '10px',
+  marginTop: '10px',
   '&:hover': {
     backgroundColor: '#01FFA3',
     boxShadow: 'none',
@@ -234,16 +234,8 @@ const Mint = (props: MintProps) => {
         spacing={1}
         justifyContent="center"
         alignItems="center"
-        style={{ marginTop: "25px" }}
+        style={{ marginTop: "15px" }}
       >
-        <Grid
-          container
-          item
-          xs={12}
-          justifyContent="center"
-          alignItems="center"
-        >
-        </Grid>
         {!wallet.connected ? (
           <div></div>
         ) : (
@@ -256,7 +248,7 @@ const Mint = (props: MintProps) => {
             <Grid
               container
               item
-              xs={3}
+              xs={4}
               justifyContent="center"
               alignItems="center"
             >
@@ -267,7 +259,7 @@ const Mint = (props: MintProps) => {
             <Grid
               container
               item
-              xs={3}
+              xs={4}
               justifyContent="center"
               alignItems="center"
             >
@@ -285,15 +277,15 @@ const Mint = (props: MintProps) => {
           alignItems="center"
         >
           {!wallet.connected ? (
-            <MintButton variant="contained" size="large">
-              <Typography sx={{
-                fontFamily: 'Montserrat',
-                fontWeight: '700',
-                fontSize: '20px'
-              }}>
-                Mint SSoS Token
-              </Typography>
-            </MintButton>
+            // <MintButton variant="contained" size="large">
+            <Typography sx={{
+              fontFamily: 'Montserrat',
+              fontWeight: '700',
+              fontSize: '20px'
+            }}>
+              Mint Price - 0.02 Sol
+            </Typography>
+            // </MintButton>
           ) : (
             <MintContainer>
               <Grid container
@@ -317,7 +309,8 @@ const Mint = (props: MintProps) => {
                 <MintButton
                   disabled={isSoldOut || isMinting || !isActive}
                   onClick={onMint}
-                  variant="contained"
+                  // variant="contained"
+                  size="large"
                 >
                   {isSoldOut ? (
                     "SOLD OUT"
@@ -325,14 +318,12 @@ const Mint = (props: MintProps) => {
                     isMinting ? (
                       <CircularProgress />
                     ) : (
-                      "Mint now 0.1 SOL"
+                      "Mint"
                     )
                   ) : (
-                    <div>
-                      <MintButton disabled={isActive}>
-                        Mint SSoS Token
-                      </MintButton>
-                    </div>
+                    <MintButton disabled={isActive} variant="contained" size="large">
+                      Mint SSoS Token
+                    </MintButton>
                   )}
                 </MintButton>
               </Grid>
