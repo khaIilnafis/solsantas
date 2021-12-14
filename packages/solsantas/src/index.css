@@ -118,7 +118,7 @@ code {
   margin: auto;
   margin-top: -140px;
   padding-top: 170px;
-  width: 755px;
+  /* width: 755px; */
 }
 .mint-word {
   font-family: Montserrat;
@@ -131,7 +131,7 @@ code {
   font-size: 15px;
 }
 .mint-time {
-  width: 460px;
+  width: 400px;
   margin: auto;
 }
 .mint-button {
@@ -160,13 +160,13 @@ code {
     height: 700px;
     margin-top: -140px;
     padding-top: 170px;
-    width: 555px;
+    /* width: 555px; */
   }
   .mint-word {
     font-size: 20px;
   }
   .mint-time {
-    width: 350px;
+    width: 320px;
   }
   .mint-button {
     width: 300px;
@@ -193,7 +193,7 @@ code {
     background-repeat: round;
     height: 500px;
     margin-top: -90px;
-    width: 100%;
+    /* width: 100%; */
   }
   .time-unit {
     font-size: 8px;
@@ -281,6 +281,21 @@ code {
   height: 600px;
   padding-top: 150px;
 }
+/* @media only screen and (max-width: 850px) {
+  .avatar-container3 {
+    width: 600px;
+    margin-left:0px;
+  }
+} */
+@media only screen and (min-width: 900px) {
+  .avatar-container2 {
+    width: 590px;
+  }
+  .avatar-container3 {
+    margin-left:100px;
+    width: 350px;
+  }
+}
 .dev-content {
   background-color: #fcf8ea;
   border: 4px solid rgba(255, 255, 255, 0.1);
@@ -350,6 +365,7 @@ code {
   .avatar-container3 {
     width: 100%;
     height: 500px;
+    margin-left:0px;
   }
 }
 
