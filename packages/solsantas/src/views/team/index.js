@@ -20,19 +20,6 @@ export default function Team() {
       >
         The Team
       </Typography>
-      <Typography
-        marginTop={3}
-        sx={{
-          fontFamily: "Montserrat",
-          fontWeight: "normal",
-          fontSize: "20px",
-          color: "#FFFFFF",
-          textAlign:'center',
-          padding:'10px'
-        }}
-      >
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi tristique tincidunt nibh et dignissim.
-      </Typography>
       <Grid container >
         <Grid container justifyContent="center" className="team-content">
           <Grid item md={4}>

@@ -1,22 +1,15 @@
-import React, { useState, useLayoutEffect } from "react";
-// import {
-//   Navbar as Navigation,
-//   Container,
-//   Nav,
-//   NavDropdown,
-// } from "react-bootstrap";
-import { CssBaseline, makeStyles } from "@material-ui/core";
+import React, { useLayoutEffect } from "react";
+
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
-import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Menu, MenuList, MenuItem, Link, Grid } from "@mui/material";
+import { Menu, MenuItem, Link, Grid } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTwitter, faDiscord } from "@fortawesome/free-brands-svg-icons";
-
+// import "~@fortawesome/fontawesome-free/css/brands.css";
 import {
   WalletMultiButton,
   WalletDisconnectButton,
@@ -24,18 +17,17 @@ import {
 import { useWallet } from "@solana/wallet-adapter-react";
 
 import {
-  CandyMachine,
-  awaitTransactionSignatureConfirmation,
-  getCandyMachineState,
-  mintOneToken,
   shortenAddress,
 } from "../../utils/candymachine";
 
-import { useLocation, Link as LinkIn } from "react-router-dom";
+import {Link as LinkIn } from "react-router-dom";
 import "./navbar.css";
-
+// import { IconProp } from "@fortawesome/fontawesome-svg-core";
+// const faTwitterProp = faTwitter as IconProp;
+// const faDiscordProp = faDiscord as IconProp;
+// fontawesome.library.add(faTwitter as IconDefinition);
 function Navbar() {
-  const location = useLocation();
+  // const location = useLocation();
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: any) => {
@@ -88,8 +80,8 @@ function Navbar() {
             <Toolbar>
               <Grid container justifyContent="center" spacing={10}>
                 <Grid item>
-                  <LinkIn 
-                  to="#works"
+                  <LinkIn
+                    to="#works"
                     style={{
                       color: "white",
                       fontFamily: "Montserrat",
@@ -137,7 +129,7 @@ function Navbar() {
                   </Link>
                 </Grid>
                 <Grid item>
-                  <Link
+                  <a href="https://discord.gg/KCWNttjGs4"
                     style={{
                       color: "white",
                       fontFamily: "Montserrat",
@@ -149,14 +141,29 @@ function Navbar() {
                       cursor: "pointer",
                     }}
                   >
-                    Mint
-                  </Link>
+                  <FontAwesomeIcon icon={faDiscord}></FontAwesomeIcon>
+                  </a>
                 </Grid>
+                {/* <Grid item>
+                  <LinkIn to=""
+                    style={{
+                      color: "white",
+                      fontFamily: "Montserrat",
+                      fontWeight: "600",
+                      fontSize: "34px",
+                      textAlign: "center",
+                      textDecoration: "none",
+                      lineHeight: "41px",
+                      cursor: "pointer",
+                    }}
+                  >
+                  <FontAwesomeIcon icon={faTwitter}></FontAwesomeIcon>
+                  </LinkIn>
+                </Grid> */}
               </Grid>
             </Toolbar>
+           
           </div>
-          <FontAwesomeIcon icon={["fab", "twitter"]} />
-          <FontAwesomeIcon icon={["fab", "discord"]} />
           {!wallet.connected ? (
             <WalletMultiButton
               style={{ marginRight: "30px" }}

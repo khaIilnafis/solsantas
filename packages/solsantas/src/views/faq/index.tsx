@@ -30,7 +30,7 @@ export default function FAQ() {
       </Grid>
       <Accordion expanded={expanded === 'panel1'} onChange={handleChange('panel1')}>
         <AccordionSummary aria-controls="panel1d-content" id="panel1d-header">
-          <Typography sx={{ width: '33%', flexShrink: 0 }}>How much is mint?</Typography>
+          <Typography sx={{ width: '100%', flexShrink: 0 }}>How much is mint?</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
@@ -40,7 +40,7 @@ export default function FAQ() {
       </Accordion>
       <Accordion expanded={expanded === 'panel2'} onChange={handleChange('panel2')}>
         <AccordionSummary aria-controls="panel2d-content" id="panel2d-header">
-          <Typography sx={{ width: '33%', flexShrink: 0 }}>What is the timeline for the project?</Typography>
+          <Typography sx={{ width: '100%', flexShrink: 0 }}>What is the timeline for the project?</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
@@ -55,7 +55,7 @@ export default function FAQ() {
       </Accordion>
       <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
         <AccordionSummary aria-controls="panel3d-content" id="panel3d-header">
-          <Typography sx={{ width: '33%', flexShrink: 0 }}>What gifts can I deposit into the token vault?</Typography>
+          <Typography sx={{ width: '100%', flexShrink: 0 }}>What gifts can I deposit into the token vault?</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
@@ -65,7 +65,7 @@ export default function FAQ() {
       </Accordion>
       <Accordion expanded={expanded === 'panel4'} onChange={handleChange('panel4')}>
         <AccordionSummary aria-controls="panel4d-content" id="panel4d-header">
-          <Typography sx={{ width: '33%', flexShrink: 0 }}>How will participants be matched?</Typography>
+          <Typography sx={{ width: '100%', flexShrink: 0 }}>How will participants be matched?</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
@@ -75,7 +75,7 @@ export default function FAQ() {
       </Accordion>
       <Accordion expanded={expanded === 'panel5'} onChange={handleChange('panel5')}>
         <AccordionSummary aria-controls="panel5d-content" id="panel5d-header">
-          <Typography sx={{ width: '33%', flexShrink: 0 }}>What gifts can I deposit into the token vault?</Typography>
+          <Typography sx={{ width: '100%', flexShrink: 0 }}>What gifts can I deposit into the token vault?</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
@@ -85,7 +85,7 @@ export default function FAQ() {
       </Accordion>
       <Accordion expanded={expanded === 'panel6'} onChange={handleChange('panel6')}>
         <AccordionSummary aria-controls="panel6d-content" id="panel6d-header">
-          <Typography sx={{ width: '33%', flexShrink: 0 }}>What charitable cause will the proceeds go towards?</Typography>
+          <Typography sx={{ width: '100%', flexShrink: 0 }}>What charitable cause will the proceeds go towards?</Typography>
         </AccordionSummary>
         <AccordionDetails>
           <Typography>
