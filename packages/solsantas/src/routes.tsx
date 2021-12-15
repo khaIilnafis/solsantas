@@ -12,7 +12,7 @@ import { MarketProvider } from "./contexts/market";
 import { AppLayout } from "./components/Layout";
 
 import { HomeView } from "./views";
-import {TreeView} from "./views/tree/index.js";
+import TreeView from "./views/tree/index";
 
 import {
   getLedgerWallet,

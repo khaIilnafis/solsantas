@@ -78,7 +78,7 @@ function Navbar() {
               <Grid container justifyContent="center" spacing={10}>
                 <Grid item>
                   <a
-                    href="#works"
+                    href="/#works"
                     style={{
                       color: "white",
                       fontFamily: "Montserrat",
@@ -94,7 +94,7 @@ function Navbar() {
                   </a>
                 </Grid>
                 <Grid item>
-                  <a href="#team"
+                  <a href="/#team"
                     style={{
                       color: "white",
                       fontFamily: "Montserrat",
@@ -110,7 +110,7 @@ function Navbar() {
                   </a>
                 </Grid>
                 <Grid item>
-                  <a href="#faq"
+                  <a href="/#faq"
                     style={{
                       color: "white",
                       fontFamily: "Montserrat",
