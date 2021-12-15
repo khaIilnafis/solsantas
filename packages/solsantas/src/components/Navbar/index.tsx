@@ -6,7 +6,7 @@ import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
-import { Menu, MenuItem, Link, Grid } from "@mui/material";
+import { Menu, MenuItem, Grid } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDiscord } from "@fortawesome/free-brands-svg-icons";
 
@@ -77,8 +77,8 @@ function Navbar() {
             <Toolbar>
               <Grid container justifyContent="center" spacing={10}>
                 <Grid item>
-                  <LinkIn
-                    to="#works"
+                  <a
+                    href="#works"
                     style={{
                       color: "white",
                       fontFamily: "Montserrat",
@@ -91,10 +91,10 @@ function Navbar() {
                     }}
                   >
                     How it works
-                  </LinkIn>
+                  </a>
                 </Grid>
                 <Grid item>
-                  <LinkIn to="#team"
+                  <a href="#team"
                     style={{
                       color: "white",
                       fontFamily: "Montserrat",
@@ -107,10 +107,10 @@ function Navbar() {
                     }}
                   >
                     The Team
-                  </LinkIn>
+                  </a>
                 </Grid>
                 <Grid item>
-                  <Link
+                  <a href="#faq"
                     style={{
                       color: "white",
                       fontFamily: "Montserrat",
@@ -123,7 +123,7 @@ function Navbar() {
                     }}
                   >
                     FAQ
-                  </Link>
+                  </a>
                 </Grid>
                 <Grid item>
                   <a href="https://discord.gg/KCWNttjGs4"
@@ -168,16 +168,16 @@ function Navbar() {
               </IconButton>
               <Menu open={open} onClose={handleClose} anchorEl={anchorEl}>
                 <MenuItem onClick={handleClose}>
-                  <LinkIn to="/">How it works</LinkIn>
+                  <a href="/#how">How it works</a>
                 </MenuItem>
                 {wallet.connected ? <MenuItem onClick={handleClose}>
                   <LinkIn to="/tree">My Tree</LinkIn>
                 </MenuItem> : <span></span>}
                 <MenuItem onClick={handleClose}>
-                  <LinkIn to="/">The Team</LinkIn>
+                  <a href="/#team">The Team</a>
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
-                  <LinkIn to="/">FAQ</LinkIn>
+                  <a href="/#faq">FAQ</a>
                 </MenuItem>
               </Menu>
             </Toolbar>
