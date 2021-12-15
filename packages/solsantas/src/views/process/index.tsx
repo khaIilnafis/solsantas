@@ -45,25 +45,7 @@ export default function Process() {
                         fontFamily: "Montserrat",
                       }}
                     >
-                      Mint Secret Santa on <br /> SOL Token for 0.02SOL
-                    </Typography>
-                  </Grid>
-                  <Grid container marginTop={1} justifyContent="center">
-                    <Typography
-                      sx={{
-                        textAlign: "center",
-                        width: "220px",
-                        fontSize: "17px",
-                        lineHeight: "24px",
-                        fontFamily: "Montserrat",
-                        marginTop: "10px",
-                      }}
-                    >
-                      Lorem ipsum dolor sit
-                      <br /> amet, consectetur
-                      <br /> adipiscing elit. Morbi <br />
-                      tristique tincidunt nibh
-                      <br /> et dignissim.{" "}
+                      Mint a Secret Santa Token to participate.
                     </Typography>
                   </Grid>
                 </Box>
@@ -99,25 +81,7 @@ export default function Process() {
                         fontFamily: "Montserrat",
                       }}
                     >
-                      Mint Secret Santa on <br /> SOL Token for 0.02SOL
-                    </Typography>
-                  </Grid>
-                  <Grid container marginTop={1} justifyContent="center">
-                    <Typography
-                      sx={{
-                        textAlign: "center",
-                        width: "220px",
-                        fontSize: "17px",
-                        lineHeight: "24px",
-                        fontFamily: "Montserrat",
-                        marginTop: "10px",
-                      }}
-                    >
-                      Lorem ipsum dolor sit
-                      <br /> amet, consectetur
-                      <br /> adipiscing elit. Morbi <br />
-                      tristique tincidunt nibh
-                      <br /> et dignissim.{" "}
+                      Token holders can deposit gifts into the token vault. Eligible gifts can be Lamports or any valid SPL token.
                     </Typography>
                   </Grid>
                 </Box>
@@ -153,25 +117,7 @@ export default function Process() {
                         fontFamily: "Montserrat",
                       }}
                     >
-                      Mint Secret Santa on <br /> SOL Token for 0.02SOL
-                    </Typography>
-                  </Grid>
-                  <Grid container marginTop={1} justifyContent="center">
-                    <Typography
-                      sx={{
-                        textAlign: "center",
-                        width: "220px",
-                        fontSize: "17px",
-                        lineHeight: "24px",
-                        fontFamily: "Montserrat",
-                        marginTop: "10px",
-                      }}
-                    >
-                      Lorem ipsum dolor sit
-                      <br /> amet, consectetur
-                      <br /> adipiscing elit. Morbi <br />
-                      tristique tincidunt nibh
-                      <br /> et dignissim.{" "}
+                     Token holders will be matched with other participants.
                     </Typography>
                   </Grid>
                 </Box>
@@ -207,25 +153,7 @@ export default function Process() {
                         fontFamily: "Montserrat",
                       }}
                     >
-                      Mint Secret Santa on <br /> SOL Token for 0.02SOL
-                    </Typography>
-                  </Grid>
-                  <Grid container marginTop={1} justifyContent="center">
-                    <Typography
-                      sx={{
-                        textAlign: "center",
-                        width: "220px",
-                        fontSize: "17px",
-                        lineHeight: "24px",
-                        fontFamily: "Montserrat",
-                        marginTop: "10px",
-                      }}
-                    >
-                      Lorem ipsum dolor sit
-                      <br /> amet, consectetur
-                      <br /> adipiscing elit. Morbi <br />
-                      tristique tincidunt nibh
-                      <br /> et dignissim.{" "}
+                      Participants can open their token vault to receive their gift.
                     </Typography>
                   </Grid>
                 </Box>
@@ -261,25 +189,7 @@ export default function Process() {
                         fontFamily: "Montserrat",
                       }}
                     >
-                      Mint Secret Santa on <br /> SOL Token for 0.02SOL
-                    </Typography>
-                  </Grid>
-                  <Grid container marginTop={1} justifyContent="center">
-                    <Typography
-                      sx={{
-                        textAlign: "center",
-                        width: "220px",
-                        fontSize: "17px",
-                        lineHeight: "24px",
-                        fontFamily: "Montserrat",
-                        marginTop: "10px",
-                      }}
-                    >
-                      Lorem ipsum dolor sit
-                      <br /> amet, consectetur
-                      <br /> adipiscing elit. Morbi <br />
-                      tristique tincidunt nibh
-                      <br /> et dignissim.{" "}
+                      All proceeds will go to Beauty 2 the Streetz organization. Visit FAQs for more information.
                     </Typography>
                   </Grid>
                 </Box>

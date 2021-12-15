@@ -226,13 +226,13 @@ code {
   background-image: url("./assets/images/colored-bg1.png");
   background-repeat: round;
   width: 100%;
-  height: 1750px;
+  height: 1650px;
   margin-top: -340px;
   padding-top: 300px;
 }
 @media only screen and (max-width: 859px) {
   .works-container {
-    height: 2600px;
+    height: 2200px;
     padding-top: 500px;
     margin-top: -500px;
   }
@@ -243,7 +243,7 @@ code {
   }
   .works-container {
     background-image: url("./assets/images/colored-bg1-mobile.png");
-    height: 2700px;
+    height: 2100px;
     padding-top: 200px;
     margin-top: -200px;
   }
