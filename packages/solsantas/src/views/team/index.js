@@ -6,7 +6,7 @@ import { Typography } from "@mui/material";
 
 export default function Team() {
   return (
-    <div justifyContent="center" className="team-container" id="team">
+    <div className="team-container" id="team">
       <Typography
         sx={{
           fontFamily: "Montserrat",
@@ -70,7 +70,7 @@ export default function Team() {
           <Grid item md={4}>
           <div className="avatar-container2" >
             <div className="dev-content" >
-              <Avatar alt="Khalil" src="/images/allan.png" sx={{ width: 131, height: 131,margin:' auto', marginTop: '-70px' }}></Avatar>
+              <Avatar alt="Allan" src="/images/allan.png" sx={{ width: 131, height: 131,margin:' auto', marginTop: '-70px' }}></Avatar>
               <Grid container justifyContent="center">
                 <Typography
                   sx={{
@@ -117,7 +117,7 @@ export default function Team() {
           <Grid item md={4}>
           <div className="avatar-container3" >
             <div className="dev-content" >
-                <Avatar alt="Khalil" src="/images/dre.png" sx={{ width: 131, height: 131,margin:' auto', marginTop: '-70px' }}></Avatar>
+                <Avatar alt="Dre" src="/images/dre.png" sx={{ width: 131, height: 131,margin:' auto', marginTop: '-70px' }}></Avatar>
                 <Grid container justifyContent="center">
                   <Typography
                     sx={{

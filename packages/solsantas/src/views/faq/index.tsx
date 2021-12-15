@@ -40,14 +40,12 @@ export default function FAQ() {
             <Typography sx={{ width: '100%', flexShrink: 0 }}>What is the timeline for the project?</Typography>
           </AccordionSummary>
           <AccordionDetails>
-            <Typography>
               <ul>
                 <li>12/13-12/17 Secret Santa Tokens are open to mint.</li>
                 <li>12/18-12/24 Token holders can deposit gifts into the token vault.</li>
                 <li>12/24 Token holders are matched with one another.</li>
                 <li>12/25 Token holders can open their gifts!</li>
               </ul>
-            </Typography>
           </AccordionDetails>
         </Accordion>
         <Accordion expanded={expanded === 'panel3'} onChange={handleChange('panel3')}>
