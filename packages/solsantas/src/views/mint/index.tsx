@@ -16,17 +16,17 @@ import * as anchor from "@project-serum/anchor";
 import { LAMPORTS_PER_SOL } from "@solana/web3.js";
 
 import { useAnchorWallet, useWallet } from "@solana/wallet-adapter-react";
-import {
-  WalletMultiButton,
-  WalletDisconnectButton,
-} from "@solana/wallet-adapter-react-ui";
+// import {
+//   WalletMultiButton,
+//   WalletDisconnectButton,
+// } from "@solana/wallet-adapter-react-ui";
 
 import {
   CandyMachine,
   awaitTransactionSignatureConfirmation,
   getCandyMachineState,
   mintOneToken,
-  shortenAddress,
+  // shortenAddress,
 } from "../../utils/candymachine";
 // import {DateCountdown} from 'react-date-countdown-timer';
 import "./mint.css"

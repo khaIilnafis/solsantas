@@ -1,7 +1,7 @@
 import React from 'react'
 import { Container, Typography, Grid } from '@mui/material'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTwitter, faDiscord } from "@fortawesome/free-brands-svg-icons";
+import { faDiscord } from "@fortawesome/free-brands-svg-icons";
 const styles = {
     footer: {
         marginTop: 'calc(5% + 60px)',

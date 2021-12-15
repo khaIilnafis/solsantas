@@ -8,8 +8,8 @@ import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import { Menu, MenuItem, Link, Grid } from "@mui/material";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTwitter, faDiscord } from "@fortawesome/free-brands-svg-icons";
-// import "~@fortawesome/fontawesome-free/css/brands.css";
+import { faDiscord } from "@fortawesome/free-brands-svg-icons";
+
 import {
   WalletMultiButton,
   WalletDisconnectButton,
@@ -20,12 +20,9 @@ import {
   shortenAddress,
 } from "../../utils/candymachine";
 
-import {Link as LinkIn } from "react-router-dom";
+import { Link as LinkIn } from "react-router-dom";
 import "./navbar.css";
-// import { IconProp } from "@fortawesome/fontawesome-svg-core";
-// const faTwitterProp = faTwitter as IconProp;
-// const faDiscordProp = faDiscord as IconProp;
-// fontawesome.library.add(faTwitter as IconDefinition);
+
 function Navbar() {
   // const location = useLocation();
   const [anchorEl, setAnchorEl] = React.useState(null);
@@ -141,28 +138,12 @@ function Navbar() {
                       cursor: "pointer",
                     }}
                   >
-                  <FontAwesomeIcon icon={faDiscord}></FontAwesomeIcon>
+                    <FontAwesomeIcon icon={faDiscord}></FontAwesomeIcon>
                   </a>
                 </Grid>
-                {/* <Grid item>
-                  <LinkIn to=""
-                    style={{
-                      color: "white",
-                      fontFamily: "Montserrat",
-                      fontWeight: "600",
-                      fontSize: "34px",
-                      textAlign: "center",
-                      textDecoration: "none",
-                      lineHeight: "41px",
-                      cursor: "pointer",
-                    }}
-                  >
-                  <FontAwesomeIcon icon={faTwitter}></FontAwesomeIcon>
-                  </LinkIn>
-                </Grid> */}
               </Grid>
             </Toolbar>
-           
+
           </div>
           {!wallet.connected ? (
             <WalletMultiButton
@@ -197,9 +178,6 @@ function Navbar() {
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
                   <LinkIn to="/">FAQ</LinkIn>
-                </MenuItem>
-                <MenuItem onClick={handleClose}>
-                  <LinkIn to="/">Mint</LinkIn>
                 </MenuItem>
               </Menu>
             </Toolbar>

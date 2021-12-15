@@ -1,7 +1,5 @@
 import * as React from "react";
-import { createTheme, Grid, ThemeProvider, Box } from '@mui/material';
-import { styled } from '@mui/material/styles';
-import Button from '@mui/material/Button';
+import { createTheme, Grid, Box } from '@mui/material';
 import { Typography } from "@mui/material";
 
 require('./hero.css')

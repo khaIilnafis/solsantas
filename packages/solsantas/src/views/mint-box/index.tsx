@@ -4,7 +4,6 @@ import Grid from "@mui/material/Grid";
 import Box from "@mui/material/Box";
 import { Typography } from "@mui/material";
 import { useConnection } from "@solana/wallet-adapter-react";
-import Button from "@mui/material/Button";
 import Mint from "../mint";
 import Countdown from "react-countdown";
 // import "./mint.css";

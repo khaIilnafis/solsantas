@@ -1,10 +1,8 @@
 import * as React from "react";
-import * as anchor from "@project-serum/anchor";
 import Grid from "@mui/material/Grid";
-import Box from "@mui/material/Box";
 import Link from '@mui/material/Link'
 import Avatar from "@mui/material/Avatar";
-import { autocompleteClasses, Typography } from "@mui/material";
+import { Typography } from "@mui/material";
 
 export default function Team() {
   return (
