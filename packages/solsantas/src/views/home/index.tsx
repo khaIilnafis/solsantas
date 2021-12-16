@@ -4,7 +4,6 @@ import MintBox from "../mint-box";
 import Process from "../process";
 import Team from "../team";
 import FAQ from "../faq";
-import Footer from "../footer";
 import "./home.css";
 
 export const HomeView = () => {
@@ -20,7 +19,7 @@ export const HomeView = () => {
           <Process></Process>
           <Team></Team>
           <FAQ></FAQ>
-          <Footer></Footer>
+          {/* <Footer></Footer> */}
         </Grid>
       </Grid>
     </Container>

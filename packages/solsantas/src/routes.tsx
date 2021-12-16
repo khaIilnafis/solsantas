@@ -12,8 +12,8 @@ import { MarketProvider } from "./contexts/market";
 import { AppLayout } from "./components/Layout";
 
 import { HomeView } from "./views";
-import TreeView from "./views/tree/index";
-
+import TreeView from "./views/tree";
+import Footer from "./views/footer"
 import {
   getLedgerWallet,
   getMathWallet,
@@ -50,6 +50,7 @@ export function AppRoutes() {
                     <Route path="/" element={<HomeView />} />
                     <Route path="/tree" element={<TreeView />} />
                   </Routes>
+                  <Footer></Footer>
                 </AppLayout>
               </MarketProvider>
             </WalletModalProvider>
