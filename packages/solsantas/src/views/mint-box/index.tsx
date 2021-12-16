@@ -204,7 +204,7 @@ function MintBox() {
             <Grid container justifyContent="center" alignItems="center">
               <div className="mint-time">
                 <Countdown
-                  date={Date.parse("17 Dec 2021 16:00:00 EST") + 159800}
+                  date={Date.parse("18 Dec 2021 16:00:00 EST") + 159800}
                   renderer={countDownRenderer}
                 ></Countdown>
               </div>
