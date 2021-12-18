@@ -173,6 +173,11 @@ function MintBox() {
       className="mint-window-top"
     >
       <Grid item xs={12} md={6} lg={6} marginBottom={5}>
+      {/* <div className="floor-watchers-presents">
+          <Grid container justifyContent="center" style={{ margin: "auto" }}>
+            <p className="floor-watchers-presents-text">Floor Watchers Society Presents</p>
+          </Grid>
+        </div> */}
         <div className="mint-greeting-con">
           <Grid container justifyContent="center" style={{ margin: "auto" }}>
             <p className="mint-greeting-head">Secret Santas on Solana</p>
@@ -180,7 +185,7 @@ function MintBox() {
           <Grid container style={{ margin: "auto" }}>
             <Box marginLeft={"auto"} marginRight={"auto"}>
               <p className="mint-greeting-content">
-              Support charity and exchange tokens with the Solana Community!
+                Support charity and exchange tokens with the Solana Community!
               </p>
             </Box>
           </Grid>
@@ -204,7 +209,7 @@ function MintBox() {
             <Grid container justifyContent="center" alignItems="center">
               <div className="mint-time">
                 <Countdown
-                  date={Date.parse("18 Dec 2021 16:00:00 EST") + 159800}
+                  date={Date.parse("23 Dec 2021 16:00:00 EST") + 159800}
                   renderer={countDownRenderer}
                 ></Countdown>
               </div>
