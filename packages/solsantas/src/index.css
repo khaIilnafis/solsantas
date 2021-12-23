@@ -111,6 +111,32 @@ code {
   float: left;
   margin-top: 30px;
 }
+
+.floor-watchers-presents{
+  background-image: url("./assets/images/Rectangle\ 13.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 100px;
+  width: 590px;
+}
+.floor-watchers-presents-text{
+  line-height: 100px;
+  font-family: Montserrat;
+  font-size: 26px;
+}
+
+@media only screen and (max-width: 1177px) {
+  .floor-watchers-presents{
+    display: none;
+    /* width: 590px; */
+  }
+  .floor-watchers-presents-text{
+    line-height: 100px;
+    font-family: Montserrat;
+    font-size: 26px;
+  }
+}
+
 .image-container {
   background-image: url("./assets/images/colored-bg.png");
   background-repeat: round;
