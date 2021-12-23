@@ -169,27 +169,40 @@ function MintBox() {
     <Grid
       container
       justifyContent="center"
-      sx={{ marginTop: "120px" }}
+      sx={{ marginTop: "60px" }}
       className="mint-window-top"
     >
+
       <Grid item xs={12} md={6} lg={6} marginBottom={5}>
-      {/* <div className="floor-watchers-presents">
+        <Grid container justifyContent="center" style={{ margin: "auto" }}>
+          <div className="floor-watchers-presents">
+            <Grid container justifyContent="center" style={{ margin: "auto" }}>
+              <p className="floor-watchers-presents-text">Floor Watchers Society Presents</p>
+            </Grid>
+          </div>
+        </Grid>
+        <Grid container justifyContent="center" style={{ margin: "auto" }}>
+          <Grid item>
+            {/* <div className="floor-watchers-presents">
           <Grid container justifyContent="center" style={{ margin: "auto" }}>
             <p className="floor-watchers-presents-text">Floor Watchers Society Presents</p>
           </Grid>
         </div> */}
-        <div className="mint-greeting-con">
-          <Grid container justifyContent="center" style={{ margin: "auto" }}>
-            <p className="mint-greeting-head">Secret Santas on Solana</p>
+            <div className="mint-greeting-con">
+              <Grid container justifyContent="center" style={{ margin: "auto" }}>
+                <p className="mint-greeting-head">Secret Santas on Solana</p>
+              </Grid>
+              <Grid container style={{ margin: "auto" }}>
+                <Box marginLeft={"auto"} marginRight={"auto"}>
+                  <p className="mint-greeting-content">
+                    Support charity and exchange tokens with the Solana Community!
+                  </p>
+                </Box>
+              </Grid>
+            </div>
           </Grid>
-          <Grid container style={{ margin: "auto" }}>
-            <Box marginLeft={"auto"} marginRight={"auto"}>
-              <p className="mint-greeting-content">
-                Support charity and exchange tokens with the Solana Community!
-              </p>
-            </Box>
-          </Grid>
-        </div>
+        </Grid>
+
       </Grid>
       <Grid item xs={12} md={6} lg={6}>
         <div className={"image-container"}>
@@ -209,7 +222,7 @@ function MintBox() {
             <Grid container justifyContent="center" alignItems="center">
               <div className="mint-time">
                 <Countdown
-                  date={Date.parse("23 Dec 2021 16:00:00 EST") + 159800}
+                  date={Date.parse("23 Dec 2021 22:00:00 EST") + 159800}
                   renderer={countDownRenderer}
                 ></Countdown>
               </div>
