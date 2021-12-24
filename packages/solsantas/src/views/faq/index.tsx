@@ -14,12 +14,13 @@ export default function FAQ() {
   return (
     <Container id="faq">
       <ThemeProvider theme={darkTheme}>
-        <Grid container marginTop={5}>
+        <Grid container marginTop={3} marginBottom={5}>
           <Grid container justifyContent="center">
             <Typography sx={{
               fontFamily: 'Montserrat',
               fontWeight: '600',
-              fontSize: '42px'
+              fontSize: '42px',
+              color: '#01FFA3'
             }}>
               FAQ
             </Typography>
@@ -91,7 +92,6 @@ export default function FAQ() {
             </Typography>
           </AccordionDetails>
         </Accordion>
-
       </ThemeProvider>
     </Container>
   )

@@ -59,10 +59,13 @@ export default function TreeView() {
 				{allFetchedNFTs ?
 					<ImageList sx={{ width: 'auto', height: 'auto' }} cols={4}>
 						{allFetchedNFTs.map((nft) => (
+							<a href="#" style={{textDecoration: 'none'}}>
 							<ImageListItem key={nft.metadataOnchain.mint}>
 								<img
-									src={`${nft.metadataExternal.image}`}
-									srcSet={`${nft.metadataExternal.image}?w=164&h=164&fit=crop&auto=format&dpr=2 2x`}
+								height="75px"
+								width="75px"
+									src={`${nft.metadataExternal.image}?w=75&h=75&fit=crop&auto=format&dpr=2 2x`}
+									srcSet={`${nft.metadataExternal.image}?w=75&h=75&fit=crop&auto=format&dpr=2 2x`}
 									alt={nft.metadataOnchain.data.name}
 									loading="lazy"
 								/>
@@ -80,6 +83,7 @@ export default function TreeView() {
 									actionPosition="right">
 								</ImageListItemBar>
 							</ImageListItem>
+							</a>
 						))}
 					</ImageList>
 					:

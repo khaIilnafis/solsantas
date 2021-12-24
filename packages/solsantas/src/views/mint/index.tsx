@@ -251,12 +251,4 @@ interface AlertState {
   severity: "success" | "info" | "warning" | "error" | undefined;
 }
 
-const renderCounter = ({ days, hours, minutes, seconds, completed }: any) => {
-  return (
-    <CounterText>
-      {hours + (days || 0) * 24} hours, {minutes} minutes, {seconds} seconds
-    </CounterText>
-  );
-};
-
 export default Mint;

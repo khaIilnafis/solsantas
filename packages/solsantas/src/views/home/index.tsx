@@ -8,11 +8,11 @@ import "./home.css";
 
 export const HomeView = () => {
   return (
-    <Container className="hello" style={{ padding: "0px" }}>
+    <Container className="hello" style={{ padding: "0px"}}>
       <Grid
         container
         justifyContent="center"
-        style={{ width: "100%!important", paddingLeft: "0px!important" }}
+        style={{ width: "100%!important"}}
       >
         <Grid item>
           <MintBox></MintBox>
