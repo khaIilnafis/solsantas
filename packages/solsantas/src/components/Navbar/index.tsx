@@ -126,6 +126,22 @@ function Navbar() {
                   </a>
                 </Grid>
                 <Grid item>
+                  <a href="/tree"
+                    style={{
+                      color: "white",
+                      fontFamily: "Montserrat",
+                      fontWeight: "600",
+                      fontSize: "34px",
+                      textAlign: "center",
+                      textDecoration: "none",
+                      lineHeight: "41px",
+                      cursor: "pointer",
+                    }}
+                  >
+                   {wallet.connected? 'Tree' : (<span></span>)}
+                  </a>
+                </Grid>
+                <Grid item>
                   <a href="https://discord.gg/WVs3wbRvch"
                     style={{
                       color: "white",

@@ -30,7 +30,7 @@ import { faSleigh } from "@fortawesome/free-solid-svg-icons";
 export default function TreeView() {
 	const { publicKey, sendTransaction } = useWallet();
 	const connection = useConnection()
-
+	const wallet = useWallet();
 	// this is what's shown on FE
 	const [allFetchedNFTs, setAllFetchedNFTs] = useState<INFT[]>(); // this is everything fetched in mem
 	const fetchNFTs = (params: INFTParams) => {
@@ -84,8 +84,15 @@ export default function TreeView() {
 					</ImageList>
 					:
 					<Box sx={{ width: '100%' }}>
-						<Typography variant='h3' sx={{textAlign:"center"}}> Fetching NFTs! </Typography>
-						<LinearProgress></LinearProgress>
+						{wallet.connected ? (
+							<div>
+								<Typography variant='h3' sx={{ textAlign: "center" }}>Fetching NFTS</Typography>
+								<LinearProgress></LinearProgress>
+							</div>
+							):
+							<div>
+								<Typography variant='h3' sx={{ textAlign: "center" }}>Connect Wallet</Typography>
+							</div>}
 					</Box>
 				}
 			</Grid>
