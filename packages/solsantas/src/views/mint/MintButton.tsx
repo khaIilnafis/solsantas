@@ -38,11 +38,11 @@ export const MintButton = ({
   }, [gatewayStatus, clicked, setClicked, onMint]);
   return (
     <CTAButton
-      // disabled={
-      //   candyMachine?.state.isSoldOut ||
-      //   isMinting ||
-      //   !candyMachine?.state.isActive
-      // }
+      disabled={
+        candyMachine?.state.isSoldOut ||
+        isMinting ||
+        !candyMachine?.state.isActive
+      }
       onClick={async () => {
         setClicked(true);
         if (candyMachine?.state.isActive && candyMachine?.state.gatekeeper) {
