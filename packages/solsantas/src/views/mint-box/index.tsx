@@ -6,7 +6,7 @@ import { Typography } from "@mui/material";
 import { useConnection } from "@solana/wallet-adapter-react";
 import Mint from "../mint";
 import Countdown from "react-countdown";
-// import "./mint.css";
+
 const treasury = new anchor.web3.PublicKey(
   process.env.REACT_APP_TREASURY_ADDRESS!
 );
@@ -44,131 +44,121 @@ function MintBox() {
       // Render a countdown
       return (
         <Box
-        sx={{
-              margin: "auto",
-              backgroundColor: "#FCF8EA",
-              width: "90%",
-              borderRadius: "11px",
-              marginBottom: "20px",
-            }}>
-          <Typography variant="h1"> </Typography>
+          sx={{
+            margin: "auto",
+            backgroundColor: "#FCF8EA",
+            width: "90%",
+            borderRadius: "11px",
+            marginBottom: "20px",
+          }}
+        >
+          <Grid container justifyContent="center">
+            <Grid
+              item
+              xs={3}
+              md={3}
+              sx={{
+                background:
+                  "url(/images/santa-mint-box-line.png) right no-repeat",
+              }}
+            >
+              <Grid container justifyContent="center">
+                <Box>
+                  <Typography
+                    sx={{
+                      fontFamily: "Montserrat",
+                      fontWeight: "700",
+                      fontSize: "28px",
+                    }}
+                  >
+                    {days}
+                  </Typography>
+                </Box>
+              </Grid>
+              <Grid container justifyContent="center">
+                <Box>
+                  <p className="time-unit">Days</p>
+                </Box>
+              </Grid>
+            </Grid>
+            <Grid
+              item
+              xs={3}
+              md={3}
+              sx={{
+                background:
+                  "url(/images/santa-mint-box-line.png) right no-repeat",
+              }}
+            >
+              <Grid container justifyContent="center">
+                <Box>
+                  <Typography
+                    sx={{
+                      fontFamily: "Montserrat",
+                      fontWeight: "700",
+                      fontSize: "28px",
+                    }}
+                  >
+                    {hours}
+                  </Typography>
+                </Box>
+              </Grid>
+              <Grid container justifyContent="center">
+                <Box>
+                  <p className="time-unit">Hours</p>
+                </Box>
+              </Grid>
+            </Grid>
+            <Grid
+              item
+              xs={3}
+              md={3}
+              sx={{
+                background:
+                  "url(/images/santa-mint-box-line.png) right no-repeat",
+              }}
+            >
+              <Grid container justifyContent="center">
+                <Box>
+                  <Typography
+                    sx={{
+                      fontFamily: "Montserrat",
+                      fontWeight: "700",
+                      fontSize: "28px",
+                    }}
+                  >
+                    {minutes}
+                  </Typography>
+                </Box>
+              </Grid>
+              <Grid container justifyContent="center">
+                <Box>
+                  <p className="time-unit">Minutes</p>
+                </Box>
+              </Grid>
+            </Grid>
+            <Grid item xs={3} md={3}>
+              <Grid container justifyContent="center">
+                <Box>
+                  <Typography
+                    sx={{
+                      fontFamily: "Montserrat",
+                      fontWeight: "700",
+                      fontSize: "28px",
+                    }}
+                  >
+                    {seconds}
+                  </Typography>
+                </Box>
+              </Grid>
+              <Grid container justifyContent="center">
+                <Box>
+                  <p className="time-unit">Seconds</p>
+                </Box>
+              </Grid>
+            </Grid>
+          </Grid>
         </Box>
-        // <Box
-        //   sx={{
-        //     margin: "auto",
-        //     backgroundColor: "#FCF8EA",
-        //     width: "90%",
-        //     borderRadius: "11px",
-        //     marginBottom: "20px",
-        //   }}
-        // >
-        //   <Grid container justifyContent="center">
-        //     <Grid
-        //       item
-        //       xs={3}
-        //       md={3}
-        //       sx={{
-        //         background:
-        //           "url(/images/santa-mint-box-line.png) right no-repeat",
-        //       }}
-        //     >
-        //       <Grid container justifyContent="center">
-        //         <Box>
-        //           <Typography
-        //             sx={{
-        //               fontFamily: "Montserrat",
-        //               fontWeight: "700",
-        //               fontSize: "28px",
-        //             }}
-        //           >
-        //             {days}
-        //           </Typography>
-        //         </Box>
-        //       </Grid>
-        //       <Grid container justifyContent="center">
-        //         <Box>
-        //           <p className="time-unit">Days</p>
-        //         </Box>
-        //       </Grid>
-        //     </Grid>
-        //     <Grid
-        //       item
-        //       xs={3}
-        //       md={3}
-        //       sx={{
-        //         background:
-        //           "url(/images/santa-mint-box-line.png) right no-repeat",
-        //       }}
-        //     >
-        //       <Grid container justifyContent="center">
-        //         <Box>
-        //           <Typography
-        //             sx={{
-        //               fontFamily: "Montserrat",
-        //               fontWeight: "700",
-        //               fontSize: "28px",
-        //             }}
-        //           >
-        //             {hours}
-        //           </Typography>
-        //         </Box>
-        //       </Grid>
-        //       <Grid container justifyContent="center">
-        //         <Box>
-        //           <p className="time-unit">Hours</p>
-        //         </Box>
-        //       </Grid>
-        //     </Grid>
-        //     <Grid
-        //       item
-        //       xs={3}
-        //       md={3}
-        //       sx={{
-        //         background:
-        //           "url(/images/santa-mint-box-line.png) right no-repeat",
-        //       }}
-        //     >
-        //       <Grid container justifyContent="center">
-        //         <Box>
-        //           <Typography
-        //             sx={{
-        //               fontFamily: "Montserrat",
-        //               fontWeight: "700",
-        //               fontSize: "28px",
-        //             }}
-        //           >
-        //             {minutes}
-        //           </Typography>
-        //         </Box>
-        //       </Grid>
-        //       <Grid container justifyContent="center">
-        //         <Box>
-        //           <p className="time-unit">Minutes</p>
-        //         </Box>
-        //       </Grid>
-        //     </Grid>
-        //     <Grid item xs={3} md={3}>
-        //       <Grid container justifyContent="center">
-        //         <Box>
-        //           <Typography
-        //             sx={{
-        //               fontFamily: "Montserrat",
-        //               fontWeight: "700",
-        //               fontSize: "28px",
-        //             }}
-        //           >
-        //             {seconds}
-        //           </Typography>
-        //         </Box>
-        //       </Grid>
-        //       <Grid container justifyContent="center">
-        //         <Box>
-        //           <p className="time-unit">Seconds</p>
-        //         </Box>
-        //       </Grid>
-        //     </Grid>
-        //   </Grid>
-        // </Box>
       );
     }
   };
@@ -236,12 +226,15 @@ function MintBox() {
               {/* <Typography>Please check discord for details!</Typography> */}
             </Grid>
             <Grid container justifyContent="center" alignItems="center">
+              <Grid item>
+
               <div className="mint-time">
                 <Countdown
-                  date={Date.parse("25 Dec 2021 22:00:00 EST") + 159800}
+                  date={Date.parse("25 Dec 2021 17:00:00 EST") + 159800}
                   renderer={countDownRenderer}
                 ></Countdown>
               </div>
+              </Grid>
             </Grid>
           </Box>
         </div>

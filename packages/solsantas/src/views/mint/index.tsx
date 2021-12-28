@@ -24,12 +24,12 @@ import {
   // shortenAddress,
 } from "../../utils/candy-machine";
 // import {DateCountdown} from 'react-date-countdown-timer';
-import "./mint.css"
+// import "./mint.css"
 
 // const Countdown = DateCountdown()
-const CounterText = styled.span``; // add your styles here
+// const CounterText = styled.span``; // add your styles here
 
-const MintContainer = styled.div``; // add your styles here
+// const MintContainer = styled.div``; // add your styles here
 
 // const MintButton = styled(Button)({
 //   borderRadius: '60px',
@@ -68,8 +68,6 @@ const Mint = (props: MintProps) => {
   });
 
   const [startDate, setStartDate] = useState(new Date(props.startDate));
-
-  // const anchorWallet = useAnchorWallet();
  
   const wallet = useWallet();
   const anchorWallet = useMemo(() => {
@@ -192,8 +190,7 @@ const Mint = (props: MintProps) => {
     props.connection,
   ]);
   return (
-    <main>
-      <MintContainer>
+    <Grid item>
         {candyMachine?.state.isActive &&
           candyMachine?.state.gatekeeper &&
           wallet.publicKey &&
@@ -228,7 +225,6 @@ const Mint = (props: MintProps) => {
             onMint={onMint}
           />
        )}
-      </MintContainer>
       <Snackbar
         open={alertState.open}
         autoHideDuration={6000}
@@ -241,7 +237,7 @@ const Mint = (props: MintProps) => {
           {alertState.message}
         </Alert>
       </Snackbar>
-    </main>
+    </Grid>
   );
 };
 
@@ -250,13 +246,5 @@ interface AlertState {
   message: string;
   severity: "success" | "info" | "warning" | "error" | undefined;
 }
-
-const renderCounter = ({ days, hours, minutes, seconds, completed }: any) => {
-  return (
-    <CounterText>
-      {hours + (days || 0) * 24} hours, {minutes} minutes, {seconds} seconds
-    </CounterText>
-  );
-};
 
 export default Mint;
