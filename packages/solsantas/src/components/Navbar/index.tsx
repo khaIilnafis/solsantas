@@ -126,7 +126,7 @@ function Navbar() {
                   </a>
                 </Grid>
                 <Grid item>
-                  <a href="https://discord.gg/KCWNttjGs4"
+                  <a href="https://discord.gg/WVs3wbRvch"
                     style={{
                       color: "white",
                       fontFamily: "Montserrat",
@@ -154,7 +154,7 @@ function Navbar() {
           )}
           <div className="navbar-row">
             <Toolbar style={{ marginLeft: "30px", padding: "0px" }}>
-              <IconButton
+              {/* <IconButton
                 size="large"
                 edge="start"
                 color="inherit"
@@ -165,7 +165,7 @@ function Navbar() {
                 onClick={handleClick}
               >
                 <MenuIcon style={{ width: "40px", height: "40px" }} />
-              </IconButton>
+              </IconButton> */}
               <Menu open={open} onClose={handleClose} anchorEl={anchorEl}>
                 <MenuItem onClick={handleClose}>
                   <a href="/#how">How it works</a>

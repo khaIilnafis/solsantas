@@ -224,8 +224,8 @@ function MintBox() {
               alignItems="center"
               marginBottom={3}
             >
-              <Typography variant="h4">Mint has been postponed</Typography>              
-              {/* <p className="mint-word">Mint In</p> */}
+              {/* <Typography variant="h4">Mint has been postponed</Typography>               */}
+              <p className="mint-word">Mint</p>
             </Grid>
             <Grid
               container
@@ -233,7 +233,7 @@ function MintBox() {
               alignItems="center"
               marginBottom={3}
             >
-              <Typography>Please check discord for details!</Typography>
+              {/* <Typography>Please check discord for details!</Typography> */}
             </Grid>
             <Grid container justifyContent="center" alignItems="center">
               <div className="mint-time">
