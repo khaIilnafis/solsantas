@@ -4,7 +4,7 @@ cd ~/solsantas/packages/solsantas
 
 git pull origin dev
 
-npm install
-npm run build
+node /home/circleci/.nvm/versions/node/v17.2.0/lib/node_modules/npm/ install
+node /home/circleci/.nvm/versions/node/v17.2.0/lib/node_modules/npm/ run build
 
 cp -r build/* /var/www/dev.solsantas.xyz/html/
