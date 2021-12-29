@@ -31,7 +31,7 @@ export default function FAQ() {
           </AccordionSummary>
           <AccordionDetails>
             <Typography>
-              The Secret Santa Token will be 0.02 SOL to mint.
+              The Secret Santa Token will be 0.033 SOL to mint.
             </Typography>
           </AccordionDetails>
         </Accordion>
@@ -41,10 +41,9 @@ export default function FAQ() {
           </AccordionSummary>
           <AccordionDetails>
               <ul>
-                <li>12/13-12/17 Secret Santa Tokens are open to mint.</li>
-                <li>12/18-12/24 Token holders can deposit gifts into the token vault.</li>
-                <li>12/24 Token holders are matched with one another.</li>
-                <li>12/25 Token holders can open their gifts!</li>
+                <li>12/28 - Secret Santa Tokens are open to mint.</li>
+                <li>12/31 - Token are matched with one another. </li>
+                <li>12/31 - Token holders can deposit NFT gifts and initiate the exchange.</li>
               </ul>
           </AccordionDetails>
         </Accordion>
