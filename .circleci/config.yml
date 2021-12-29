@@ -10,7 +10,7 @@ jobs:
       - run: ssh -oStrictHostKeyChecking=no -v $USER@$IP "./solsantas/.circleci/deploy.sh"
   build-dev:
     docker:
-      - image: arvindr226/alpine-ssh
+      - image: node:latest
     steps:
       - checkout
       - run: apt-get update && apt-get install -y node
