@@ -24,7 +24,7 @@ workflows:
           filters:
             branches:
               only:
-                - main
+                - master
       - build-dev:
           filters:
               branches:
