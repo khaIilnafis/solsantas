@@ -68,16 +68,6 @@ export default function FAQ() {
             </Typography>
           </AccordionDetails>
         </Accordion>
-        <Accordion expanded={expanded === 'panel5'} onChange={handleChange('panel5')}>
-          <AccordionSummary aria-controls="panel5d-content" id="panel5d-header">
-            <Typography sx={{ width: '100%', flexShrink: 0 }}>What gifts can I deposit into the token vault?</Typography>
-          </AccordionSummary>
-          <AccordionDetails>
-            <Typography>
-              Gifts can be Lamports or any valid SPL token. Spread holiday cheer and be generous!
-            </Typography>
-          </AccordionDetails>
-        </Accordion>
         <Accordion expanded={expanded === 'panel6'} onChange={handleChange('panel6')}>
           <AccordionSummary aria-controls="panel6d-content" id="panel6d-header">
             <Typography sx={{ width: '100%', flexShrink: 0 }}>What charitable cause will the proceeds go towards?</Typography>
