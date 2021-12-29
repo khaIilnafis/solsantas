@@ -5,6 +5,7 @@ import { CandyMachineAccount } from '../../utils/candy-machine';
 import { CircularProgress } from '@material-ui/core';
 import { GatewayStatus, useGateway } from '@civic/solana-gateway-react';
 import { useEffect, useState } from 'react';
+import { useAnchorWallet, useWallet } from "@solana/wallet-adapter-react";
 
 export const CTAButton = styled(Button)`
   width: 100%;
@@ -29,6 +30,8 @@ export const MintButton = ({
   const { requestGatewayToken, gatewayStatus } = useGateway();
   const [clicked, setClicked] = useState(false);
 
+  const wallet = useWallet();
+
   useEffect(() => {
     if (gatewayStatus === GatewayStatus.ACTIVE && clicked) {
       console.log('Minting');
@@ -39,6 +42,7 @@ export const MintButton = ({
   return (
     <CTAButton
       disabled={
+        !wallet.connected || 
         candyMachine?.state.isSoldOut ||
         isMinting ||
         !candyMachine?.state.isActive
@@ -63,7 +67,7 @@ export const MintButton = ({
       ) : isMinting ? (
         <CircularProgress />
       ) : (
-        'MINT'
+      !wallet.connected? 'Please Connect Wallet' : 'MINT'
       )}
     </CTAButton>
   );

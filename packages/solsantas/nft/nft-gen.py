@@ -22,7 +22,7 @@ metadata = {"name": "Secret Santas on Solana #0",
                 "category": "image",
                 "creators": [
                     {
-                        "address": "74oMvuZctGXRcTXptBAjhgzA7VJFjY7w5Fp3CYgysWA3",
+                        "address": "AHbBtMjw4aeEDfUetWLfXV6EDaE5p6VuAv1zgiWNMhiS",
                         "share": 100
                     }
                 ]
@@ -32,7 +32,7 @@ metadata = {"name": "Secret Santas on Solana #0",
 def iterate_metadata(iteration):
     new_metadata = metadata
     new_metadata['name'] = new_metadata['name'].replace(
-        new_metadata['name'], f'Secret Santas on Sol #{str(iteration)}', 1)
+        new_metadata['name'], f'Secret Santas on Solana #{str(iteration +1)}', 1)
     new_metadata['image'] = f'{iteration}.gif'
     return new_metadata
 

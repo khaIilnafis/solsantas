@@ -36,12 +36,17 @@ export function AppRoutes() {
     ],
     []
   );
-  const network = WalletAdapterNetwork.Devnet;
+  const net = process.env.REACT_APP_SOLANA_NETWORK!
+  let network = WalletAdapterNetwork.Devnet;
+  if(net === 'mainnet-beta'){
+    network = WalletAdapterNetwork.Mainnet;
+  }
+  // const network = WalletAdapterNetwork[net];
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
   return (
     <BrowserRouter basename={"/"}>
       <ConnectionProvider endpoint={endpoint}>
-        <WalletProvider wallets={wallets}>
+        <WalletProvider wallets={wallets} autoConnect>
           <AccountsProvider>
             <WalletModalProvider>
               <MarketProvider>

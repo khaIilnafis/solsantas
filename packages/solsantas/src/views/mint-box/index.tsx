@@ -6,7 +6,7 @@ import { Typography } from "@mui/material";
 import { useConnection } from "@solana/wallet-adapter-react";
 import Mint from "../mint";
 import Countdown from "react-countdown";
-// import "./mint.css";
+
 const treasury = new anchor.web3.PublicKey(
   process.env.REACT_APP_TREASURY_ADDRESS!
 );
@@ -214,15 +214,27 @@ function MintBox() {
               alignItems="center"
               marginBottom={3}
             >
+              {/* <Typography variant="h4">Mint has been postponed</Typography>               */}
               <p className="mint-word">Mint</p>
             </Grid>
+            <Grid
+              container
+              justifyContent="center"
+              alignItems="center"
+              marginBottom={3}
+            >
+              {/* <Typography>Please check discord for details!</Typography> */}
+            </Grid>
             <Grid container justifyContent="center" alignItems="center">
+              <Grid item>
+
               <div className="mint-time">
                 <Countdown
-                  date={Date.parse("11 Dec 2021 22:00:00 EST") + 159800}
+                  date={Date.parse("25 Dec 2021 17:00:00 EST") + 159800}
                   renderer={countDownRenderer}
                 ></Countdown>
               </div>
+              </Grid>
             </Grid>
           </Box>
         </div>

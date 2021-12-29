@@ -19,7 +19,6 @@ export const HomeView = () => {
           <Process></Process>
           <Team></Team>
           <FAQ></FAQ>
-          {/* <Footer></Footer> */}
         </Grid>
       </Grid>
     </Container>
