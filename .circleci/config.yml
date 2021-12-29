@@ -13,8 +13,8 @@ jobs:
       - image: arvindr226/alpine-ssh
     steps:
       - checkout
-      - run: RUN apt-get update && apt-get install -y node
-      - run: RUN npm install -g npm
+      - run: apt-get update && apt-get install -y node
+      - run: npm install -g npm
       - run: ssh -oStrictHostKeyChecking=no -v $USER@$IP "./solsantas/.circleci/deploy-dev.sh"
 
 # Orchestrate our job run sequence
