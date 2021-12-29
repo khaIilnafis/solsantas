@@ -3,9 +3,7 @@ cp ~/.env.development ~/solsantas/packages/solsantas/.env
 cd ~/solsantas/packages/solsantas
 
 git pull origin dev
-export PATH=~/.npm-global/bin:$PATH
-npm install -g npm
-source ~/.profile
+
 npm install
 npm run build
 
