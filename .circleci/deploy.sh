@@ -1,5 +1,5 @@
 #!/bin/bash
-
+cp .env ~/solsantas/packages/solsantas/.env
 cd ~/solsantas/packages/solsantas
 
 git pull origin main
