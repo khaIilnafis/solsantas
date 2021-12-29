@@ -43,7 +43,7 @@ export default function FAQ() {
           <AccordionDetails>
               <ul>
                 <li>12/28 - Secret Santa Tokens are open to mint.</li>
-                <li>12/31 - Token are matched with one another. </li>
+                <li>12/31 - Token holders are matched with one another. </li>
                 <li>12/31 - Token holders can deposit NFT gifts and initiate the exchange.</li>
               </ul>
           </AccordionDetails>
