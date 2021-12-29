@@ -4,7 +4,7 @@ version: 2.1
 jobs:
   pull-and-build:
     docker:
-      - image: arvindr226/alpine-ssh
+      - image: rastasheep/ubuntu-sshd
     steps:
       - checkout
       - run: ssh -oStrictHostKeyChecking=no -v $USER@$IP "./solsantas/.circleci/deploy.sh"
