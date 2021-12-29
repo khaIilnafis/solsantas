@@ -13,7 +13,6 @@ jobs:
       - image: node:latest
     steps:
       - checkout
-      - run: apt-get update && apt-get install -y node
       - run: npm install -g npm
       - run: ssh -oStrictHostKeyChecking=no -v $USER@$IP "./solsantas/.circleci/deploy-dev.sh"
 
