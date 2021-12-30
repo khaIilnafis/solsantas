@@ -256,6 +256,7 @@ function wrapNativeAccount(
      // @ts-ignore 
       amount: new u64(account.lamports),
       delegate: null,
+      // @ts-ignore 
       delegatedAmount: new u64(0),
       isInitialized: true,
       isFrozen: false,
