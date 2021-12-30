@@ -13,6 +13,8 @@ jobs:
   build-dev:
     docker:
       - image: node:latest
+    environment:
+          CI: false
     steps:
       - checkout
       - run: apt-get update && apt-get -y install rsync
