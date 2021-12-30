@@ -12,7 +12,7 @@ export const Settings = () => {
       <div style={{ display: "grid" }}>
         Network:{" "}
         <Select
-          onSelect={setEndpoint}
+          onSelect={()=>setEndpoint}
           value={endpoint}
           style={{ marginBottom: 20 }}
         >
