@@ -14,9 +14,8 @@ jobs:
     steps:
       - checkout
       - run: apt-get update && apt-get -y install rsync
-      - run: cd ./packages/solsantas/
-      - run: npm install
-      - run: npm run build
+      - run: cd ./packages/solsantas/ && npm install
+      - run: cd ./packages/solsantas/ && npm run build
       - run: rsync -va ./packages/solsantas/build/ $USER@$IP:/var/www/dev.solsantas.xyz/html/
 
 # Orchestrate our job run sequence
