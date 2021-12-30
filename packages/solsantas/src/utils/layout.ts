@@ -1,6 +1,6 @@
 import { PublicKey } from "@solana/web3.js";
 import * as BufferLayout from "buffer-layout";
-const BN = require("bn.js");
+import BN from 'bn.js'
 
 /**
  * Layout for a public key

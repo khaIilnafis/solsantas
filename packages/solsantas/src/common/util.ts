@@ -2,7 +2,7 @@
 
 import { PublicKey } from '@solana/web3.js';
 import fs from 'fs';
-const BN = require('bn.js')
+import BN from 'bn.js'
 
 export function getEnumKeyByEnumValue(myEnum: any, enumValue: any) {
   const keys = Object.keys(myEnum).filter((x) => myEnum[x] == enumValue);
