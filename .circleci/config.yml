@@ -33,6 +33,10 @@ jobs:
       - run: cd ./packages/solsantas/ && npm install
       - run: cd ./packages/solsantas/ && npm run build
       - run: rsync -e "ssh -o StrictHostKeyChecking=no" -va ./packages/solsantas/build/ $USER@$IP:/var/www/dev.solsantas.xyz/html/
+      - discord/status:
+          fail_only: false
+          # mentions: 'Nafis#1303,solfist3r#4247'
+          only_for_branches: 'dev,master'
 
 # Orchestrate our job run sequence
 workflows:
