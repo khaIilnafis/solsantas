@@ -2,6 +2,7 @@
 
 import { PublicKey } from '@solana/web3.js';
 import fs from 'fs';
+// @ts-ignore
 import BN from 'bn.js';
 
 export function getEnumKeyByEnumValue(myEnum: any, enumValue: any) {
