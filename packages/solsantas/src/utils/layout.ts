@@ -1,6 +1,6 @@
 import { PublicKey } from "@solana/web3.js";
-import BN from "bn.js";
 import * as BufferLayout from "buffer-layout";
+const BN = require("bn.js");
 
 /**
  * Layout for a public key
@@ -43,7 +43,7 @@ export const uint64 = (property = "uint64"): unknown => {
     );
   };
 
-  layout.encode = (num: BN, buffer: Buffer, offset: number) => {
+  layout.encode = (num: any, buffer: Buffer, offset: number) => {
     const a = num.toArray().reverse();
     let b = Buffer.from(a);
     if (b.length !== 8) {
@@ -75,7 +75,7 @@ export const uint128 = (property = "uint128"): unknown => {
     );
   };
 
-  layout.encode = (num: BN, buffer: Buffer, offset: number) => {
+  layout.encode = (num: any, buffer: Buffer, offset: number) => {
     const a = num.toArray().reverse();
     let b = Buffer.from(a);
     if (b.length !== 16) {
