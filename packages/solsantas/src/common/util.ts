@@ -2,7 +2,7 @@
 
 import { PublicKey } from '@solana/web3.js';
 import fs from 'fs';
-import BN from 'bn.js';
+const BN = require('bn.js')
 
 export function getEnumKeyByEnumValue(myEnum: any, enumValue: any) {
   const keys = Object.keys(myEnum).filter((x) => myEnum[x] == enumValue);
@@ -48,6 +48,7 @@ export function stringifyPubkeysAndBNsInObject(o: any): any {
     if (v instanceof PublicKey) {
       newO[k] = v.toBase58();
     } else if (v instanceof BN) {
+      // @ts-ignore 
       newO[k] = v.toString();
     } else if (parseType(v) === 'array') {
       newO[k] = stringifyPubkeysAndBNInArray(v as any);
