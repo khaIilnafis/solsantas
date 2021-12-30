@@ -5,6 +5,7 @@ packages/solsantas/nft/config.json
 packages/solsantas/nft/.DS_Store
 packages/solsantas/nft/devnet-temp.json
 packages/solsantas/nft/mainnet-beta-temp.json
+packages/solsantas/.DS_Store
 # Logs
 logs
 *.log
