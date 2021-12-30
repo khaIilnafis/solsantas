@@ -26,6 +26,7 @@ jobs:
     steps:
       - checkout
       - run: apt-get update && apt-get -y install rsync
+      - run: cd ./packages/solsantas/
       - run: cp .env.development .env
       - run: npm install
       - run: npm run build
