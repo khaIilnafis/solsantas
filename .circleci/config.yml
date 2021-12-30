@@ -7,10 +7,7 @@ jobs:
       - image: arvindr226/alpine-ssh
     environment:
           CI: false
-          REACT_APP_CANDY_MACHINE_ID: ExCUMgZXvEG22XhbkN1pTnPnzEi7NQoFrRNuTbExFy29
-          REACT_APP_SOLANA_RPC_HOST: https://explorer-api.devnet.solana.com
-          REACT_APP_SOLANA_NETWORK: devnet
-          REACT_APP_CANDY_START_DATE: 12/25/2021
+          NODE_ENV: production
     steps:
       - checkout
       - run: ssh -oStrictHostKeyChecking=no -v $USER@$IP "./solsantas/.circleci/deploy.sh"
@@ -19,10 +16,7 @@ jobs:
       - image: node:latest
     environment:
           CI: false
-          REACT_APP_CANDY_MACHINE_ID: ExCUMgZXvEG22XhbkN1pTnPnzEi7NQoFrRNuTbExFy29
-          REACT_APP_SOLANA_RPC_HOST: https://explorer-api.devnet.solana.com
-          REACT_APP_SOLANA_NETWORK: devnet
-          REACT_APP_CANDY_START_DATE: 12/25/2021
+          NODE_ENV: development
     steps:
       - checkout
       - run: apt-get update && apt-get -y install rsync
