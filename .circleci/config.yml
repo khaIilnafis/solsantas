@@ -5,6 +5,8 @@ jobs:
   pull-and-build:
     docker:
       - image: arvindr226/alpine-ssh
+    environment:
+          CI: false
     steps:
       - checkout
       - run: ssh -oStrictHostKeyChecking=no -v $USER@$IP "./solsantas/.circleci/deploy.sh"
@@ -16,8 +18,6 @@ jobs:
       - run: apt-get update && apt-get -y install rsync
       - run: cd ./packages/solsantas/ && npm install
       - run: cd ./packages/solsantas/ && npm run build
-        environment:
-          CI: false
       - run: rsync -va ./packages/solsantas/build/ $USER@$IP:/var/www/dev.solsantas.xyz/html/
 
 # Orchestrate our job run sequence
