@@ -253,6 +253,7 @@ function wrapNativeAccount(
       address: pubkey,
       mint: WRAPPED_SOL_MINT,
       owner: pubkey,
+     // @ts-ignore 
       amount: new u64(account.lamports),
       delegate: null,
       delegatedAmount: new u64(0),
