@@ -4,24 +4,31 @@ version: 2.1
 jobs:
   pull-and-build:
     docker:
-      - image: arvindr226/alpine-ssh
+      - image: node:latest
     environment:
           CI: false
           NODE_ENV: production
+    working_directory: ./packages/solsantas/
     steps:
       - checkout
-      - run: ssh -oStrictHostKeyChecking=no -v $USER@$IP "./solsantas/.circleci/deploy.sh"
+      - run: apt-get update && apt-get -y install rsync
+      - run: cp .env.development .env
+      - run: npm install
+      - run: npm run build
+      - run: rsync -e "ssh -o StrictHostKeyChecking=no" -va ./packages/solsantas/build/ $USER@$IP:/var/www/solsantas.xyz/html/
   build-dev:
     docker:
       - image: node:latest
     environment:
           CI: false
           NODE_ENV: development
+    working_directory: ./packages/solsantas/
     steps:
       - checkout
       - run: apt-get update && apt-get -y install rsync
-      - run: cd ./packages/solsantas/ && npm install
-      - run: cd ./packages/solsantas/ && npm run build
+      - run: cp .env.development .env
+      - run: npm install
+      - run: npm run build
       - run: rsync -e "ssh -o StrictHostKeyChecking=no" -va ./packages/solsantas/build/ $USER@$IP:/var/www/dev.solsantas.xyz/html/
 
 # Orchestrate our job run sequence
