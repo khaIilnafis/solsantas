@@ -8,13 +8,12 @@ jobs:
     environment:
           CI: false
           NODE_ENV: production
-    working_directory: ./packages/solsantas/
     steps:
       - checkout
       - run: apt-get update && apt-get -y install rsync
-      - run: cp .env.development .env
-      - run: npm install
-      - run: npm run build
+      - run: cd ./packages/solsantas/ && cp .env.production .env
+      - run: cd ./packages/solsantas/ && npm install
+      - run: cd ./packages/solsantas/ && npm run build
       - run: rsync -e "ssh -o StrictHostKeyChecking=no" -va ./packages/solsantas/build/ $USER@$IP:/var/www/solsantas.xyz/html/
   build-dev:
     docker:
