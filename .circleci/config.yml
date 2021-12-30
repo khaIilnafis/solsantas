@@ -13,7 +13,7 @@ jobs:
       - image: node:latest
     steps:
       - checkout
-      - run: apt-get update && sudo apt-get install rsync
+      - run: apt-get update && apt-get install rsync
       - run: npm install
       - run: npm run build
       - run: rsync -va ./packages/solsantas/build/ $USER@$IP:/var/www/dev.solsantas.xyz/html/
