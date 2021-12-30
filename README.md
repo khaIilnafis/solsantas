@@ -1,4 +1,4 @@
 # 🏗 Solana Santas
 Trigger-build-test
 
-- CI/CD Test
+[![CircleCI](https://circleci.com/gh/inafis/solsantas/tree/master.svg?style=svg)](https://circleci.com/gh/inafis/solsantas/tree/master)
