@@ -1,4 +1,10 @@
-<<<<<<< HEAD
+packages/solsantas/nft/assets/
+packages/solsantas/nft/SSoS_Coin_GIF.gif 
+packages/solsantas/nft/SSoS_Coin_MP4.mp4
+packages/solsantas/nft/config.json
+packages/solsantas/nft/.DS_Store
+packages/solsantas/nft/devnet-temp.json
+packages/solsantas/nft/mainnet-beta-temp.json
 # Logs
 logs
 *.log
@@ -126,9 +132,7 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
-=======
 node_modules
 npm-debug.log
 TODO
 build
->>>>>>> tmp

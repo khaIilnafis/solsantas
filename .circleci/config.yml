@@ -1,26 +1,49 @@
 version: 2.1
-
+orbs: 
+  discord: teka23/discord@0.0.1
 # Define the jobs we want to run for this project
 jobs:
-  pull-and-build:
+  build-prod:
     docker:
-      - image: arvindr226/alpine-ssh
+      - image: node:latest
+    environment:
+          CI: false
+          NODE_ENV: production
     steps:
       - checkout
-      - run: ssh -oStrictHostKeyChecking=no -v $USER@$IP "./deploy.sh"
+      - run: apt-get update && apt-get -y install rsync
+      - run: cd ./packages/solsantas/ && cp .env.production .env
+      - run: cd ./packages/solsantas/ && npm install
+      - run: cd ./packages/solsantas/ && npm run build
+      - run: rsync -e "ssh -o StrictHostKeyChecking=no" -va ./packages/solsantas/build/ $USER@$IP:/var/www/solsantas.xyz/html/
+      - discord/status:
+          fail_only: false
+          # mentions: 'Nafis#1303,solfist3r#4247'
+          only_for_branches: 'dev,master'
   build-dev:
     docker:
-      - image: arvindr226/alpine-ssh
+      - image: node:latest
+    environment:
+          CI: false
+          NODE_ENV: development
     steps:
       - checkout
-      - run: ssh -oStrictHostKeyChecking=no -v $USER@$IP "./deploy-dev.sh"
+      - run: apt-get update && apt-get -y install rsync
+      - run: cd ./packages/solsantas/ && cp .env.development .env
+      - run: cd ./packages/solsantas/ && npm install
+      - run: cd ./packages/solsantas/ && npm run build
+      - run: rsync -e "ssh -o StrictHostKeyChecking=no" -va ./packages/solsantas/build/ $USER@$IP:/var/www/dev.solsantas.xyz/html/
+      - discord/status:
+          fail_only: false
+          # mentions: 'Nafis#1303,solfist3r#4247'
+          only_for_branches: 'dev,master'
 
 # Orchestrate our job run sequence
 workflows:
   version: 2
   build-project:
     jobs:
-      - pull-and-build:
+      - build-prod:
           filters:
             branches:
               only:
