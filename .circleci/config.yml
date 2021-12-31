@@ -12,7 +12,7 @@ jobs:
     steps:
       - checkout
       - run: apt-get update && apt-get -y install rsync
-      - run: cp ./packages/solsantas/.env.production ./packages/solsantas/.env
+      - run: cp ./packages/solsantas/.env.production ./packages/solsantas/.env.production
       - run: cd ./packages/solsantas/ && npm install
       - run: cd ./packages/solsantas/ && npm run build
       - run: rsync -e "ssh -o StrictHostKeyChecking=no" -va ./packages/solsantas/build/ $USER@$IP:/var/www/solsantas.xyz/html/
