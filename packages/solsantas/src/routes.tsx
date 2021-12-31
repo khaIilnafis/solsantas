@@ -37,9 +37,11 @@ export function AppRoutes() {
     []
   );
   const net = process.env.REACT_APP_SOLANA_NETWORK!
-  let network = WalletAdapterNetwork.Devnet;
+  let network: any;
   if(net === 'mainnet-beta'){
     network = WalletAdapterNetwork.Mainnet;
+  }else{
+    network = WalletAdapterNetwork.Devnet;
   }
   console.log(network)
   // const network = WalletAdapterNetwork[net];
