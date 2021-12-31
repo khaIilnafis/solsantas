@@ -41,6 +41,7 @@ export function AppRoutes() {
   if(net === 'mainnet-beta'){
     network = WalletAdapterNetwork.Mainnet;
   }
+  console.log(network)
   // const network = WalletAdapterNetwork[net];
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
   return (
