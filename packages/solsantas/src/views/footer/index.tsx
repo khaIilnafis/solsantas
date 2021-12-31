@@ -13,7 +13,7 @@ export default function Footer() {
     <Container classes={styles.footer} sx={{marginTop:5}}>
       <Grid container justifyContent="center">
         <Grid item>
-          <a href="https://discord.gg/KCWNttjGs4"
+          <a href="https://discord.gg/WVs3wbRvch"
             style={{
               color: "white",
               fontFamily: "Montserrat",
