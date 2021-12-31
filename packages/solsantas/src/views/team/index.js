@@ -97,7 +97,7 @@ export default function Team() {
                 >Front End<br />Developer</Typography>
               </Grid>
               <Grid container justifyContent="center">
-              <Link href="https://twitter.com/khaiilnafis"
+              <Link href="https://twitter.com/solfist3r"
                 sx={{
                   fontFamily: 'Montserrat',
                   fontStyle: 'normal',
@@ -144,7 +144,7 @@ export default function Team() {
                   >Product Manager<br /> / Designer</Typography>
                 </Grid>
                 <Grid container justifyContent="center">
-                <Link href="https://twitter.com/khaiilnafis"
+                <Link href="https://twitter.com/DreLaSOL"
                   sx={{
                     fontFamily: 'Montserrat',
                     fontStyle: 'normal',
