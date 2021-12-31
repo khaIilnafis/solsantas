@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDiscord } from "@fortawesome/free-brands-svg-icons";
 const styles = {
   footer: {
-    marginTop: 'calc(5% + 60px)',
+    marginTop: 'calc(95% + 60px)',
     bottom: 0,
   }
 }
@@ -13,7 +13,7 @@ export default function Footer() {
     <Container classes={styles.footer} sx={{marginTop:5}}>
       <Grid container justifyContent="center">
         <Grid item>
-          <a href="https://discord.gg/KCWNttjGs4"
+          <a href="https://discord.gg/WVs3wbRvch"
             style={{
               color: "white",
               fontFamily: "Montserrat",
@@ -31,7 +31,6 @@ export default function Footer() {
       </Grid>
       <Grid container justifyContent="center" >
         <Typography>Copyright © 2021 Secret Santas on Sol</Typography>
-
       </Grid>
     </Container>
   )

@@ -6,6 +6,14 @@ packages/solsantas/nft/.DS_Store
 packages/solsantas/nft/devnet-temp.json
 packages/solsantas/nft/mainnet-beta-temp.json
 packages/solsantas/.DS_Store
+packages/solsantas/program/target/bpfel-unknown-unknown
+packages/solsantas/program/target/debug
+packages/solsantas/program/target/deploy
+packages/solsantas/program/target/release
+packages/solsantas/program/target/idl
+packages/solsantas/program/target/.rustc_info.json
+test-ledger/
+packages/.DS_Store
 # Logs
 logs
 *.log

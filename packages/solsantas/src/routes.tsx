@@ -37,11 +37,14 @@ export function AppRoutes() {
     []
   );
   const net = process.env.REACT_APP_SOLANA_NETWORK!
-  let network = WalletAdapterNetwork.Devnet;
+  let network: any;
+
   if(net === 'mainnet-beta'){
     network = WalletAdapterNetwork.Mainnet;
+  }else{
+    network = WalletAdapterNetwork.Devnet;
   }
-  // const network = WalletAdapterNetwork[net];
+  
   const endpoint = useMemo(() => clusterApiUrl(network), [network]);
   return (
     <BrowserRouter basename={"/"}>
