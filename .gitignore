@@ -1,3 +1,6 @@
+packages/solsantas/program/.DS_Store
+packages/solsantas/program/target/
+ packages/solsantas/program/tests/keypair.ts
 packages/solsantas/nft/assets/
 packages/solsantas/nft/SSoS_Coin_GIF.gif 
 packages/solsantas/nft/SSoS_Coin_MP4.mp4

@@ -3,8 +3,8 @@ import { useState } from 'react';
 import { Box, Grid } from "@material-ui/core";
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
-import { styled } from '@mui/system';
-import { INFT, INFTParams } from '../../common/types';
+// import { styled } from '@mui/system';
+import { INFT } from '../../common/types';
 
 const style = {
     position: 'absolute',
@@ -26,10 +26,14 @@ export interface ExchangeModalProps {
     handleOpen: Function,
     handleClose: any,
     nft: INFT | undefined,
+	initTx: Function
 
 }
 export default function ExchangeModal(props: ExchangeModalProps) {
-    console.log(props.nft)
+	const handleClick = (e:React.MouseEvent<HTMLButtonElement>, data:any) => {
+		props.initTx(data);
+	}
+	const [nft] = useState(props.nft);
     return (
         <div>
             <Modal
@@ -61,7 +65,7 @@ export default function ExchangeModal(props: ExchangeModalProps) {
                         </Grid>
                     </Grid>
                     <Grid container justifyContent="center">
-                        <Grid item xs={4}><Button sx={{ textAlign: 'center' }}>Initiate</Button></Grid>
+                        <Grid item xs={4}><Button sx={{ textAlign: 'center' }} onClick={(e)=> handleClick(e,props.nft)}>Initiate</Button></Grid>
                         <Grid item xs={4}><Button sx={{ textAlign: 'center' }}>Cancel</Button></Grid>
                         <Grid item xs={4}><Button sx={{ textAlign: 'center' }}>Exchange</Button></Grid>
                     </Grid>

@@ -5,7 +5,7 @@ anchor_escrow = "DM3FhshMv4p33HhiNMnM7ofgaJVNaibzbNZyUNT9whAt"
 url = "https://anchor.projectserum.com"
 
 [provider]
-cluster = "http://127.0.0.1:8899"
+cluster = "https://api.devnet.solana.com"
 wallet = "~/.config/solana/id.json"
 
 [scripts]

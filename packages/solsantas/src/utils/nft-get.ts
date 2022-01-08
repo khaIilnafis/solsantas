@@ -253,7 +253,7 @@ export async function NFTGet(
   }
 
   if (tokens.length === 0) {
-    throw 'Could not find NFTs';
+    throw new Error('Could not find NFTs');
   }
 
 //   EE.emit('loading', {

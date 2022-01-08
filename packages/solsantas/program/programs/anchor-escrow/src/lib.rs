@@ -8,7 +8,7 @@ declare_id!("DM3FhshMv4p33HhiNMnM7ofgaJVNaibzbNZyUNT9whAt");
 pub mod anchor_escrow {
     use super::*;
 
-    const ESCROW_PDA_SEED: &[u8] = b"escrow";
+    const ESCROW_PDA_PREFIX: &str = "escrow-";
 
     pub fn initialize(
         ctx: Context<Initialize>,
@@ -34,8 +34,11 @@ pub mod anchor_escrow {
         ctx.accounts.escrow_account.initializer_amount = initializer_amount;
         ctx.accounts.escrow_account.taker_amount = taker_amount;
 
+		let mut seed = String::from(ESCROW_PDA_PREFIX);
+		seed.push_str(&ctx.accounts.initializer.key.to_string()[0..5]);
+
         let (vault_authority, _vault_authority_bump) =
-            Pubkey::find_program_address(&[ESCROW_PDA_SEED], ctx.program_id);
+            Pubkey::find_program_address(&[seed.as_bytes()], ctx.program_id);
         token::set_authority(
             ctx.accounts.into_set_authority_context(),
             AuthorityType::AccountOwner,
@@ -51,9 +54,11 @@ pub mod anchor_escrow {
     }
 
     pub fn cancel(ctx: Context<Cancel>) -> ProgramResult {
+		let mut seed = String::from(ESCROW_PDA_PREFIX);
+		seed.push_str(&ctx.accounts.initializer.key.to_string()[0..5]);
         let (_vault_authority, vault_authority_bump) =
-            Pubkey::find_program_address(&[ESCROW_PDA_SEED], ctx.program_id);
-        let authority_seeds = &[&ESCROW_PDA_SEED[..], &[vault_authority_bump]];
+            Pubkey::find_program_address(&[seed.as_bytes()], ctx.program_id);
+        let authority_seeds = &[seed.as_bytes(),&[vault_authority_bump]];
 
         token::transfer(
             ctx.accounts
@@ -72,9 +77,11 @@ pub mod anchor_escrow {
     }
 
     pub fn exchange(ctx: Context<Exchange>) -> ProgramResult {
+		let mut seed = String::from(ESCROW_PDA_PREFIX);
+		seed.push_str(&ctx.accounts.initializer.key.to_string()[0..5]);
         let (_vault_authority, vault_authority_bump) =
-            Pubkey::find_program_address(&[ESCROW_PDA_SEED], ctx.program_id);
-        let authority_seeds = &[&ESCROW_PDA_SEED[..], &[vault_authority_bump]];
+            Pubkey::find_program_address(&[seed.as_bytes()], ctx.program_id);
+        let authority_seeds = &[&seed.as_bytes()[..], &[vault_authority_bump]];
 
         token::transfer(
             ctx.accounts.into_transfer_to_initializer_context(),
@@ -106,7 +113,7 @@ pub struct Initialize<'info> {
     pub mint: Account<'info, Mint>,
     #[account(
         init,
-        seeds = [b"token-seed".as_ref()],
+        seeds = [b"token-seed".as_ref(), initializer.key.to_string()[0..5].as_bytes()],
         bump = vault_account_bump,
         payer = initializer,
         token::mint = mint,

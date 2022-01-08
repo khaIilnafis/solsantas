@@ -14,7 +14,7 @@ export interface ConnectButtonProps
 export const ConnectButton = (props: ConnectButtonProps) => {
   const { setVisible } = useWalletModal();
 
-  const { connected, connect, select, wallet, wallets } = useWallet();
+  const { connected, connect, select, wallets, wallet} = useWallet();
   const { onClick, children, disabled, allowWalletChange, ...rest } = props;
 
   const handleChangeWalletButtonClick: React.MouseEventHandler<HTMLElement> = useCallback(
@@ -32,8 +32,8 @@ export const ConnectButton = (props: ConnectButtonProps) => {
   const menu = (
     <Menu>
       {wallets.map((wallet) => (
-        <Menu.Item key={wallet.name} onClick={() => select(wallet.name)}>
-          Change Wallet to {wallet.name}
+        <Menu.Item key={wallet.adapter.name} onClick={() => select(wallet.adapter.name)}>
+          Change Wallet to {wallet.adapter.name}
         </Menu.Item>
       ))}
     </Menu>
