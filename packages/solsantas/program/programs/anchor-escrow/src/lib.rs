@@ -35,7 +35,7 @@ pub mod anchor_escrow {
         ctx.accounts.escrow_account.taker_amount = taker_amount;
 
 		let mut seed = String::from(ESCROW_PDA_PREFIX);
-		seed.push_str(&ctx.accounts.initializer.key.to_string()[0..5]);
+		seed.push_str(&ctx.accounts.initializer_deposit_token_account.key().to_string()[0..5]);
 
         let (vault_authority, _vault_authority_bump) =
             Pubkey::find_program_address(&[seed.as_bytes()], ctx.program_id);
@@ -55,10 +55,10 @@ pub mod anchor_escrow {
 
     pub fn cancel(ctx: Context<Cancel>) -> ProgramResult {
 		let mut seed = String::from(ESCROW_PDA_PREFIX);
-		seed.push_str(&ctx.accounts.initializer.key.to_string()[0..5]);
+		seed.push_str(&ctx.accounts.initializer_deposit_token_account.key().to_string()[0..5]);
         let (_vault_authority, vault_authority_bump) =
             Pubkey::find_program_address(&[seed.as_bytes()], ctx.program_id);
-        let authority_seeds = &[seed.as_bytes(),&[vault_authority_bump]];
+        let authority_seeds = &[&seed.as_bytes()[..],&[vault_authority_bump]];
 
         token::transfer(
             ctx.accounts
@@ -78,7 +78,7 @@ pub mod anchor_escrow {
 
     pub fn exchange(ctx: Context<Exchange>) -> ProgramResult {
 		let mut seed = String::from(ESCROW_PDA_PREFIX);
-		seed.push_str(&ctx.accounts.initializer.key.to_string()[0..5]);
+		seed.push_str(&ctx.accounts.initializer_deposit_token_account.key().to_string()[0..5]);
         let (_vault_authority, vault_authority_bump) =
             Pubkey::find_program_address(&[seed.as_bytes()], ctx.program_id);
         let authority_seeds = &[&seed.as_bytes()[..], &[vault_authority_bump]];
@@ -113,7 +113,7 @@ pub struct Initialize<'info> {
     pub mint: Account<'info, Mint>,
     #[account(
         init,
-        seeds = [b"token-seed".as_ref(), initializer.key.to_string()[0..5].as_bytes()],
+        seeds = [b"token-seed".as_ref(), initializer_deposit_token_account.key().to_string()[0..5].as_bytes()],
         bump = vault_account_bump,
         payer = initializer,
         token::mint = mint,

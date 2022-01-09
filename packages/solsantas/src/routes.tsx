@@ -27,7 +27,6 @@ import { clusterApiUrl } from "@solana/web3.js";
 require("@solana/wallet-adapter-react-ui/styles.css");
 export function AppRoutes() {
 	const net = process.env.REACT_APP_SOLANA_NETWORK!
-	console.log(net)
 	let network: any;
 
 	if (net === 'mainnet-beta') {
@@ -49,11 +48,11 @@ export function AppRoutes() {
 		[network]
 	);
 
-	const endpoint = useMemo(() => clusterApiUrl(network), [network]);
+	const endpoint = 'https://psytrbhymqlkfrhudd.dev.genesysgo.net:8899/';
 	return (
 		<BrowserRouter basename={"/"}>
 			<ConnectionProvider endpoint={endpoint}>
-				<WalletProvider wallets={wallets}>
+				<WalletProvider wallets={wallets} autoConnect>
 					<AccountsProvider>
 						<WalletModalProvider>
 							<MarketProvider>

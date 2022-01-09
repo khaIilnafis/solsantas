@@ -8,7 +8,9 @@ import {
   Transaction,
   Connection,
   Commitment,
+  Signer,
 } from "@solana/web3.js";
+import {sendSignedTransaction} from "./connection"
 import { TOKEN_PROGRAM_ID, Token } from "@solana/spl-token";
 import { assert } from "chai";
 import { keypair } from "./keypair";
@@ -133,7 +135,7 @@ describe("anchor-escrow", () => {
   it("Initialize escrow", async () => {
     const [_vault_account_pda, _vault_account_bump] =
       await PublicKey.findProgramAddress(
-        [Buffer.from(anchor.utils.bytes.utf8.encode(`token-seed`)),Buffer.from(anchor.utils.bytes.utf8.encode(initializerMainAccount.publicKey.toBase58().slice(0,5)))],
+        [Buffer.from(anchor.utils.bytes.utf8.encode(`token-seed`)),Buffer.from(anchor.utils.bytes.utf8.encode(initializerTokenAccountA.toBase58().slice(0,5)))],
         program.programId
       );
     vault_account_pda = _vault_account_pda;
@@ -141,7 +143,7 @@ describe("anchor-escrow", () => {
 
     const [_vault_authority_pda, _vault_authority_bump] =
       await PublicKey.findProgramAddress(
-        [Buffer.from(anchor.utils.bytes.utf8.encode(`escrow-${initializerMainAccount.publicKey.toBase58().slice(0,5)}`))],
+        [Buffer.from(anchor.utils.bytes.utf8.encode(`escrow-${initializerTokenAccountA.toBase58().slice(0,5)}`))],
         program.programId
       );
     vault_authority_pda = _vault_authority_pda;
@@ -174,7 +176,7 @@ describe("anchor-escrow", () => {
     let _escrowAccount = await program.account.escrowAccount.fetch(
       escrowAccount.publicKey
     );
-
+	console.log(_escrowAccount);
     // Check that the new owner is the PDA.
     assert.ok(_vault.owner.equals(vault_authority_pda));
 
@@ -234,13 +236,13 @@ describe("anchor-escrow", () => {
       initializerTokenAccountA,
       mintAuthority.publicKey,
       [mintAuthority],
-      initializerAmount
+      1
     );
 
     await program.rpc.initialize(
       vault_account_bump,
-      new anchor.BN(initializerAmount),
-      new anchor.BN(takerAmount),
+      new anchor.BN(1),
+      new anchor.BN(1),
       {
         accounts: {
           initializer: initializerMainAccount.publicKey,
@@ -261,7 +263,7 @@ describe("anchor-escrow", () => {
     );
 
     // Cancel the escrow.
-    await program.rpc.cancel({
+    const cancelTx = await program.transaction.cancel({
       accounts: {
         initializer: initializerMainAccount.publicKey,
         initializerDepositTokenAccount: initializerTokenAccountA,
@@ -270,9 +272,16 @@ describe("anchor-escrow", () => {
         escrowAccount: escrowAccount.publicKey,
         tokenProgram: TOKEN_PROGRAM_ID,
       },
-      signers: [initializerMainAccount],
     });
-
+	cancelTx.recentBlockhash = (
+		await connection.getRecentBlockhash("max")
+	).blockhash;
+	cancelTx.feePayer = initializerMainAccount.publicKey;
+	console.log(cancelTx)
+	const mainWallet = new NodeWallet(initializerMainAccount)
+	await mainWallet.signTransaction(cancelTx);
+	let signature = await sendSignedTransaction({ signedTransaction: cancelTx, connection: connection });
+	console.log(signature)
     // Check the final owner should be the provider public key.
     const _initializerTokenAccountA = await mintA.getAccountInfo(
       initializerTokenAccountA

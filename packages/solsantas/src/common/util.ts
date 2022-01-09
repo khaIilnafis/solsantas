@@ -26,8 +26,8 @@ export async function okToFailAsync(callback: any, args: any[], wantObject = fal
     // mandatory await here, can't just pass down (coz we need to catch error in this scope)
     return await callback(...args);
   } catch (e) {
-    console.log(`Oh no! ${callback.name} called with ${args} blew up!`);
-    console.log('Full error:', e);
+    // console.(`Oh no! ${callback.name} called with ${args} blew up!`);
+    // console.('Full error:', e);
     return wantObject ? {} : undefined;
   }
 }
@@ -36,8 +36,8 @@ export function okToFailSync(callback: any, args: any[], wantObject = false) {
   try {
     return callback(...args);
   } catch (e) {
-    console.log(`Oh no! ${callback.name} called with ${args} blew up!`);
-    console.log('Full error:', e);
+    // console.(`Oh no! ${callback.name} called with ${args} blew up!`);
+    // console.('Full error:', e);
     return wantObject ? {} : undefined;
   }
 }
@@ -103,11 +103,11 @@ export async function writeToDisk(dir: string, arr: any[]) {
     const data = JSON.stringify(i, (k, v) => (v instanceof PublicKey ? v.toBase58() : v), 2);
     fs.writeFile(`output/nft-${i.mint.toBase58()}.json`, data, (err) => {
       if (err) {
-        console.log('Write error:', err);
+        // console.('Write error:', err);
       }
     });
   });
-  console.log('Done writing!');
+  // console.('Done writing!');
 }
 
 export async function pause(ms: number) {
@@ -115,7 +115,7 @@ export async function pause(ms: number) {
   // taken from https://stackoverflow.com/questions/46077176/jest-settimeout-not-pausing-test
   await new Promise((response) =>
     setTimeout(() => {
-      console.log(`pausing for ${ms / 1000}s`);
+      // console.(`pausing for ${ms / 1000}s`);
       response(0);
     }, ms)
   );

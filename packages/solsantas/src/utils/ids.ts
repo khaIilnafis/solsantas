@@ -8,7 +8,9 @@ export const WRAPPED_SOL_MINT = new PublicKey(
 // export let TOKEN_PROGRAM_ID = new PublicKey(
 //   "TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA"
 // );
-
+export let SANTA_ESCROW_PROGRAM_ID = new PublicKey(
+	"DM3FhshMv4p33HhiNMnM7ofgaJVNaibzbNZyUNT9whAt"
+)
 export let LENDING_PROGRAM_ID = new PublicKey(
   "TokenLending1111111111111111111111111111111"
 );

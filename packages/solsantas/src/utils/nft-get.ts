@@ -63,7 +63,7 @@ async function metadatasToTokens(rawMetadatas: any[], connection: Connection): P
           metadataOnchain: metadata.data,
         } as IToken;
       } catch (e) {
-        console.log('failed to deserialize one of the fetched metadatas');
+        // console.log('failed to deserialize one of the fetched metadatas');
       }
     })
   );
@@ -198,7 +198,7 @@ async function getParentEdition(editionData: EditionData, connection:Connection)
 async function tokensToEnrichedNFTs(tokens: IToken[], connection: Connection): Promise<INFT[]> {
   return Promise.all(
     tokens.map(async (t) =>
-      // console.log(`Processing Mint ${t.mint}`)
+      // // console.log(`Processing Mint ${t.mint}`)
       ({
         mint: t.mint,
         address: t.address,
@@ -236,17 +236,17 @@ export async function NFTGet(
 
   let tokens: IToken[] = [];
   if (owner) {
-    console.log('Time to get em NFTs by owner:', owner.toBase58());
+    // console.log('Time to get em NFTs by owner:', owner.toBase58());
     tokens = await getTokensByOwner(owner,connection);
-    console.log(tokens)
+    // console.log(tokens)
   } else if (creator) {
-    console.log('Time to get em NFTs by creator:', creator.toBase58());
+    // console.log('Time to get em NFTs by creator:', creator.toBase58());
     tokens = await getTokensByCreator(creator,connection);
   } else if (mint) {
-    console.log('Time to get em NFTs by mint:', mint.toBase58());
+    // console.log('Time to get em NFTs by mint:', mint.toBase58());
     tokens = await getTokensByMint(mint, connection);
   } else if (updateAuthority) {
-    console.log('Time to get em NFTs by authority:', updateAuthority.toBase58());
+    // console.log('Time to get em NFTs by authority:', updateAuthority.toBase58());
     tokens = await getTokensByUpdateAuthority(updateAuthority,connection);
   } else {
     throw new Error('You must pass one of owner / creator / authority / mint');
@@ -266,14 +266,14 @@ export async function NFTGet(
 //   } as IUpdateLoadingParams);
 
   const t2 = performance.now();
-  console.log(`Found ${tokens.length} tokens`);
-  console.log('Time:', (t2 - t1) / 1000);
+  // console.log(`Found ${tokens.length} tokens`);
+  // console.log('Time:', (t2 - t1) / 1000);
 
   const nfts = await tokensToEnrichedNFTs(tokens, connection);
   const t3 = performance.now();
-  console.log(`Prepared a total ${nfts.length} NFTs`);
-  console.log('Time:', (t3 - t2) / 1000);
-  console.log('TOTAL time:', (t3 - t1) / 1000);
+  // console.log(`Prepared a total ${nfts.length} NFTs`);
+  // console.log('Time:', (t3 - t2) / 1000);
+  // console.log('TOTAL time:', (t3 - t1) / 1000);
 
   const validNFTs = filterOutIncompleteNFTs(nfts);
   let finalNFts = validNFTs;
@@ -283,7 +283,7 @@ export async function NFTGet(
 //     try {
 //       finalNFts = processRarity(validNFTs);
 //     } catch (e) {
-//       console.log('Failed to calc rarity with error', e);
+//       // console.log('Failed to calc rarity with error', e);
 //     }
 //   }
 
