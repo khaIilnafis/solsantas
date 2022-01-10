@@ -158,15 +158,12 @@ export default function TreeView() {
 			programID
 		);
 		vault_authority_pda = _vault_authority_pda;
-		const escrowAccount = anchor.web3.Keypair.fromSeed(bs58.decode(nft.address?.toString() as string));
-
+		const escrowAccount = anchor.web3.Keypair.generate();
 		// @ts-ignore
 		const mint = anchor.web3.Keypair.generate();
 		const userTokenAccountAddress = (
-			await getAtaForMint(mint.publicKey, publicKey)
+			await getAtaForMint(mint.publicKey ,publicKey)
 		)[0];
-		// //console.log(`user Token account address:${userTokenAccountAddress}`);
-		// const signers: anchor.web3.Keypair[] = [mint];
 		const tx = new Transaction();
 		tx.add(
 			anchor.web3.SystemProgram.createAccount({
@@ -207,13 +204,6 @@ export default function TreeView() {
 			await connection.getRecentBlockhash("max")
 		).blockhash;
 		tx.feePayer = publicKey;
-		// try {
-		// 	// const txs = await sendTransactions(connection, wallet, [instructions], [signers, []]);
-		// 	await sendSignedTransaction({signedTransaction:tx, connection})
-		// } catch (e) {
-		// 	//console.log(`Error: ${e}`)
-		// }
-
 		let initTx = program.transaction.initialize(
 			vault_account_bump,
 			new anchor.BN(1),
@@ -242,7 +232,7 @@ export default function TreeView() {
 		initTx.feePayer = publicKey;
 		try {
 			// @ts-ignore
-			await wallet.signAllTransactions([tx, initTx])
+			await wallet.signAllTransactions([tx,initTx])
 			await tx.partialSign(mint)
 			await initTx.partialSign(escrowAccount)
 			let txSignature = await sendSignedTransaction({ signedTransaction: tx, connection: connection })
@@ -276,9 +266,14 @@ export default function TreeView() {
 
 		const mint = anchor.web3.Keypair.generate();
 		const userTokenAccountAddress = (
-			await getAtaForMint(mint.publicKey, publicKey as PublicKey)
+			await getAtaForMint(mint.publicKey ,publicKey)
 		)[0];
-
+		const takerTokenAccountAddress = (
+			await getAtaForMint(toSendNt.mint, publicKey as PublicKey)
+		)[0];
+		const toTokenAccountAddress = (
+			await getAtaForMint(nft.mint, currentEscrow.initializerDepositTokenAccount)
+		)[0];
 		const tx = new Transaction();
 		tx.add(
 			anchor.web3.SystemProgram.createAccount({
@@ -319,7 +314,6 @@ export default function TreeView() {
 			await connection.getRecentBlockhash("max")
 		).blockhash;
 		tx.feePayer = publicKey;
-
 		const exchangeTx = await program.transaction.exchange({
 			accounts: {
 				taker: publicKey,
@@ -331,8 +325,6 @@ export default function TreeView() {
 				escrowAccount: currentEscrow.pubkey,
 				vaultAccount: vault_account_pda,
 				vaultAuthority: vault_authority_pda,
-				systemProgram: anchor.web3.SystemProgram.programId,
-				rent: anchor.web3.SYSVAR_RENT_PUBKEY,
 				tokenProgram: TOKEN_PROGRAM_ID,
 			},
 			// signers: [publicKey]
@@ -344,7 +336,7 @@ export default function TreeView() {
 		exchangeTx.feePayer = publicKey;
 		try {
 			//@ts-ignore
-			await wallet.signAllTransactions([tx, exchangeTx])
+			await wallet.signAllTransactions([tx,exchangeTx])
 			await tx.partialSign(mint)
 			// await exchangeTx.partialSign(escrowAccount)
 			let txSignature = await sendSignedTransaction({ signedTransaction: tx, connection: connection })

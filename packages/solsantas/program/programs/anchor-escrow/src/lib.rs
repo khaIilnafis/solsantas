@@ -1,6 +1,7 @@
 use anchor_lang::prelude::*;
 use anchor_spl::token::{self, CloseAccount, Mint, SetAuthority, TokenAccount, Transfer};
 use spl_token::instruction::AuthorityType;
+use anchor_spl::associated_token::{self, AssociatedToken, Create};
 
 declare_id!("DM3FhshMv4p33HhiNMnM7ofgaJVNaibzbNZyUNT9whAt");
 
@@ -82,7 +83,9 @@ pub mod anchor_escrow {
         let (_vault_authority, vault_authority_bump) =
             Pubkey::find_program_address(&[seed.as_bytes()], ctx.program_id);
         let authority_seeds = &[&seed.as_bytes()[..], &[vault_authority_bump]];
-
+		associated_token::create(
+			ctx.accounts.into_create_initializer_ata_context()
+		)
         token::transfer(
             ctx.accounts.into_transfer_to_initializer_context(),
             ctx.accounts.escrow_account.taker_amount,
@@ -179,6 +182,9 @@ pub struct Exchange<'info> {
     pub vault_account: Account<'info, TokenAccount>,
     pub vault_authority: AccountInfo<'info>,
     pub token_program: AccountInfo<'info>,
+	pub system_program: AccountInfo<'info>,
+    pub rent: Sysvar<'info, Rent>,
+	pub spl_associated_program: AccountInfo<'info>,
 }
 
 #[account]
@@ -238,6 +244,21 @@ impl<'info> Cancel<'info> {
 }
 
 impl<'info> Exchange<'info> {
+	fn into_create_initializer_ata_context(
+		&self,
+	) -> CpiContext<'_, '_, '_, 'info, Create<'info>>{
+		let cpi_accounts = Create {
+			payer: self.taker.to_account_info().clone(),
+			associated_token: self.taker.taker_deposit_token_account.to_account_info().clone(),
+			authority:self.taker.clone(),
+			mint: self.initializer_deposit_token_account.to_account_info().clone(),
+			system_program: self.system_program.clone(),
+			token_program: self.token_program.clone(),
+			rent: self.rent.clone(),
+			spl_associated_program: self.spl_associated_program.clone(),
+		};
+		CpiContext::new(self.spl_associated_program.clone(), cpi_accounts)
+	}
     fn into_transfer_to_initializer_context(
         &self,
     ) -> CpiContext<'_, '_, '_, 'info, Transfer<'info>> {
