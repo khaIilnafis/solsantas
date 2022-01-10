@@ -9,8 +9,8 @@ export async function deserializeToken(mintPubkey: PublicKey, connection: Connec
       227, 13, 215, 184, 342, 226, 53, 111, 345, 179, 84, 137, 121, 79, 1, 160, 223, 124, 241, 202,
       203, 220, 237, 50, 242, 57, 158, 226, 207, 203, 188, 43, 28, 70, 110, 214, 234, 251, 15, 249,
       157, 62, 80,
-    ])
-  );
+    ]),
+  {skipValidation:true});
   return new Token(connection, mintPubkey, TOKEN_PROGRAM_ID, tempKeypair);
 }
 

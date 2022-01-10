@@ -10,19 +10,16 @@ import {
   Commitment,
   Signer,
 } from "@solana/web3.js";
-import {sendSignedTransaction} from "./connection"
+import { sendSignedTransaction } from "./connection";
 import { TOKEN_PROGRAM_ID, Token } from "@solana/spl-token";
 import { assert } from "chai";
 import { keypair } from "./keypair";
 describe("anchor-escrow", () => {
   const commitment: Commitment = "processed";
-  const connection = new Connection(
-    "https://api.devnet.solana.com ",
-    {
-      commitment,
-      wsEndpoint: "wss://api.devnet.solana.com/",
-    }
-  );
+  const connection = new Connection("https://api.devnet.solana.com ", {
+    commitment,
+    wsEndpoint: "wss://api.devnet.solana.com/",
+  });
   const options = anchor.Provider.defaultOptions();
   const wallet = NodeWallet.local();
   const provider = new anchor.Provider(connection, wallet, options);
@@ -30,7 +27,7 @@ describe("anchor-escrow", () => {
   anchor.setProvider(provider);
 
   const program = anchor.workspace.AnchorEscrow as Program<AnchorEscrow>;
-  console.log(program)
+  console.log(program);
 
   let mintA = null as Token;
   let mintB = null as Token;
@@ -52,12 +49,14 @@ describe("anchor-escrow", () => {
   const takerMainAccount = anchor.web3.Keypair.generate();
 
   it("Initialize program state", async () => {
-	  console.log(payer.publicKey.toBase58())
+    console.log(payer.publicKey.toBase58());
     // Airdropping tokens to a payer.
-    await provider.connection.confirmTransaction(
-      await provider.connection.requestAirdrop(payer.publicKey, 10000000000),
-      "processed"
-    ).catch((e)=>console.log(e));
+    await provider.connection
+      .confirmTransaction(
+        await provider.connection.requestAirdrop(payer.publicKey, 10000000000),
+        "processed"
+      )
+      .catch((e) => console.log(e));
 
     // Fund Main Accounts
     await provider.send(
@@ -130,12 +129,19 @@ describe("anchor-escrow", () => {
     assert.ok(_initializerTokenAccountA.amount.toNumber() == initializerAmount);
     assert.ok(_takerTokenAccountB.amount.toNumber() == takerAmount);
   });
-//   console.log(Buffer.from(anchor.utils.bytes.utf8.encode("token-seed")));
-//   console.log(Buffer.from(anchor.utils.bytes.utf8.encode(initializerMainAccount.publicKey.toBase58().slice(0,5))));
+  //   console.log(Buffer.from(anchor.utils.bytes.utf8.encode("token-seed")));
+  //   console.log(Buffer.from(anchor.utils.bytes.utf8.encode(initializerMainAccount.publicKey.toBase58().slice(0,5))));
   it("Initialize escrow", async () => {
     const [_vault_account_pda, _vault_account_bump] =
       await PublicKey.findProgramAddress(
-        [Buffer.from(anchor.utils.bytes.utf8.encode(`token-seed`)),Buffer.from(anchor.utils.bytes.utf8.encode(initializerTokenAccountA.toBase58().slice(0,5)))],
+        [
+          Buffer.from(anchor.utils.bytes.utf8.encode(`token-seed`)),
+          Buffer.from(
+            anchor.utils.bytes.utf8.encode(
+              initializerTokenAccountA.toBase58().slice(0, 5)
+            )
+          ),
+        ],
         program.programId
       );
     vault_account_pda = _vault_account_pda;
@@ -143,7 +149,13 @@ describe("anchor-escrow", () => {
 
     const [_vault_authority_pda, _vault_authority_bump] =
       await PublicKey.findProgramAddress(
-        [Buffer.from(anchor.utils.bytes.utf8.encode(`escrow-${initializerTokenAccountA.toBase58().slice(0,5)}`))],
+        [
+          Buffer.from(
+            anchor.utils.bytes.utf8.encode(
+              `escrow-${initializerTokenAccountA.toBase58().slice(0, 5)}`
+            )
+          ),
+        ],
         program.programId
       );
     vault_authority_pda = _vault_authority_pda;
@@ -176,7 +188,7 @@ describe("anchor-escrow", () => {
     let _escrowAccount = await program.account.escrowAccount.fetch(
       escrowAccount.publicKey
     );
-	console.log(_escrowAccount);
+    console.log(_escrowAccount);
     // Check that the new owner is the PDA.
     assert.ok(_vault.owner.equals(vault_authority_pda));
 
@@ -273,15 +285,18 @@ describe("anchor-escrow", () => {
         tokenProgram: TOKEN_PROGRAM_ID,
       },
     });
-	cancelTx.recentBlockhash = (
-		await connection.getRecentBlockhash("max")
-	).blockhash;
-	cancelTx.feePayer = initializerMainAccount.publicKey;
-	console.log(cancelTx)
-	const mainWallet = new NodeWallet(initializerMainAccount)
-	await mainWallet.signTransaction(cancelTx);
-	let signature = await sendSignedTransaction({ signedTransaction: cancelTx, connection: connection });
-	console.log(signature)
+    cancelTx.recentBlockhash = (
+      await connection.getRecentBlockhash("max")
+    ).blockhash;
+    cancelTx.feePayer = initializerMainAccount.publicKey;
+    console.log(cancelTx);
+    const mainWallet = new NodeWallet(initializerMainAccount);
+    await mainWallet.signTransaction(cancelTx);
+    let signature = await sendSignedTransaction({
+      signedTransaction: cancelTx,
+      connection: connection,
+    });
+    console.log(signature);
     // Check the final owner should be the provider public key.
     const _initializerTokenAccountA = await mintA.getAccountInfo(
       initializerTokenAccountA
