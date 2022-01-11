@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, {useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useState } from 'react';
 import {
 	Container,
@@ -56,19 +56,23 @@ export default function ExchangeModal(props: ExchangeModalProps) {
 	const [showCancel, setShowCancel] = useState(false);
 	const [showExchange, setShowExchange] = useState(false);
 	const [selectedNFt, setSelectedNft] = useState<INFT>();
+	const [showWithdraw, setShowWithdraw] = useState(false);
 
 	const [open, setOpen] = React.useState(false);
 
 	useEffect(() => {
+		console.log(props.activeEscrow)
 		if (!props.activeEscrow) {
 			setShowInitialize(true)
-		}
-		if (props.activeEscrow && props.activeEscrow.initializerKey.toString() !== wallet.publicKey?.toString()) {
-			setShowInitialize(false)
+			setShowExchange(false)
+			setShowCancel(false)
+		}else if (props.activeEscrow && props.activeEscrow.initializerKey.toString() !== wallet.publicKey?.toString()) {
 			setShowExchange(true)
-		}
-		if (props.activeEscrow && props.activeEscrow.initializerKey.toString() === wallet.publicKey?.toString()) {
+			setShowInitialize(false)
+			setShowCancel(false)
+		}else if (props.activeEscrow && props.activeEscrow.initializerKey.toString() === wallet.publicKey?.toString()) {
 			setShowCancel(true)
+			setShowExchange(false)
 			setShowInitialize(false)
 		}
 		return () => {
@@ -76,11 +80,10 @@ export default function ExchangeModal(props: ExchangeModalProps) {
 		}
 	}, [props.activeEscrow]);
 	const selectNft = (e: React.MouseEvent<HTMLAnchorElement>, nft: any) => {
-		console.log(nft);
-		console.log(nft.address.toString());
 		setSelectedNft(nft)
 	}
 	const handleInitClick = (e: React.MouseEvent<HTMLButtonElement>, data: any) => {
+		console.log(data);
 		props.initTx(data);
 		props.handleClose();
 	}
@@ -140,14 +143,14 @@ export default function ExchangeModal(props: ExchangeModalProps) {
 
 							</Grid>
 						</Grid>) : ('')}
-						{showCancel ? (
+					{showCancel ? (
 						<Grid
 							container
 							justifyContent="center"
 						>
 							<h2 id="parent-modal-title">Give a Gift!</h2>
 							<p id="parent-modal-description">
-								Welcome to the Secret Santa Exchange. You've selected the NFT below to give to your match, click initialize to start the exchange! :)
+								Welcome to the Secret Santa Exchange. Your match hasn't deposited an NFT yet, please check back later! :)
 							</p>
 
 							<Grid item>

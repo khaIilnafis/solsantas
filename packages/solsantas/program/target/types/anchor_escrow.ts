@@ -26,11 +26,6 @@ export type AnchorEscrow = {
           "isSigner": false
         },
         {
-          "name": "initializerReceiveTokenAccount",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
           "name": "escrowAccount",
           "isMut": true,
           "isSigner": false
@@ -67,6 +62,52 @@ export type AnchorEscrow = {
       ]
     },
     {
+      "name": "ata",
+      "accounts": [
+        {
+          "name": "token",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "mint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "payer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "escrowAccount",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "associatedTokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
       "name": "cancel",
       "accounts": [
         {
@@ -95,6 +136,62 @@ export type AnchorEscrow = {
           "isSigner": false
         },
         {
+          "name": "mint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "withdraw",
+      "accounts": [
+        {
+          "name": "initializer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "initializerReceiveTokenAccount",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "mint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "escrowAccount",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "takerVaultAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "takerVaultAuthority",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
           "name": "tokenProgram",
           "isMut": false,
           "isSigner": false
@@ -117,7 +214,7 @@ export type AnchorEscrow = {
         },
         {
           "name": "takerReceiveTokenAccount",
-          "isMut": true,
+          "isMut": false,
           "isSigner": false
         },
         {
@@ -151,12 +248,47 @@ export type AnchorEscrow = {
           "isSigner": false
         },
         {
+          "name": "takerVaultAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "mint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "depositMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
           "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "associatedTokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
           "isMut": false,
           "isSigner": false
         }
       ],
-      "args": []
+      "args": [
+        {
+          "name": "vaultAccountBump",
+          "type": "u8"
+        }
+      ]
     }
   ],
   "accounts": [
@@ -170,11 +302,23 @@ export type AnchorEscrow = {
             "type": "publicKey"
           },
           {
+            "name": "takerKey",
+            "type": "publicKey"
+          },
+          {
             "name": "initializerDepositTokenAccount",
             "type": "publicKey"
           },
           {
             "name": "initializerReceiveTokenAccount",
+            "type": "publicKey"
+          },
+          {
+            "name": "takerDepositTokenAccount",
+            "type": "publicKey"
+          },
+          {
+            "name": "takerReceiveTokenAccount",
             "type": "publicKey"
           },
           {
@@ -184,6 +328,10 @@ export type AnchorEscrow = {
           {
             "name": "takerAmount",
             "type": "u64"
+          },
+          {
+            "name": "state",
+            "type": "string"
           }
         ]
       }
@@ -219,11 +367,6 @@ export const IDL: AnchorEscrow = {
           "isSigner": false
         },
         {
-          "name": "initializerReceiveTokenAccount",
-          "isMut": false,
-          "isSigner": false
-        },
-        {
           "name": "escrowAccount",
           "isMut": true,
           "isSigner": false
@@ -260,6 +403,52 @@ export const IDL: AnchorEscrow = {
       ]
     },
     {
+      "name": "ata",
+      "accounts": [
+        {
+          "name": "token",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "mint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "payer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "escrowAccount",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "associatedTokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
       "name": "cancel",
       "accounts": [
         {
@@ -288,6 +477,62 @@ export const IDL: AnchorEscrow = {
           "isSigner": false
         },
         {
+          "name": "mint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        }
+      ],
+      "args": []
+    },
+    {
+      "name": "withdraw",
+      "accounts": [
+        {
+          "name": "initializer",
+          "isMut": true,
+          "isSigner": true
+        },
+        {
+          "name": "initializerReceiveTokenAccount",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "mint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "escrowAccount",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "takerVaultAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "takerVaultAuthority",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
           "name": "tokenProgram",
           "isMut": false,
           "isSigner": false
@@ -310,7 +555,7 @@ export const IDL: AnchorEscrow = {
         },
         {
           "name": "takerReceiveTokenAccount",
-          "isMut": true,
+          "isMut": false,
           "isSigner": false
         },
         {
@@ -344,12 +589,47 @@ export const IDL: AnchorEscrow = {
           "isSigner": false
         },
         {
+          "name": "takerVaultAccount",
+          "isMut": true,
+          "isSigner": false
+        },
+        {
+          "name": "mint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "depositMint",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
           "name": "tokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "systemProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "associatedTokenProgram",
+          "isMut": false,
+          "isSigner": false
+        },
+        {
+          "name": "rent",
           "isMut": false,
           "isSigner": false
         }
       ],
-      "args": []
+      "args": [
+        {
+          "name": "vaultAccountBump",
+          "type": "u8"
+        }
+      ]
     }
   ],
   "accounts": [
@@ -363,11 +643,23 @@ export const IDL: AnchorEscrow = {
             "type": "publicKey"
           },
           {
+            "name": "takerKey",
+            "type": "publicKey"
+          },
+          {
             "name": "initializerDepositTokenAccount",
             "type": "publicKey"
           },
           {
             "name": "initializerReceiveTokenAccount",
+            "type": "publicKey"
+          },
+          {
+            "name": "takerDepositTokenAccount",
+            "type": "publicKey"
+          },
+          {
+            "name": "takerReceiveTokenAccount",
             "type": "publicKey"
           },
           {
@@ -377,6 +669,10 @@ export const IDL: AnchorEscrow = {
           {
             "name": "takerAmount",
             "type": "u64"
+          },
+          {
+            "name": "state",
+            "type": "string"
           }
         ]
       }
