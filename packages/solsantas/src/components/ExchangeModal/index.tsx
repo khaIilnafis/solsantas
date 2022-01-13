@@ -61,8 +61,11 @@ export default function ExchangeModal(props: ExchangeModalProps) {
 	const [open, setOpen] = React.useState(false);
 
 	useEffect(() => {
-		console.log(props.activeEscrow)
-		if (!props.activeEscrow) {
+		if(props.activeEscrow){
+			console.log(props.activeEscrow)
+			console.log(props.activeEscrow.initializerAmount.toString());
+		}
+		if (!props.activeEscrow || (props.activeEscrow && props.activeEscrow.initializerAmount.toString() === 0)) {
 			setShowInitialize(true)
 			setShowExchange(false)
 			setShowCancel(false)
@@ -75,10 +78,13 @@ export default function ExchangeModal(props: ExchangeModalProps) {
 			setShowExchange(false)
 			setShowInitialize(false)
 		}
+		console.log(showInitialize);
+		console.log(showExchange)
+		console.log(showCancel);
 		return () => {
 
 		}
-	}, [props.activeEscrow]);
+	}, [props.activeEscrow, showExchange, showInitialize, showCancel, wallet.publicKey]);
 	const selectNft = (e: React.MouseEvent<HTMLAnchorElement>, nft: any) => {
 		setSelectedNft(nft)
 	}

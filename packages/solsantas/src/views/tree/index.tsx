@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/alt-text */
 /* eslint-disable jsx-a11y/anchor-is-valid */
-import React, { useEffect,useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import {
 	Container,
 	Grid,
@@ -16,9 +16,8 @@ import {
 } from '@mui/material';
 import * as anchor from '@project-serum/anchor';
 import { Program, Provider } from '@project-serum/anchor';
-import { PublicKey, Transaction, } from '@solana/web3.js';
+import { PublicKey } from '@solana/web3.js';
 import { TOKEN_PROGRAM_ID, ASSOCIATED_TOKEN_PROGRAM_ID } from "@solana/spl-token";
-import { SANTA_ESCROW_PROGRAM_ID } from '../../utils/ids'
 import idl from '../../types/anchor_escrow.json';
 import { useWallet, useConnection } from '@solana/wallet-adapter-react';
 import { NFTGet } from "../../utils/nft-get"
@@ -27,15 +26,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSleigh } from "@fortawesome/free-solid-svg-icons";
 import ExchangeModal from '../../components/ExchangeModal'
 import {
-	createAssociatedTokenAccountInstruction,
 	getAtaForMint,
 } from '../../utils/utils';
 import { sendSignedTransaction } from '../../utils/connection';
 import holders from "../../utils/matched_dev.json";
-import { IdlTypeDef } from '@project-serum/anchor/dist/cjs/idl';
-import { TypeDef } from '@project-serum/anchor/dist/cjs/program/namespace/types';
-import { contextType } from 'react-fontawesome';
-import { text } from '@fortawesome/fontawesome-svg-core';
+import bs58 from 'bs58';
+import { SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID } from '../../utils';
 
 const updateAuthority = setAuthority()
 //Todo add the authority public keys for each network
@@ -73,72 +69,87 @@ export default function TreeView() {
 	const programID = new PublicKey(idl.metadata.address);
 
 	const program = new Program(idl as anchor.Idl, programID, provider);
-	// const handleToastClick = () => {
-	// 	setToastOpen(true);
-	// };
 
-	// const handleToastClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
-	// 	if (reason === 'clickaway') {
-	// 		return;
-	// 	}
-
-	// 	setToastOpen(false);
-	// };
-	// const renderToast = () => {
-
-	// }
 	const handleOpen = (nft: INFT) => {
 		if (!nft) return;
+		console.log(nft.metadataOnchain.updateAuthority.toString());
+		setActiveEscrow(null);
 		(async () => {
-			const depositTokenAddress = (
-				await getAtaForMint(nft.mint, publicKey as PublicKey)
-			)[0];
-			//console.log(depositTokenAddress.toString())
-			const escrow = await getActiveEscrow(depositTokenAddress.toString());
-			//console.log(escrow)
-			if (escrow) {
-				setActiveEscrow(escrow);
-				if (escrow && escrow.initializerKey.toString() === wallet.publicKey) {
-					setIsInitiliazer(true)
-				}
+			let depositTokenAddress;
+			if (nft.metadataOnchain.updateAuthority.toString() === publicKey?.toString()) {
+				depositTokenAddress = (
+					await getAtaForMint(nft.mint, publicKey)
+				)[0];
+			} else {
+				depositTokenAddress = (
+					await getAtaForMint(nft.mint, new PublicKey(nft.metadataOnchain.updateAuthority))
+				)[0];
 			}
-			setOpen(true);
+			console.log(depositTokenAddress.toString())
+			const escrow = await getActiveEscrow(depositTokenAddress?.toString());
+			// console.log(escrow.pubkey.toString());
+			if (escrow) {
+				await setActiveEscrow(escrow);
+				setOpen(true);
+			} else {
+				setOpen(true);
+			}
+
 		})()
 	}
 	const getActiveEscrow = async (depositAta: any) => {
+		console.log(depositAta);
 		if (!allEscrowAccounts) return;
-		const filteredAccounts = allEscrowAccounts.filter(async (account) => {
-			const depositAccount = await getDespositAccount(account.initializerDepositTokenAccount)
-				.then((account) => {
-					//console.log(account)
-					return account
-				})
-			return depositAccount === account.initializerDepositTokenAccount.toString()
+		const filteredAccounts = await allEscrowAccounts.filter(async (account) => {
+			console.log(account.initializerDepositTokenAccount.toString());
+			console.log(account.state);
+			// console.log(acc)
+			// const depositAccount = await getDespositAccount(new PublicKey(depositAta))
+			// 	.then((account) => {
+			// 		return account
+			// 	})
+			console.log(depositAta === account.initializerDepositTokenAccount);
+			return depositAta === account.initializerDepositTokenAccount
 		});
+		// console.log(filteredAccounts[0].initializerDepositTokenAccount.toString());
 		return filteredAccounts[0]
 	}
 	const getDespositAccount = async (depositToken: PublicKey) => {
-		const lastTxSig = await connection.getConfirmedSignaturesForAddress2(depositToken, { limit: 1 });
-		const lastTx = await connection.getTransaction(lastTxSig[0].signature.toString());
+		console.log(depositToken.toString())
 
-		//TODO - maybe don't hard code the account index here, but its always going to be the same for now. 
-		return lastTx?.transaction.message.accountKeys[3].toString()
+		const lastTxSig = await connection.getConfirmedSignaturesForAddress2(depositToken, { limit: 1 });
+		console.log(lastTxSig);
+		if (lastTxSig.length > 0) {
+			const lastTx = await connection.getTransaction(lastTxSig[0].signature.toString());
+			console.log(lastTx);
+			//TODO - maybe don't hard code the account index here, but its always going to be the same for now. 
+			return lastTx?.transaction.message.accountKeys[0].toString()
+		} else {
+			return
+		}
+
 	}
 	const handleClose = () => {
 		setOpen(false);
 	}
 	const getEscrowNft = async (currEscrow: any) => {
 		if (!currEscrow) return;
-		
+
 		let accountInfo = await connection.getParsedAccountInfo(currEscrow.initializerDepositTokenAccount);
 		//console.log(accountInfo);
 		//@ts-ignore
 		if (accountInfo.value?.data.parsed.info.tokenAmount.uiAmount === 0) {
+
 			try {
+				// getDespositAccount(accountInfo.value?.data.parsed.)
 				//@ts-ignore
 				const nft = await NFTGet({ mint: new PublicKey(accountInfo.value?.data.parsed.info.mint) }, connection);
-				console.log(nft[0].address.toString());
-				console.log(nft[0].splTokenInfo?.owner.toString());
+				console.log(nft[0].address);
+				const lastOwner = await getDespositAccount(nft[0].address);
+				console.log(lastOwner?.toString());
+				nft[0].lastOwner = lastOwner?.toString()
+				// const displayNFT = nft as NFTDisplay;
+				// displayNFT.lastOwner = lastOwner?.toString();
 				return nft
 			} catch (e) {
 				////console.log(`Error ${e}`)
@@ -151,21 +162,28 @@ export default function TreeView() {
 		let vault_account_pda = null;
 		let vault_account_bump = null;
 		let vault_authority_pda = null;
-
+		let vault_authority_bump = null;
+		const escrowAccount = anchor.web3.Keypair.generate();
+		console.log(programID.toString());
 		const [_vault_account_pda, _vault_account_bump] = await PublicKey.findProgramAddress(
-			[Buffer.from(anchor.utils.bytes.utf8.encode(`token-seed`)), Buffer.from(anchor.utils.bytes.utf8.encode(nft.mint?.toBase58().slice(0, 5) as string))],
+			[Buffer.from(anchor.utils.bytes.utf8.encode(nft.mint?.toString().slice(0, 32) as string)),
+			Buffer.from(anchor.utils.bytes.utf8.encode(escrowAccount.publicKey.toString().slice(0, 32)))],
 			programID
 		);
 		vault_account_pda = _vault_account_pda;
 		vault_account_bump = _vault_account_bump;
 
 		const [_vault_authority_pda, _vault_authority_bump] = await PublicKey.findProgramAddress(
-			[Buffer.from(anchor.utils.bytes.utf8.encode(`escrow-${nft.mint?.toBase58().slice(0, 5)}`))],
-			programID
+			[Buffer.from(anchor.utils.bytes.utf8.encode(`esscrw`)), Buffer.from(anchor.utils.bytes.utf8.encode(nft.mint?.toString().slice(0, 5) as string))],
+			programID,
 		);
-		vault_authority_pda = _vault_authority_pda;
-		const escrowAccount = anchor.web3.Keypair.generate();
 
+		vault_authority_pda = _vault_authority_pda;
+		vault_authority_bump = _vault_authority_bump;
+		console.log(vault_authority_pda.toString());
+		console.log(vault_authority_bump.toString());
+		// const escrowAccount = anchor.web3.Keypair.generate();
+		// console.log(escrowAccount.publicKey.toString())
 		let initTx = program.transaction.initialize(
 			vault_account_bump,
 			new anchor.BN(1),
@@ -173,8 +191,8 @@ export default function TreeView() {
 			{
 				accounts: {
 					initializer: publicKey,
-					vaultAccount: vault_account_pda,
 					mint: nft.mint,
+					vaultAccount: vault_account_pda,
 					initializerDepositTokenAccount: nft.address,
 					escrowAccount: escrowAccount.publicKey,
 					systemProgram: anchor.web3.SystemProgram.programId,
@@ -198,12 +216,12 @@ export default function TreeView() {
 			try {
 				let signature = await sendSignedTransaction({ signedTransaction: initTx, connection: connection });
 				let confirmation = await connection.confirmTransaction(signature.txid, 'processed');
-				//console.log(confirmation)
+				console.log(confirmation);
 			} catch (e) {
-				//console.log(`oops ${e}`)
+				console.log(`oops ${e}`)
 			}
 		} catch (e) {
-			//console.log(`oops ${e}`)
+			console.log(`oops ${e}`)
 		}
 	}
 	const exchange = async (toSendNft: INFT, currentEscrow: any, nft: INFT) => {
@@ -217,93 +235,48 @@ export default function TreeView() {
 		let taker_vault_authority_pda = null;
 
 		const [_vault_account_pda, _vault_account_bump] = await PublicKey.findProgramAddress(
-			[Buffer.from(anchor.utils.bytes.utf8.encode(`token-seed`)), Buffer.from(anchor.utils.bytes.utf8.encode(nft.mint?.toBase58().slice(0, 5) as string))],
+			[Buffer.from(anchor.utils.bytes.utf8.encode(nft.mint?.toString().slice(0, 32))),
+			Buffer.from(anchor.utils.bytes.utf8.encode(currentEscrow.pubkey.toString().slice(0, 32)))],
 			programID
 		);
 		vault_account_pda = _vault_account_pda;
 		vault_account_bump = _vault_account_bump;
 		console.log(`Initializer Vault Account PDA: ${vault_account_pda.toString()}`)
 		const [_vault_authority_pda, _vault_authority_bump] = await PublicKey.findProgramAddress(
-			[Buffer.from(anchor.utils.bytes.utf8.encode(`escrow-${nft.mint?.toBase58().slice(0, 5)}`))],
+			[Buffer.from(anchor.utils.bytes.utf8.encode(`esscrw`)), Buffer.from(anchor.utils.bytes.utf8.encode(`${nft.mint?.toString().slice(0, 5)}`))],
 			programID
 		);
 		vault_authority_pda = _vault_authority_pda;
 
-		const takerTokenAccountAddress = (
-			await getAtaForMint(nft.mint, publicKey)
-		)[0];
-
-		let checkAtaExists = await connection.getParsedAccountInfo(takerTokenAccountAddress);
-
-		if(checkAtaExists.value == null){
-			let createTakerReceiveAtaTx = program.transaction.ata(
-				{
-					accounts: {
-						token: takerTokenAccountAddress,
-						mint: nft.mint,
-						payer: publicKey,
-						escrowAccount: currentEscrow.pubkey,
-						rent: anchor.web3.SYSVAR_RENT_PUBKEY,
-						systemProgram: anchor.web3.SystemProgram.programId,
-						tokenProgram: TOKEN_PROGRAM_ID,
-						associatedTokenProgram: ASSOCIATED_TOKEN_PROGRAM_ID,
-					},
-				}
-			);
-	
-			createTakerReceiveAtaTx.recentBlockhash = (
-				await connection.getRecentBlockhash("max")
-			).blockhash;
-			createTakerReceiveAtaTx.feePayer = publicKey;
-			try {
-				//@ts-ignore
-				await wallet.signAllTransactions([createTakerReceiveAtaTx])
-				let txSignature = await sendSignedTransaction({ signedTransaction: createTakerReceiveAtaTx, connection: connection });
-				let confirmation = await connection.confirmTransaction(txSignature.txid, 'processed');
-				//console.log(confirmation);
-			} catch (e) {
-				//console.log(`oops ${e}`)
-			}
-		}
-
-		const [_taker_vault_account_pda, _taker_vault_account_bump] = await PublicKey.findProgramAddress(
-			[Buffer.from(anchor.utils.bytes.utf8.encode(`token-seed`)), Buffer.from(anchor.utils.bytes.utf8.encode(toSendNft.mint?.toBase58().slice(0, 5) as string))],
-			programID
-		);
-		taker_vault_account_pda = _taker_vault_account_pda;
-		taker_vault_account_bump = _taker_vault_account_bump;
-		console.log(`Taker Vault PDA ${taker_vault_account_pda}`);
-		const [_taker_vault_authority_pda, _taker_vault_authority_bump] = await PublicKey.findProgramAddress(
-			[Buffer.from(anchor.utils.bytes.utf8.encode(`escrow-${toSendNft.mint?.toBase58().slice(0, 5)}`))],
-			programID
-		);
-		taker_vault_authority_pda = _taker_vault_authority_pda;
-		
 		let _escrowAccount = await program.account.escrowAccount.fetch(
 			currentEscrow.pubkey
 		);
-		// console.log(`Initializer ATA: ${associatedTokenAccount}`)
-		
+
+		const initReceiveTokenAccountAddress = (
+			await getAtaForMint(toSendNft.mint, _escrowAccount.initializerKey)
+		)[0];
+
+		const takerReceiveTokenAccountAddress = (
+			await getAtaForMint(nft.mint, publicKey)
+		)[0];
+
 		const exchangeTx = await program.transaction.exchange(
-			taker_vault_account_bump,
 			{
 				accounts: {
 					taker: publicKey,
+					mint: toSendNft.mint,
 					takerDepositTokenAccount: toSendNft.address,
-					takerReceiveTokenAccount: takerTokenAccountAddress,
-					initializerDepositTokenAccount: nft.address,
-					initializerReceiveTokenAccount: takerTokenAccountAddress,
+					initializerDepositTokenMint: nft.mint,
+					initializerReceiveTokenAccount: initReceiveTokenAccountAddress,
+					takerReceiveTokenAccount: takerReceiveTokenAccountAddress,
 					initializer: _escrowAccount.initializerKey,
 					escrowAccount: currentEscrow.pubkey,
 					vaultAccount: vault_account_pda,
 					vaultAuthority: vault_authority_pda,
-					takerVaultAccount: taker_vault_account_pda,
-					mint: nft.mint,
-					depositMint: toSendNft.mint,
 					tokenProgram: TOKEN_PROGRAM_ID,
 					systemProgram: anchor.web3.SystemProgram.programId,
-					associatedTokenProgram: ASSOCIATED_TOKEN_PROGRAM_ID,
-					rent: anchor.web3.SYSVAR_RENT_PUBKEY
+					associatedTokenProgram: SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID,
+					rent: anchor.web3.SYSVAR_RENT_PUBKEY,
 				},
 			});
 
@@ -320,12 +293,17 @@ export default function TreeView() {
 		} catch (e) {
 			//console.log(`oops ${e}`)
 		}
+		try {
+			let updatedEscrow = await program.account.escrowAccount.fetch(
+				currentEscrow.pubkey
+			);
+			console.log(updatedEscrow);
+			console.log(updatedEscrow.withdraw);
+		} catch (e) {
+			console.log(e);
+		}
 
-		let updatedEscrow = await program.account.escrowAccount.fetch(
-			currentEscrow.pubkey
-		);
-		console.log(updatedEscrow);
-		console.log(updatedEscrow.withdraw);
+
 	}
 	const cancelExchange = async (nft: INFT, currentEscrow: any) => {
 		if (!publicKey) return;
@@ -334,27 +312,37 @@ export default function TreeView() {
 		let vault_authority_pda = null;
 
 		const [_vault_account_pda, _vault_account_bump] = await PublicKey.findProgramAddress(
-			[Buffer.from(anchor.utils.bytes.utf8.encode(`token-seed`)), Buffer.from(anchor.utils.bytes.utf8.encode(nft.mint?.toBase58().slice(0, 5) as string))],
+			[Buffer.from(anchor.utils.bytes.utf8.encode(nft.mint?.toString().slice(0, 32))),
+			Buffer.from(anchor.utils.bytes.utf8.encode(currentEscrow.pubkey.toString().slice(0,32)))],
 			programID
 		);
 		vault_account_pda = _vault_account_pda;
 		vault_account_bump = _vault_account_bump;
 
 		const [_vault_authority_pda, _vault_authority_bump] = await PublicKey.findProgramAddress(
-			[Buffer.from(anchor.utils.bytes.utf8.encode(`escrow-${nft.mint?.toBase58().slice(0, 5)}`))],
+			[Buffer.from(anchor.utils.bytes.utf8.encode(`esscrw`)), Buffer.from(anchor.utils.bytes.utf8.encode(`${nft.mint?.toString().slice(0, 5)}`))],
 			programID
 		);
 		vault_authority_pda = _vault_authority_pda;
-
+		let _escrowAccount = await program.account.escrowAccount.fetch(
+			currentEscrow.pubkey
+		);
+		console.log(`Cancel initializer: ${publicKey.toString()}`)
+		console.log(`Cancel vaultAccount: ${vault_account_pda.toString()}`)
+		console.log(`Cancel vaultAuthority: ${vault_authority_pda.toString()}`)
+		console.log(`Cancel initializerDepositTokenAccount: ${_escrowAccount.initializerDepositTokenAccount.toString()}`)
+		console.log(`Cancel Deposit Mint: ${nft.mint.toString()}`)
+		console.log(`Cancel escrowAccount: ${currentEscrow.pubkey.toString()}`)
+		// console.log(`Cancel Escrow pubkey: ${_escrowAccount.publicKey.toString()}`)
 		const cancelTx = await program.transaction.cancel(
 			{
 				accounts: {
 					initializer: publicKey,
 					vaultAccount: vault_account_pda,
 					vaultAuthority: vault_authority_pda,
-					initializerDepositTokenAccount: currentEscrow.initializerDepositTokenAccount,
+					initializerDepositTokenAccount: _escrowAccount.initializerDepositTokenAccount,
+					initializerDepositTokenMint: nft.mint,
 					escrowAccount: currentEscrow.pubkey,
-					mint: nft.mint,
 					tokenProgram: TOKEN_PROGRAM_ID,
 				},
 			}
@@ -370,7 +358,7 @@ export default function TreeView() {
 			////console.log(signedTx);
 			////console.log(`Signature verification: ${cancelTx.verifySignatures()}`)
 
-			let signature = await sendSignedTransaction({ signedTransaction: cancelTx, connection: connection });
+			let signature = await sendSignedTransaction({ signedTransaction: signedTx, connection: connection });
 			////console.log(signature)
 			let confirmation = await connection.confirmTransaction(signature.txid, 'processed');
 			////console.log(confirmation)
@@ -380,98 +368,6 @@ export default function TreeView() {
 
 
 	};
-	const withdraw = async (nft: INFT, currentEscrow: any) => {
-		if (!publicKey) return;
-		let vault_account_pda = null;
-		let vault_account_bump = null;
-		let vault_authority_pda = null;
-		// //console.log(`NFT Mint: ${nft.mint.toString()}`);
-		// const depositATA = (await getAtaForMint(nft.mint, publicKey as PublicKey))[0]
-		// //console.log(depositATA.toString());
-		// //console.log(depositATA.toBase58());
-		const [_vault_account_pda, _vault_account_bump] = await PublicKey.findProgramAddress(
-			[Buffer.from(anchor.utils.bytes.utf8.encode(`token-seed`)), Buffer.from(anchor.utils.bytes.utf8.encode(nft.mint?.toBase58().slice(0, 5) as string))],
-			programID
-		);
-		vault_account_pda = _vault_account_pda;
-		vault_account_bump = _vault_account_bump;
-
-		const [_vault_authority_pda, _vault_authority_bump] = await PublicKey.findProgramAddress(
-			[Buffer.from(anchor.utils.bytes.utf8.encode(`escrow-${nft.mint?.toBase58().slice(0, 5)}`))],
-			programID
-		);
-		vault_authority_pda = _vault_authority_pda;
-
-		const toTokenAccountAddress = (
-			await getAtaForMint(nft.mint, publicKey)
-		)[0];
-
-		let createInitializerReceiveAtaTx = program.transaction.ata(
-			{
-				accounts: {
-					token: toTokenAccountAddress,
-					mint: nft.mint,
-					payer: publicKey,
-					escrowAccount: currentEscrow.pubkey,
-					rent: anchor.web3.SYSVAR_RENT_PUBKEY,
-					systemProgram: anchor.web3.SystemProgram.programId,
-					tokenProgram: TOKEN_PROGRAM_ID,
-					associatedTokenProgram: ASSOCIATED_TOKEN_PROGRAM_ID,
-				},
-			}
-		);
-		createInitializerReceiveAtaTx.recentBlockhash = (
-			await connection.getRecentBlockhash("max")
-		).blockhash;
-		createInitializerReceiveAtaTx.feePayer = publicKey;
-		try {
-			//@ts-ignore
-			await wallet.signAllTransactions([createInitializerReceiveAtaTx])
-			let txSignature = await sendSignedTransaction({ signedTransaction: createInitializerReceiveAtaTx, connection: connection });
-			let confirmation = await connection.confirmTransaction(txSignature.txid, 'processed');
-		} catch (e) {
-			//console.log(`oops ${e}`)
-		}
-		////console.log(currentEscrow.initializerDepositTokenAccount.toString());
-
-		let _escrowAccount = await program.account.escrowAccount.fetch(
-			currentEscrow.pubkey
-		);
-
-		const withdrawTx = await program.transaction.withdraw(
-			{
-				accounts: {
-					initializer: publicKey,
-					initializerReceiveTokenAccount: _escrowAccount.initializerReceiveTokenAccount,
-					mint: nft.mint,
-					escrowAccount: currentEscrow.pubkey,
-					vaultAccount: vault_account_pda,
-					vaultAuthority: vault_authority_pda,
-					rent: anchor.web3.SYSVAR_RENT_PUBKEY,
-					systemProgram: anchor.web3.SystemProgram.programId,
-					tokenProgram: TOKEN_PROGRAM_ID,
-				},
-			}
-		);
-		////console.log(cancelTx);
-		withdrawTx.recentBlockhash = (
-			await connection.getRecentBlockhash("max")
-		).blockhash;
-		withdrawTx.feePayer = publicKey;
-		try {
-			if (!withdrawTx || !wallet.signTransaction) return;
-			let signedTx = await wallet.signTransaction(withdrawTx);
-
-			let signature = await sendSignedTransaction({ signedTransaction: signedTx, connection: connection });
-
-			let confirmation = await connection.confirmTransaction(signature.txid, 'processed');
-			//console.log(confirmation)
-		} catch (e) {
-			//console.log(e)
-		}
-
-
-	}
 	const fetchNFTs = async (params: INFTParams) => {
 		try {
 			const fetchedNfts = await NFTGet(params, connection);
@@ -488,10 +384,10 @@ export default function TreeView() {
 
 	};
 	const getUserMatches = async (depositAta: PublicKey, escrowAccountInitializer: String) => {
-		const [_vault_account_pda, _vault_account_bump] = await PublicKey.findProgramAddress(
-			[Buffer.from(anchor.utils.bytes.utf8.encode(`token-seed`)), Buffer.from(anchor.utils.bytes.utf8.encode(depositAta.toBase58().slice(0, 5) as string))],
-			programID
-		);
+		// const [_vault_account_pda, _vault_account_bump] = await PublicKey.findProgramAddress(
+		// 	[Buffer.from(anchor.utils.bytes.utf8.encode(nft.mint?.toString().slice(0,32) as string))],
+		// 	programID
+		// );
 		const matchPair = holders.filter((matchGrp) => {
 			return matchGrp.matchA === wallet.publicKey?.toString() || matchGrp.matchB === wallet.publicKey?.toString()
 		})
@@ -508,25 +404,23 @@ export default function TreeView() {
 		return matchesList
 	}
 	const getAllEscrowAccounts = async () => {
-		return await connection.getProgramAccounts(SANTA_ESCROW_PROGRAM_ID);
+		return await connection.getProgramAccounts(programID);
 	}
 	const getActiveEscrowAccounts = async (accounts: any) => {
 		if (!publicKey) return;
-		let escrowAccounts: TypeDef<IdlTypeDef, anchor.IdlTypes<anchor.Idl>>[] = [], matchesList;
+		let matchesList;
 		for await (const account of accounts) {
-			// //console.log(account)
+			// console.log(account)
 			try {
 				const parsedAccount = await program.account.escrowAccount.fetch(account.pubkey);
 				matchesList = await getUserMatches(parsedAccount.initializerDepositTokenAccount, parsedAccount.initializerKey.toString());
 				if (parsedAccount.initializerKey.toString() === wallet.publicKey || matchesList.length > 0) {
 					parsedAccount.pubkey = account.pubkey;
-					setAllEscrowAccounts([parsedAccount])
-					// //console.log(escrowAccounts)
+					await setAllEscrowAccounts([parsedAccount])
 					setFetching(false);
 				}
 			} catch (e) {
 				setFetching(false);
-				//console.log(`oops ${e}`)
 			}
 		}
 		return
@@ -543,14 +437,15 @@ export default function TreeView() {
 		if (!publicKey) {
 			return
 		} else {
-			setAllFetchedNFTs(JSON.parse(localStorage.getItem(`${wallet.publicKey}`) as string))
 			if (!allFetchedNFTs) {
 				setFetching(true);
 				fetchNFTs({ owner: publicKey })
 			}
 			(async () => {
 				const escrowAccounts = await getAllEscrowAccounts();
+				console.log(escrowAccounts);
 				await getActiveEscrowAccounts(escrowAccounts);
+				console.log(escrowAccounts)
 			})()
 		}
 	}, [publicKey])
@@ -567,20 +462,20 @@ export default function TreeView() {
 									<a href="#" style={{ textDecoration: 'none' }} onClick={() => { handleOpen(escrowNft); setNFT(escrowNft) }} key={escrowNft.metadataOnchain.mint}>
 										<ImageListItem key={escrowNft.metadataOnchain.mint}>
 
-											{escrowNft.metadataOnchain.updateAuthority.toString() == wallet.publicKey?.toString() ? (
-													<img
-														height="75px"
-														width="75px"
-														src={`${escrowNft.metadataExternal.image}?w=75&h=75&fit=crop&auto=format&dpr=2 2x`}
-														srcSet={`${escrowNft.metadataExternal.image}?w=75&h=75&fit=crop&auto=format&dpr=2 2x`}
-														alt={escrowNft.metadataOnchain.data.name}
-														loading="lazy"
-													/>) : (<img
-														height="75px"
-														width="75px"
-														src={`/images/SSoS_Coin_GIF.gif`}
-														loading="lazy"
-													/>)}
+											{escrowNft.lastOwner === wallet.publicKey?.toString() ? (
+												<img
+													height="75px"
+													width="75px"
+													src={`${escrowNft.metadataExternal.image}?w=75&h=75&fit=crop&auto=format&dpr=2 2x`}
+													srcSet={`${escrowNft.metadataExternal.image}?w=75&h=75&fit=crop&auto=format&dpr=2 2x`}
+													alt={escrowNft.metadataOnchain.data.name}
+													loading="lazy"
+												/>) : (<img
+													height="75px"
+													width="75px"
+													src={`/images/SSoS_Coin_GIF.gif`}
+													loading="lazy"
+												/>)}
 
 											<ImageListItemBar
 												title={`Gift #${index + 1}`}
