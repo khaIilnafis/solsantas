@@ -56,15 +56,10 @@ export default function ExchangeModal(props: ExchangeModalProps) {
 	const [showCancel, setShowCancel] = useState(false);
 	const [showExchange, setShowExchange] = useState(false);
 	const [selectedNFt, setSelectedNft] = useState<INFT>();
-	const [showWithdraw, setShowWithdraw] = useState(false);
 
 	const [open, setOpen] = React.useState(false);
 
 	useEffect(() => {
-		if(props.activeEscrow){
-			console.log(props.activeEscrow)
-			console.log(props.activeEscrow.initializerAmount.toString());
-		}
 		if (!props.activeEscrow || (props.activeEscrow && props.activeEscrow.initializerAmount.toString() === 0)) {
 			setShowInitialize(true)
 			setShowExchange(false)
@@ -78,9 +73,6 @@ export default function ExchangeModal(props: ExchangeModalProps) {
 			setShowExchange(false)
 			setShowInitialize(false)
 		}
-		console.log(showInitialize);
-		console.log(showExchange)
-		console.log(showCancel);
 		return () => {
 
 		}
@@ -98,7 +90,6 @@ export default function ExchangeModal(props: ExchangeModalProps) {
 		props.handleClose();
 	}
 	const handleExchangeClick = (e: React.MouseEvent<HTMLButtonElement>, data: any, toReceiveNft: any) => {
-		console.log(toReceiveNft);
 		if (!data) {
 			setOpen(true)
 			return
@@ -106,10 +97,6 @@ export default function ExchangeModal(props: ExchangeModalProps) {
 		props.exchangeTx(data, props.activeEscrow, toReceiveNft);
 		props.handleClose();
 	}
-	const handleToastClick = () => {
-		setOpen(true);
-	};
-
 	const handleToastClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
 		if (reason === 'clickaway') {
 			return;

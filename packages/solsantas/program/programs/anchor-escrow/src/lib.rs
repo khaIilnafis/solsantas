@@ -170,14 +170,14 @@ pub struct Exchange<'info> {
 	pub taker_deposit_token_account: Box<Account<'info, TokenAccount>>,
 	pub initializer_deposit_token_mint: Box<Account<'info, Mint>>,
 	#[account(
-        init,
+        init_if_needed,
         payer = taker,
 		associated_token::mint = mint,
         associated_token::authority = initializer,
     )]
 	pub initializer_receive_token_account:Box<Account<'info, TokenAccount>>,
 	#[account(
-        init,
+        init_if_needed,
         payer = taker,
 		associated_token::mint = initializer_deposit_token_mint,
         associated_token::authority = taker,
