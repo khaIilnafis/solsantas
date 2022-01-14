@@ -13,7 +13,11 @@ import {
 	CircularProgress,
 	Snackbar,
 	Alert,
-	AlertColor
+	AlertColor,
+	Card,
+	CardMedia,
+	CardContent,
+	CardActionArea
 } from '@mui/material';
 import * as anchor from '@project-serum/anchor';
 import { Program, Provider } from '@project-serum/anchor';
@@ -32,7 +36,17 @@ import {
 import { sendSignedTransaction } from '../../utils/connection';
 import holders from "../../utils/matched_dev.json";
 import { SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID } from '../../utils';
-
+interface EscrowAccount {
+	pubkey: String;
+    initializerKey: PublicKey,
+	takerKey: PublicKey,
+	initializerDepositMint: PublicKey,
+	initializerDepositTokenAccount: PublicKey,
+	takerDepositTokenAccount: PublicKey,
+	initializerAmount: Number,
+	state: Number,
+	takerAmount: Number,
+}
 const updateAuthority = setAuthority()
 //Todo add the authority public keys for each network
 function setAuthority() {
@@ -53,16 +67,20 @@ export default function TreeView() {
 	const { publicKey } = useWallet();
 	const wallet = useWallet();
 	const [open, setOpen] = useState(false)
-	const [nft, setNFT] = useState<INFT>()
-	const [isInitializer, setIsInitiliazer] = useState(false)
-	const [allEscrowAccounts, setAllEscrowAccounts] = useState<any[]>([]);
-	const [escrowNFTs, setEscrowNFTs] = useState<INFT[]>([]);
+	const [nft, setNFT] = useState<INFT | undefined>()
+	const [isInitializer, setIsInitiliazer] = useState(false);
+	const [allEscrowAccounts, setAllEscrowAccounts] = useState<Array<any>>([]);
+	const [escrowNFTs, setEscrowNFTs] = useState<INFT[] | undefined>([]);
 	const [allFetchedNFTs, setAllFetchedNFTs] = useState<INFT[]>();
 	const [activeEscrow, setActiveEscrow] = useState<any>();
 	const [fetching, setFetching] = useState<boolean>();
+	const [fetchingEscrowNFTs, setFetchingEscrowNFTs] = useState<boolean>();
 	const [toastOpen, setToastOpen] = useState(false);
 	const [severity, setSeverity] = useState<AlertColor>();
 	const [alertMessage, setAlertMessage] = useState<String>();
+	const [initialized, setInitialized] = useState<boolean>();
+	const [canceled, setCanceled] = useState<boolean>();
+	const [exchanged, setExchanged] = useState<boolean>();
 	// @ts-ignore
 	const provider = new Provider(connection, wallet, opts.preflightCommitment);
 
@@ -75,7 +93,7 @@ export default function TreeView() {
 		if (event === 'error') {
 			await setSeverity('error');
 			await setAlertMessage(message);
-			
+
 		} else if (event === 'success') {
 			await setSeverity('success');
 			await setAlertMessage(message);
@@ -89,24 +107,25 @@ export default function TreeView() {
 
 		setToastOpen(false);
 	};
-	const handleOpen = (nft: INFT) => {
-		if (!nft) return;
-		setActiveEscrow(null);
+	const handleOpen = (nftParam: INFT) => {
+		if (!nftParam) return;
+		setActiveEscrow(undefined);
+		setNFT(undefined);
 		(async () => {
 			let depositTokenAddress;
-			if (nft.metadataOnchain.updateAuthority.toString() === publicKey?.toString()) {
+			if (nftParam.splTokenInfo?.owner.toString() === publicKey?.toString() || nftParam.lastOwner === publicKey?.toString()) {
 				depositTokenAddress = (
-					await getAtaForMint(nft.mint, publicKey)
+					await getAtaForMint(nftParam.mint, publicKey as PublicKey)
 				)[0];
 			} else {
+				// console.log(nftParam.metadataOnchain.updateAuthority)
 				depositTokenAddress = (
-					await getAtaForMint(nft.mint, new PublicKey(nft.metadataOnchain.updateAuthority))
+					await getAtaForMint(nftParam.mint, new PublicKey(nftParam.metadataOnchain.updateAuthority))
 				)[0];
 			}
-			const escrow = await getActiveEscrow(depositTokenAddress?.toString());
-
+			const escrow = await getActiveEscrow(depositTokenAddress.toString(), nftParam);
 			if (escrow) {
-				await setActiveEscrow(escrow);
+				setActiveEscrow(escrow);
 				setOpen(true);
 			} else {
 				setOpen(true);
@@ -114,12 +133,13 @@ export default function TreeView() {
 
 		})()
 	}
-	const getActiveEscrow = async (depositAta: any) => {
+	const getActiveEscrow = async (depositAta: String, nftParam: INFT) => {
+		await setActiveEscrow(undefined)
 		if (!allEscrowAccounts) return;
-		const filteredAccounts = await allEscrowAccounts.filter(async (account) => {
-			return depositAta === account.initializerDepositTokenAccount
+		let escrowAccounts = allEscrowAccounts;
+		const filteredAccounts = await escrowAccounts.filter((account) => {
+			return depositAta === account.initializerDepositTokenAccount.toString() || nftParam.mint.toString() === account.initializerDepositMint.toString();
 		});
-
 		return filteredAccounts[0]
 	}
 	const getDespositAccount = async (depositToken: PublicKey) => {
@@ -159,7 +179,6 @@ export default function TreeView() {
 		if (!publicKey) return;
 		let vault_account_pda = null;
 		let vault_account_bump = null;
-
 		const escrowAccount = anchor.web3.Keypair.generate();
 
 		const [_vault_account_pda, _vault_account_bump] = await PublicKey.findProgramAddress(
@@ -202,13 +221,16 @@ export default function TreeView() {
 			try {
 				let signature = await sendSignedTransaction({ signedTransaction: initTx, connection: connection });
 				let confirmation = await connection.confirmTransaction(signature.txid, 'processed');
-				showAlert('success', `Transaction: ${signature.txid.slice(0,6)} confirmed!`)
+				showAlert('success', `Transaction: ${signature.txid.slice(0, 6)} confirmed!`)
 			} catch (e: any) {
 				showAlert('error', e.message.toString())
 			}
 		} catch (e: any) {
 			showAlert('error', e.message.toString())
 		}
+		setExchanged(false);
+		setCanceled(false);
+		setInitialized(true);
 	}
 	const exchange = async (toSendNft: INFT, currentEscrow: any, nft: INFT) => {
 		if (!publicKey) return;
@@ -270,11 +292,13 @@ export default function TreeView() {
 			await wallet.signAllTransactions([exchangeTx])
 			let signature = await sendSignedTransaction({ signedTransaction: exchangeTx, connection: connection })
 			let confirmation = await connection.confirmTransaction(signature.txid, 'processed');
-			showAlert('success', `Transaction: ${signature.txid.slice(0,6)} confirmed!`)
-		} catch (e:any) {
+			showAlert('success', `Transaction: ${signature.txid.slice(0, 6)} confirmed!`)
+		} catch (e: any) {
 			showAlert('error', e.message.toString())
 		}
-
+		setCanceled(false);
+		setInitialized(false);
+		setExchanged(true);
 	}
 	const cancelExchange = async (nft: INFT, currentEscrow: any) => {
 		if (!publicKey) return;
@@ -319,12 +343,13 @@ export default function TreeView() {
 			let signedTx = await wallet.signTransaction(cancelTx);
 			let signature = await sendSignedTransaction({ signedTransaction: signedTx, connection: connection });
 			let confirmation = await connection.confirmTransaction(signature.txid, 'processed');
-			showAlert('success', `Transaction: ${signature.txid.slice(0,6)} confirmed!`)
-		} catch (e:any) {
+			showAlert('success', `Transaction: ${signature.txid.slice(0, 6)} confirmed!`)
+		} catch (e: any) {
 			showAlert('error', e.message.toString())
 		}
-
-
+		setExchanged(false);
+		setInitialized(false);
+		setCanceled(true);
 	};
 	const fetchNFTs = async (params: INFTParams) => {
 		try {
@@ -333,13 +358,14 @@ export default function TreeView() {
 				setAllFetchedNFTs(fetchedNfts.filter((nft) => {
 					return nft.metadataOnchain.updateAuthority !== updateAuthority
 				}))
+				
 			} else {
 
 			}
 		} catch (e) {
 			//showAlert('error', `${e}`);
 		}
-
+		setFetching(false);
 	};
 	const getUserMatches = async (depositAta: PublicKey, escrowAccountInitializer: String) => {
 		const matchPair = holders.filter((matchGrp) => {
@@ -367,13 +393,13 @@ export default function TreeView() {
 				matchesList = await getUserMatches(parsedAccount.initializerDepositTokenAccount, parsedAccount.initializerKey.toString());
 				if (parsedAccount.initializerKey.toString() === wallet.publicKey || matchesList.length > 0) {
 					parsedAccount.pubkey = account.pubkey;
-					await setAllEscrowAccounts([parsedAccount])
-					setFetching(false);
+					await setAllEscrowAccounts(allEscrowAccounts => [...allEscrowAccounts?.filter((account) => account.pubkey.toString() !== parsedAccount.pubkey.toString()), parsedAccount]);
 				}
 			} catch (e) {
-				setFetching(false);
+
 			}
 		}
+		setFetchingEscrowNFTs(false)
 		return
 	}
 	useEffect(() => {
@@ -381,134 +407,137 @@ export default function TreeView() {
 			const nft = await getEscrowNft(escrowAccount);
 			if (!nft) return;
 			//@ts-ignore
-			await setEscrowNFTs(escrowNFTs => [...escrowNFTs.filter((nftEntry) => nftEntry.address.toString() !== nft[0].address.toString()), nft[0]])
+			await setEscrowNFTs(escrowNFTs => [...escrowNFTs.filter((nftEntry) => nftEntry.address.toString() !== nft[0].address.toString()), nft[0]]);
 		})
 	}, [allEscrowAccounts])
 	useEffect(() => {
 		if (!publicKey) {
 			return
 		} else {
-			if (!allFetchedNFTs) {
-				setFetching(true);
-				fetchNFTs({ owner: publicKey })
-			}
+			setAllEscrowAccounts([]);
+			setAllFetchedNFTs([]);
+			setEscrowNFTs([])
+			setFetchingEscrowNFTs(true)
+			setFetching(true);
+			setInitialized(false);
+			setCanceled(false);
+			setExchanged(false);
+			fetchNFTs({ owner: publicKey });
 			(async () => {
 				const escrowAccounts = await getAllEscrowAccounts();
 				await getActiveEscrowAccounts(escrowAccounts);
 			})()
 		}
-	}, [publicKey])
+	}, [publicKey, initialized, canceled, exchanged])
+	useEffect(() => {
+		setActiveEscrow(null);
+		setAllFetchedNFTs([])
+		setAllEscrowAccounts([])
+		setEscrowNFTs([])
+	}, [wallet.disconnecting])
 	return (
-		<Container>
-			<Grid container justifyContent="center">
-				{escrowNFTs ? (
-					<Grid container justifyContent="center" sx={{ marginBottom: 5 }}>
-						<Typography variant='h3' sx={{ textAlign: "center", marginBottom: 5 }}>Your Gifts:</Typography>
-						<Grid container justifyContent="center">
-							<ImageList sx={{ width: 'auto', height: 'auto' }} cols={4}>
-								{escrowNFTs.map((escrowNft, index) =>
-								(
-									<a href="#" style={{ textDecoration: 'none' }} onClick={() => { handleOpen(escrowNft); setNFT(escrowNft) }} key={escrowNft.metadataOnchain.mint}>
-										<ImageListItem key={escrowNft.metadataOnchain.mint}>
-
-											{escrowNft.lastOwner === wallet.publicKey?.toString() ? (
-												<img
-													height="75px"
-													width="75px"
-													src={`${escrowNft.metadataExternal.image}?w=75&h=75&fit=crop&auto=format&dpr=2 2x`}
-													srcSet={`${escrowNft.metadataExternal.image}?w=75&h=75&fit=crop&auto=format&dpr=2 2x`}
-													alt={escrowNft.metadataOnchain.data.name}
-													loading="lazy"
-												/>) : (<img
-													height="75px"
-													width="75px"
-													src={`/images/SSoS_Coin_GIF.gif`}
-													loading="lazy"
-												/>)}
-
-											<ImageListItemBar
-												title={`Gift #${index + 1}`}
-												position="below"
-												actionIcon={
-													<IconButton
-														sx={{ color: 'white' }}
-														aria-label={`sleigh ${index}`}
-													>
-														<FontAwesomeIcon icon={faSleigh}></FontAwesomeIcon>
-													</IconButton>
-												}
-												actionPosition="right">
-											</ImageListItemBar>
-										</ImageListItem>
-									</a>
-								)
-								)}
-							</ImageList>
+		<Grid container>
+			{fetchingEscrowNFTs ? (
+				<Grid item md={6}>
+					<Grid container justifyContent="center">
+						<Grid item>
+							<Typography variant='h3' sx={{ marginBottom: 10 }}>Fetching NFTS</Typography>
+							<Grid container justifyContent={'center'}>
+								<CircularProgress />
+							</Grid>
 						</Grid>
 					</Grid>
-				) : ('')}
-				{allFetchedNFTs ?
-					(
-						<Grid item>
-							<Typography variant='h3' sx={{ textAlign: "center", marginBottom: 5 }} >Select an NFT to give: </Typography>
-							<ImageList sx={{ width: 'auto', height: 'auto' }} cols={4}>
-								{allFetchedNFTs.map((nft) => (
-									<a href="#" style={{ textDecoration: 'none' }} onClick={() => { handleOpen(nft); setNFT(nft) }} key={nft.metadataOnchain.mint}>
-										<ImageListItem key={nft.metadataOnchain.mint}>
-											<img
-												height="75px"
-												width="75px"
-												src={`${nft.metadataExternal.image}?w=75&h=75&fit=crop&auto=format&dpr=2 2x`}
-												srcSet={`${nft.metadataExternal.image}?w=75&h=75&fit=crop&auto=format&dpr=2 2x`}
-												alt={nft.metadataOnchain.data.name}
-												loading="lazy"
+				</Grid>
+			) : ('')}
+			{escrowNFTs && !fetchingEscrowNFTs ? (
+				<Grid item md={6}>
+					<Grid container justifyContent="center" sx={{ paddingLeft: 5 }}>
+						<Typography variant='h3' sx={{ marginBottom: 5 }}>Presents</Typography>
+						<Grid container justifyContent="left" spacing={3}>
+							{escrowNFTs.map((escrowNFT, index) =>
+							(<Grid item key={index}>
+								<Card sx={{ maxWidth: 345 }}>
+									<CardActionArea onClick={() => { handleOpen(escrowNFT); setNFT(escrowNFT) }}>
+										{escrowNFT.lastOwner === wallet.publicKey?.toString() ? (
+											<CardMedia
+												component="img"
+												alt="NFT"
+												height="300"
+												image={`${escrowNFT.metadataExternal.image}?w=75&h=75&fit=crop&auto=format&dpr=2 2x`}
 											/>
-											<ImageListItemBar
-												title={nft.metadataExternal.name}
-												position="below"
-												actionIcon={
-													<IconButton
-														sx={{ color: 'white' }}
-														aria-label={`sleigh ${nft.metadataExternal.name}`}
-													>
-														<FontAwesomeIcon icon={faSleigh}></FontAwesomeIcon>
-													</IconButton>
-												}
-												actionPosition="right">
-											</ImageListItemBar>
-										</ImageListItem>
-									</a>
-								))}
-							</ImageList>
+										) : (<CardMedia
+											component="img"
+											alt="NFT"
+											height="300"
+											image={`/images/SSoS_Coin_GIF.gif`}
+										/>)}
+										<CardContent>
+											<Typography gutterBottom variant="h6" component="div">
+												{escrowNFT.metadataOnchain.data.name}
+											</Typography>
+										</CardContent>
+									</CardActionArea>
+								</Card>
+							</Grid>
+							)
+							)}
 						</Grid>
-					)
-					:
-					<Box sx={{ width: '100%', height: '900px' }}>
-						{wallet.connected ? (
-							<div>
-								{fetching ? (
-									<div>
-										<Typography variant='h3' sx={{ textAlign: "center" }}>Fetching NFTS</Typography>
-										<Grid container justifyContent={'center'}>
-											<CircularProgress />
-										</Grid>
-									</div>
-								) : (
-									<Typography variant='h3' sx={{ textAlign: "center" }}>No NFTs Found</Typography>
+					</Grid>
+				</Grid>
+			) : ('')}
+			<Grid item md={6}>
+				<Grid container justifyContent="left" >
+					{fetching && allFetchedNFTs?.length === 0 ? (
+						<Grid item>
+							<Typography variant='h3' sx={{ marginBottom: 10 }}>Fetching NFTS</Typography>
+							<Grid container justifyContent={'center'}>
+								<CircularProgress />
+							</Grid>
+						</Grid>
+					) : (<div>{!fetching && allFetchedNFTs?.length === 0 ? (
+						<Grid item>
+							<Typography variant='h3' sx={{ marginBottom: 10 }}>No NFTs Found</Typography>
+							<Grid container justifyContent={'center'}>
+							</Grid>
+						</Grid>
+					) : ('')}</div>)}
+
+					{allFetchedNFTs ?
+						(<React.Fragment>
+							{!fetching && allFetchedNFTs?.length > 0 ? (
+								<Typography variant='h3' sx={{ marginBottom: 5 }} >Select an NFT to give: </Typography>) : ('')}
+							<Grid container justifyContent="left" sx={{paddingRight: 5}} spacing={3}>
+								{allFetchedNFTs.map((nft, index) =>
+								(<Grid item key={index} >
+									<Card sx={{ maxWidth: 300 }}>
+										<CardActionArea onClick={() => { handleOpen(nft); setNFT(nft) }}>
+											<CardMedia
+												component="img"
+												alt="NFT"
+												height="300"
+												image={`${nft.metadataExternal.image}?w=75&h=75&fit=crop&auto=format&dpr=2 2x`}
+											/>
+											<CardContent>
+												<Typography gutterBottom variant="h6" component="div">
+													{nft.metadataOnchain.data.name}
+												</Typography>
+											</CardContent>
+										</CardActionArea>
+									</Card>
+								</Grid>
+								)
 								)}
-							</div>
-						) :
-							<div>
-								<Typography variant='h3' sx={{ textAlign: "center" }}>Connect Wallet</Typography>
-							</div>}
-					</Box>
-				}
+							</Grid>
+						</React.Fragment>
+						) : ('')
+					}
+				</Grid>
 			</Grid>
-			<ExchangeModal open={open} setOpen={setOpen} handleOpen={handleOpen} handleClose={handleClose} nft={nft} initTx={initializeExchange} cancelTx={cancelExchange} exchangeTx={exchange} isInitializer={isInitializer} activeEscrow={activeEscrow} allFetchedNFTs={allFetchedNFTs}></ExchangeModal>
+			<ExchangeModal open={open} setOpen={setOpen} handleOpen={handleOpen} handleClose={handleClose} nft={nft} initTx={initializeExchange} cancelTx={cancelExchange} exchangeTx={exchange} activeEscrow={activeEscrow} allFetchedNFTs={allFetchedNFTs}></ExchangeModal>
 			<Snackbar open={toastOpen} autoHideDuration={6000} onClose={handleToastClose}>
 				<Alert onClose={handleToastClose} severity={severity} sx={{ width: '100%' }}>
 					{alertMessage}
 				</Alert>
 			</Snackbar>
-		</Container >)
+		</Grid >)
 }

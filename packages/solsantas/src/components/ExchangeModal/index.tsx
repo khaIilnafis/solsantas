@@ -46,7 +46,6 @@ export interface ExchangeModalProps {
 	initTx: Function,
 	cancelTx: Function,
 	exchangeTx: Function,
-	isInitializer: boolean,
 	activeEscrow: any,
 	allFetchedNFTs: INFT[] | undefined
 }

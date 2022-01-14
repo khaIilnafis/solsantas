@@ -61,7 +61,6 @@ export function AppRoutes() {
 										<Route path="/" element={<HomeView />} />
 										<Route path="/tree" element={<TreeView />} />
 									</Routes>
-									<Footer></Footer>
 								</AppLayout>
 							</MarketProvider>
 						</WalletModalProvider>
