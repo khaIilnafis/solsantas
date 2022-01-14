@@ -38,7 +38,7 @@ import holders from "../../utils/matched_dev.json";
 import { SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID } from '../../utils';
 interface EscrowAccount {
 	pubkey: String;
-    initializerKey: PublicKey,
+	initializerKey: PublicKey,
 	takerKey: PublicKey,
 	initializerDepositMint: PublicKey,
 	initializerDepositTokenAccount: PublicKey,
@@ -358,7 +358,7 @@ export default function TreeView() {
 				setAllFetchedNFTs(fetchedNfts.filter((nft) => {
 					return nft.metadataOnchain.updateAuthority !== updateAuthority
 				}))
-				
+
 			} else {
 
 			}
@@ -436,7 +436,7 @@ export default function TreeView() {
 		setEscrowNFTs([])
 	}, [wallet.disconnecting])
 	return (
-		<Grid container>
+		<Grid container sx={{height:'1000px'}}>
 			{fetchingEscrowNFTs ? (
 				<Grid item md={6}>
 					<Grid container justifyContent="center">
@@ -459,23 +459,29 @@ export default function TreeView() {
 								<Card sx={{ maxWidth: 345 }}>
 									<CardActionArea onClick={() => { handleOpen(escrowNFT); setNFT(escrowNFT) }}>
 										{escrowNFT.lastOwner === wallet.publicKey?.toString() ? (
-											<CardMedia
+											[<CardMedia
 												component="img"
 												alt="NFT"
 												height="300"
 												image={`${escrowNFT.metadataExternal.image}?w=75&h=75&fit=crop&auto=format&dpr=2 2x`}
-											/>
-										) : (<CardMedia
-											component="img"
-											alt="NFT"
-											height="300"
-											image={`/images/SSoS_Coin_GIF.gif`}
-										/>)}
-										<CardContent>
-											<Typography gutterBottom variant="h6" component="div">
-												{escrowNFT.metadataOnchain.data.name}
-											</Typography>
-										</CardContent>
+											/>,
+											<CardContent>
+												<Typography gutterBottom variant="h6" component="div">
+													{escrowNFT.metadataOnchain.data.name}
+												</Typography>
+											</CardContent>]
+										) : ([
+											<CardMedia
+												component="img"
+												alt="NFT"
+												height="300"
+												image={`/images/SSoS_Coin_GIF.gif`}
+											/>,
+											<CardContent>
+												<Typography gutterBottom variant="h6" component="div">
+													Hidden until exchanged!
+												</Typography>
+											</CardContent>])}
 									</CardActionArea>
 								</Card>
 							</Grid>
@@ -505,8 +511,8 @@ export default function TreeView() {
 					{allFetchedNFTs ?
 						(<React.Fragment>
 							{!fetching && allFetchedNFTs?.length > 0 ? (
-								<Typography variant='h3' sx={{ marginBottom: 5 }} >Select an NFT to give: </Typography>) : ('')}
-							<Grid container justifyContent="left" sx={{paddingRight: 5}} spacing={3}>
+								<Typography variant='h3' sx={{ marginBottom: 5 }} >Select an NFT to gift: </Typography>) : ('')}
+							<Grid container justifyContent="left" sx={{ paddingRight: 5 }} spacing={3}>
 								{allFetchedNFTs.map((nft, index) =>
 								(<Grid item key={index} >
 									<Card sx={{ maxWidth: 300 }}>

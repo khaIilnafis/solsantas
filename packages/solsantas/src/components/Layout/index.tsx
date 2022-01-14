@@ -8,9 +8,9 @@ export const AppLayout = React.memo(({ children }) => {
   return (
     <div>
       <Navbar />
-      <Grid container sx={{minHeight: 1000}}>
+      <Grid container>
 		  {children}
-	  <Footer></Footer>
+		  <Footer></Footer>
 	  </Grid>
     </div>
   );
