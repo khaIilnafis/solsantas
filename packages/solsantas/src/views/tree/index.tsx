@@ -23,12 +23,9 @@ import * as anchor from '@project-serum/anchor';
 import { Program, Provider } from '@project-serum/anchor';
 import { PublicKey } from '@solana/web3.js';
 import { TOKEN_PROGRAM_ID } from "@solana/spl-token";
-import idl from '../../types/anchor_escrow.json';
 import { useWallet, useConnection } from '@solana/wallet-adapter-react';
 import { NFTGet } from "../../utils/nft-get"
 import { INFTParams, INFT } from "../../common/types"
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faSleigh } from "@fortawesome/free-solid-svg-icons";
 import ExchangeModal from '../../components/ExchangeModal'
 import {
 	getAtaForMint,
@@ -48,10 +45,13 @@ interface EscrowAccount {
 	takerAmount: Number,
 }
 let holders:any;
+let idl:any;
 if(process.env.REACT_APP_SOLANA_NETWORK! === 'devnet'){
-	holders = require('../../utils/matched_dev.json')
+	holders = require('../../utils/matched_dev.json');
+	idl = require('../../types/anchor_escrow.json');
 }else{
-	holders = require('../../utils/matched.json')
+	holders = require('../../utils/matched.json');
+	idl = require('../../types/anchor_escrow_prod.json');
 }
 const updateAuthority = setAuthority()
 //Todo add the authority public keys for each network
