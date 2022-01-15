@@ -32,7 +32,7 @@ export function AppRoutes() {
 
 	if (net === 'mainnet-beta') {
 		network = WalletAdapterNetwork.Mainnet;
-		endpoint = 'https://ssc-dao.genesysgo.net/';
+		endpoint = 'https://solana-api.projectserum.com';
 	} else if (net === 'devnet') {
 		network = WalletAdapterNetwork.Devnet;
 		endpoint = 'https://psytrbhymqlkfrhudd.dev.genesysgo.net:8899/';
