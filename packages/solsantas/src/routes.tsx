@@ -29,7 +29,7 @@ export function AppRoutes() {
 	const net = process.env.REACT_APP_SOLANA_NETWORK!
 	let network: any;
 	let endpoint: any;
-	console.log(net);
+
 	if (net === 'mainnet-beta') {
 		network = WalletAdapterNetwork.Mainnet;
 		endpoint = 'https://ssc-dao.genesysgo.net/';
