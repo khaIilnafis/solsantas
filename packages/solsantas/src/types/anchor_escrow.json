@@ -12,7 +12,12 @@
 		  },
 		  {
 			"name": "mint",
-			"isMut": false,
+			"isMut": true,
+			"isSigner": false
+		  },
+		  {
+			"name": "escrowAccount",
+			"isMut": true,
 			"isSigner": false
 		  },
 		  {
@@ -22,11 +27,6 @@
 		  },
 		  {
 			"name": "initializerDepositTokenAccount",
-			"isMut": true,
-			"isSigner": false
-		  },
-		  {
-			"name": "escrowAccount",
 			"isMut": true,
 			"isSigner": false
 		  },
@@ -112,7 +112,7 @@
 		  },
 		  {
 			"name": "mint",
-			"isMut": false,
+			"isMut": true,
 			"isSigner": false
 		  },
 		  {
@@ -122,7 +122,7 @@
 		  },
 		  {
 			"name": "initializerDepositTokenMint",
-			"isMut": false,
+			"isMut": true,
 			"isSigner": false
 		  },
 		  {
@@ -222,6 +222,6 @@
 	  }
 	],
 	"metadata": {
-	  "address": "6Efhv8qbwioWt44qEuNXYVoyDaxH4uqm7MTmGuXKqW6a"
+	  "address": "C4jvtoUqUoSTsbYLNtTKY9vTtHpJLKpALyC1oDKGZTdZ"
 	}
   }

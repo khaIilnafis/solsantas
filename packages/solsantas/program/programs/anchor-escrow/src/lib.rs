@@ -5,7 +5,7 @@ use {
 	spl_token::instruction::AuthorityType,
 };
 
-declare_id!("2xVYRiEK9vr6cdyM1wjpEGJvGjQdMysXUy7q62vNs2rd");
+declare_id!("C4jvtoUqUoSTsbYLNtTKY9vTtHpJLKpALyC1oDKGZTdZ");
 
 #[program]
 pub mod anchor_escrow {
@@ -28,16 +28,9 @@ pub mod anchor_escrow {
 			.to_account_info()
 			.key;
 		ctx.accounts.escrow_account.initializer_deposit_mint = *ctx.accounts.mint.to_account_info().key;
-		// ctx.accounts
-		// 	.escrow_account
-		// 	.initializer_receive_token_account = *ctx
-		// 	.accounts
-		// 	.initializer_receive_token_account
-		// 	.to_account_info()
-		// 	.key;
+
 		ctx.accounts.escrow_account.initializer_amount = initializer_amount;
 		ctx.accounts.escrow_account.taker_amount = taker_amount;
-		ctx.accounts.escrow_account.state = 1;
 
 		let (vault_authority, _vault_authority_bump) =
 			Pubkey::find_program_address(&[ESCROW_PDA_PREFIX, &ctx.accounts.mint.key().to_string()[0..5].as_bytes()],ctx.program_id);
@@ -85,12 +78,6 @@ pub mod anchor_escrow {
 			Pubkey::find_program_address(&[ESCROW_PDA_PREFIX, mint_key_bytes[0..5].as_bytes()],ctx.program_id);
 		let authority_seeds = &[&ESCROW_PDA_PREFIX[..], mint_key_bytes[0..5].as_bytes(), &[vault_authority_bump]];
 
-		// token::set_authority(
-		// 	ctx.accounts.into_set_authority_context(),
-		// 	AuthorityType::AccountOwner,
-		// 	Some(vault_authority),
-		// )?;
-
 		token::transfer(
             ctx.accounts.into_transfer_to_initializer_context(),
             ctx.accounts.escrow_account.taker_amount,
@@ -117,7 +104,10 @@ pub mod anchor_escrow {
 pub struct Initialize<'info> {
 	#[account(mut, signer)]
 	pub initializer: AccountInfo<'info>,
+	#[account(mut)]
 	pub mint: Box<Account<'info, Mint>>,
+	#[account(zero)]
+	pub escrow_account: Box<Account<'info, EscrowAccount>>,
 	#[account(
         init_if_needed,
 	    seeds = [mint.key().to_string()[0..32].as_bytes(),escrow_account.to_account_info().key().to_string()[0..32].as_bytes()],
@@ -132,8 +122,6 @@ pub struct Initialize<'info> {
         constraint = initializer_deposit_token_account.amount >= initializer_amount
     )]
 	pub initializer_deposit_token_account:Account<'info, TokenAccount>,
-	#[account(zero)]
-	pub escrow_account: Box<Account<'info, EscrowAccount>>,
 	pub system_program: AccountInfo<'info>,
 	pub rent: Sysvar<'info, Rent>,
 	pub token_program: AccountInfo<'info>,
@@ -165,9 +153,11 @@ pub struct Cancel<'info> {
 pub struct Exchange<'info> {
 	#[account(mut,signer)]
 	pub taker: AccountInfo<'info>,
+	#[account(mut)]
 	pub mint: Box<Account<'info, Mint>>,
 	#[account(mut)]
 	pub taker_deposit_token_account: Box<Account<'info, TokenAccount>>,
+	#[account(mut)]
 	pub initializer_deposit_token_mint: Box<Account<'info, Mint>>,
 	#[account(
         init_if_needed,

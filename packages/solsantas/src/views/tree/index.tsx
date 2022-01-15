@@ -2,13 +2,7 @@
 /* eslint-disable jsx-a11y/anchor-is-valid */
 import React, { useEffect, useState } from 'react';
 import {
-	Container,
 	Grid,
-	Box,
-	ImageList,
-	ImageListItem,
-	ImageListItemBar,
-	IconButton,
 	Typography,
 	CircularProgress,
 	Snackbar,
@@ -33,17 +27,7 @@ import {
 import { sendSignedTransaction } from '../../utils/connection';
 // import holders from "../../utils/matched.json";
 import { SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID } from '../../utils';
-interface EscrowAccount {
-	pubkey: String;
-	initializerKey: PublicKey,
-	takerKey: PublicKey,
-	initializerDepositMint: PublicKey,
-	initializerDepositTokenAccount: PublicKey,
-	takerDepositTokenAccount: PublicKey,
-	initializerAmount: Number,
-	state: Number,
-	takerAmount: Number,
-}
+
 let holders:any;
 let idl:any;
 if(process.env.REACT_APP_SOLANA_NETWORK! === 'devnet'){
@@ -75,7 +59,6 @@ export default function TreeView() {
 	const wallet = useWallet();
 	const [open, setOpen] = useState(false)
 	const [nft, setNFT] = useState<INFT | undefined>()
-	const [isInitializer, setIsInitiliazer] = useState(false);
 	const [allEscrowAccounts, setAllEscrowAccounts] = useState<Array<any>>([]);
 	const [escrowNFTs, setEscrowNFTs] = useState<INFT[] | undefined>([]);
 	const [allFetchedNFTs, setAllFetchedNFTs] = useState<INFT[]>();
@@ -92,7 +75,7 @@ export default function TreeView() {
 	const provider = new Provider(connection, wallet, opts.preflightCommitment);
 
 	anchor.setProvider(provider);
-
+	console.log(idl.metadata.address)
 	const programID = new PublicKey(idl.metadata.address);
 
 	const program = new Program(idl as anchor.Idl, programID, provider);
