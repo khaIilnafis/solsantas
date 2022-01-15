@@ -18,6 +18,7 @@ import {
 	CANDY_MACHINE_PROGRAM
 	// shortenAddress,
 } from "../../utils/candy-machine";
+import { Typography } from "@mui/material";
 // import {DateCountdown} from 'react-date-countdown-timer';
 // import "./mint.css"
 
@@ -187,7 +188,9 @@ const Mint = (props: MintProps) => {
 	]);
 	return (
 		<Grid item>
-			{candyMachine?.state.isActive &&
+			<Typography variant={'h5'}>Connect your wallet and visit the Tree to exchange with your match!</Typography>
+
+			{/* {candyMachine?.state.isActive &&
 				candyMachine?.state.gatekeeper &&
 				wallet.publicKey &&
 				wallet.signTransaction ? (
@@ -232,7 +235,7 @@ const Mint = (props: MintProps) => {
 				>
 					{alertState.message}
 				</Alert>
-			</Snackbar>
+			</Snackbar> */}
 		</Grid>
 	);
 };

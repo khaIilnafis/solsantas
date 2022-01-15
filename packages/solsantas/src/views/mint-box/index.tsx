@@ -215,7 +215,7 @@ function MintBox() {
               marginBottom={3}
             >
               {/* <Typography variant="h4">Mint has been postponed</Typography>               */}
-              <p className="mint-word">Mint</p>
+              <p className="mint-word">Mint has completed!</p>
             </Grid>
             <Grid
               container
