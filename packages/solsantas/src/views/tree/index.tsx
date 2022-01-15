@@ -436,7 +436,7 @@ export default function TreeView() {
 		setEscrowNFTs([])
 	}, [wallet.disconnecting])
 	return (
-		<Grid container sx={{height:'1000px'}}>
+		<Grid container sx={{ minHeight: '1000px' }}>
 			{fetchingEscrowNFTs ? (
 				<Grid item md={6}>
 					<Grid container justifyContent="center">
@@ -545,5 +545,6 @@ export default function TreeView() {
 					{alertMessage}
 				</Alert>
 			</Snackbar>
-		</Grid >)
+		</Grid >
+	)
 }
