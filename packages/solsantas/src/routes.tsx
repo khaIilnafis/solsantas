@@ -28,11 +28,14 @@ require("@solana/wallet-adapter-react-ui/styles.css");
 export function AppRoutes() {
 	const net = process.env.REACT_APP_SOLANA_NETWORK!
 	let network: any;
-
+	let endpoint: any;
+	console.log(net);
 	if (net === 'mainnet-beta') {
 		network = WalletAdapterNetwork.Mainnet;
+		endpoint = 'https://ssc-dao.genesysgo.net/';
 	} else if (net === 'devnet') {
 		network = WalletAdapterNetwork.Devnet;
+		endpoint = 'https://psytrbhymqlkfrhudd.dev.genesysgo.net:8899/';
 	}
 
 	const wallets = useMemo(
@@ -48,7 +51,6 @@ export function AppRoutes() {
 		[network]
 	);
 
-	const endpoint = 'https://psytrbhymqlkfrhudd.dev.genesysgo.net:8899/';
 	return (
 		<BrowserRouter basename={"/"}>
 			<ConnectionProvider endpoint={endpoint}>
