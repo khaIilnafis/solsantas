@@ -34,7 +34,7 @@ import {
 	getAtaForMint,
 } from '../../utils/utils';
 import { sendSignedTransaction } from '../../utils/connection';
-import holders from "../../utils/matched_dev.json";
+// import holders from "../../utils/matched.json";
 import { SPL_ASSOCIATED_TOKEN_ACCOUNT_PROGRAM_ID } from '../../utils';
 interface EscrowAccount {
 	pubkey: String;
@@ -46,6 +46,12 @@ interface EscrowAccount {
 	initializerAmount: Number,
 	state: Number,
 	takerAmount: Number,
+}
+let holders:any;
+if(process.env.REACT_APP_SOLANA_NETWORK! === 'devnet'){
+	holders = require('../../utils/matched_dev.json')
+}else{
+	holders = require('../../utils/matched.json')
 }
 const updateAuthority = setAuthority()
 //Todo add the authority public keys for each network
@@ -368,11 +374,11 @@ export default function TreeView() {
 		setFetching(false);
 	};
 	const getUserMatches = async (depositAta: PublicKey, escrowAccountInitializer: String) => {
-		const matchPair = holders.filter((matchGrp) => {
+		const matchPair = holders.filter((matchGrp:any) => {
 			return matchGrp.matchA === wallet.publicKey?.toString() || matchGrp.matchB === wallet.publicKey?.toString()
 		})
 		const matchesList: string[] = [];
-		matchPair.forEach((pair) => {
+		matchPair.forEach((pair:any) => {
 			if (pair.matchA === escrowAccountInitializer) {
 				matchesList.push(pair.matchB);
 			} else if (pair.matchB === escrowAccountInitializer) {

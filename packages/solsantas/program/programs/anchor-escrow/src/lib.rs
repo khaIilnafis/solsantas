@@ -5,7 +5,7 @@ use {
 	spl_token::instruction::AuthorityType,
 };
 
-declare_id!("6Efhv8qbwioWt44qEuNXYVoyDaxH4uqm7MTmGuXKqW6a");
+declare_id!("2xVYRiEK9vr6cdyM1wjpEGJvGjQdMysXUy7q62vNs2rd");
 
 #[program]
 pub mod anchor_escrow {
