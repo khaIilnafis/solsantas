@@ -504,16 +504,16 @@ export default function TreeView() {
 							<Grid container justifyContent="left" sx={{ paddingRight: 5 }} spacing={3}>
 								{allFetchedNFTs.map((nft, index) =>
 								(<Grid item key={index} >
-									<Card sx={{ maxWidth: 300 }}>
+									<Card sx={{ maxWidth: 200 }}>
 										<CardActionArea onClick={() => { handleOpen(nft); setNFT(nft) }}>
 											<CardMedia
 												component="img"
 												alt="NFT"
-												height="300"
-												image={`${nft.metadataExternal.image}?w=75&h=75&fit=crop&auto=format&dpr=2 2x`}
+												height="200"
+												image={`${nft.metadataExternal.image}`}
 											/>
 											<CardContent>
-												<Typography gutterBottom variant="h6" component="div">
+												<Typography gutterBottom variant="subtitle2" component="div">
 													{nft.metadataOnchain.data.name}
 												</Typography>
 											</CardContent>
