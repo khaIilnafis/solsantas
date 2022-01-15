@@ -37,7 +37,7 @@ if(process.env.REACT_APP_SOLANA_NETWORK! === 'devnet'){
 	holders = require('../../utils/matched.json');
 	idl = require('../../types/anchor_escrow_prod.json');
 }
-console.log(idl);
+
 const updateAuthority = setAuthority()
 //Todo add the authority public keys for each network
 function setAuthority() {
@@ -75,7 +75,6 @@ export default function TreeView() {
 	const provider = new Provider(connection, wallet, opts.preflightCommitment);
 
 	anchor.setProvider(provider);
-	console.log(idl.metadata.address)
 	const programID = new PublicKey(idl.metadata.address);
 
 	const program = new Program(idl as anchor.Idl, programID, provider);
