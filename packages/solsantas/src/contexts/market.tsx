@@ -13,10 +13,10 @@ import { useUserAccounts } from "../hooks";
 
 export const BONFIDA_POOL_INTERVAL = 30 * 60_000; // 30 min
 
-interface RecentPoolData {
-  pool_identifier: string;
-  volume24hA: number;
-}
+// interface RecentPoolData {
+//   pool_identifier: string;
+//   volume24hA: number;
+// }
 
 export interface MarketsContextState {
   midPriceInUSD: (mint: string) => number;

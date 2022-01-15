@@ -4,6 +4,7 @@ import { EditionData, MasterEditionData, MetadataData } from '@metaplex/js/lib/p
 // import { RarityCategory } from '@/common/rarity';
 
 export interface INFT {
+  lastOwner: String | undefined;
   // spl stuff
   mint: PublicKey;
   address: PublicKey;

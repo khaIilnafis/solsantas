@@ -1,3 +1,6 @@
+packages/solsantas/program/.DS_Store
+packages/solsantas/program/target/
+packages/solsantas/program/tests/keypair.ts
 packages/solsantas/nft/assets/
 packages/solsantas/nft/SSoS_Coin_GIF.gif 
 packages/solsantas/nft/SSoS_Coin_MP4.mp4
@@ -6,12 +9,8 @@ packages/solsantas/nft/.DS_Store
 packages/solsantas/nft/devnet-temp.json
 packages/solsantas/nft/mainnet-beta-temp.json
 packages/solsantas/.DS_Store
-packages/solsantas/program/target/bpfel-unknown-unknown
-packages/solsantas/program/target/debug
-packages/solsantas/program/target/deploy
-packages/solsantas/program/target/release
-packages/solsantas/program/target/idl
-packages/solsantas/program/target/.rustc_info.json
+packages/solsantas/program/target/
+packages/solsantas/program/programs/anchor-escrow/target/
 test-ledger/
 packages/.DS_Store
 # Logs

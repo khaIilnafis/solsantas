@@ -13,7 +13,7 @@ import { ExplorerLink } from "../components/ExplorerLink";
 import { setAltProgramIds } from "../utils/ids";
 import { cache, getMultipleAccounts, MintParser } from "./accounts";
 import { TokenListProvider, ENV as ChainID, TokenInfo } from "@solana/spl-token-registry";
-import { WalletAdapter, SignerWalletAdapter } from "@solana/wallet-adapter-base";
+import { WalletAdapter } from "@solana/wallet-adapter-base";
 
 export type ENV =
   | "mainnet-beta"

@@ -5,7 +5,7 @@ import { CandyMachineAccount } from '../../utils/candy-machine';
 import { CircularProgress } from '@material-ui/core';
 import { GatewayStatus, useGateway } from '@civic/solana-gateway-react';
 import { useEffect, useState } from 'react';
-import { useAnchorWallet, useWallet } from "@solana/wallet-adapter-react";
+import { useWallet } from "@solana/wallet-adapter-react";
 
 export const CTAButton = styled(Button)`
   width: 100%;
