@@ -53,6 +53,7 @@ if(process.env.REACT_APP_SOLANA_NETWORK! === 'devnet'){
 	holders = require('../../utils/matched.json');
 	idl = require('../../types/anchor_escrow_prod.json');
 }
+console.log(idl);
 const updateAuthority = setAuthority()
 //Todo add the authority public keys for each network
 function setAuthority() {
