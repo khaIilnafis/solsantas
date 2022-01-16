@@ -11,7 +11,7 @@ const styles = {
 }
 export default function Footer() {
 	return (
-		<Container classes={styles.footer}>
+		<Container classes={styles.footer} sx={{marginTop:'10px'}}>
 			<Grid container justifyContent="center">
 				<Grid item>
 					<a href="https://discord.gg/WVs3wbRvch"
