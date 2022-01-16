@@ -136,7 +136,7 @@ function Navbar() {
                       cursor: "pointer",
                     }}
                   >
-                   {wallet.connected? 'Tree' : (<span></span>)}
+                   {wallet.connected? 'Exchange' : (<span></span>)}
                   </a>
                 </Grid>
                 <Grid item>
@@ -185,7 +185,7 @@ function Navbar() {
                   <a href="/#how">How it works</a>
                 </MenuItem>
                 {wallet.connected ? <MenuItem onClick={handleClose}>
-                  <LinkIn to="/tree">My Tree</LinkIn>
+                  <LinkIn to="/tree">Exchange</LinkIn>
                 </MenuItem> : <span></span>}
                 <MenuItem onClick={handleClose}>
                   <a href="/#team">The Team</a>
