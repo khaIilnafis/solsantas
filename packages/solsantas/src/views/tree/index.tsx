@@ -430,7 +430,7 @@ export default function TreeView() {
 				<Grid item md={6}>
 					<Grid container justifyContent="center">
 						<Grid item>
-							<Typography variant='h3' sx={{ marginBottom: 10 }}>Fetching NFTS</Typography>
+							<Typography variant='h3' sx={{ marginBottom: 10}}>Fetching NFTS</Typography>
 							<Grid container justifyContent={'center'}>
 								<CircularProgress />
 							</Grid>
@@ -481,7 +481,7 @@ export default function TreeView() {
 				</Grid>
 			) : ('')}
 			<Grid item md={6}>
-				<Grid container justifyContent="left" >
+				<Grid container justifyContent="center" >
 					{fetching && allFetchedNFTs?.length === 0 ? (
 						<Grid item>
 							<Typography variant='h3' sx={{ marginBottom: 10 }}>Fetching NFTS</Typography>
@@ -500,7 +500,8 @@ export default function TreeView() {
 					{allFetchedNFTs ?
 						(<React.Fragment>
 							{!fetching && allFetchedNFTs?.length > 0 ? (
-								<Typography variant='h3' sx={{ marginBottom: 5 }} >Select an NFT to gift: </Typography>) : ('')}
+								[<Typography variant='h3'>Select an NFT to gift</Typography>,
+								<Typography variant='h6' sx={{ marginBottom: 5 }} >Note: Please exchange first if you have any presents available on the left</Typography>]) : ('')}
 							<Grid container justifyContent="left" sx={{ paddingRight: 5 }} spacing={3}>
 								{allFetchedNFTs.map((nft, index) =>
 								(<Grid item key={index} >
